@@ -5,6 +5,9 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./prisma/seeds/index.ts"
+  },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "lint": "eslint .",
@@ -12,6 +15,7 @@
     "generate": "pnpm with-env prisma generate",
     "push": "pnpm with-env prisma db push --skip-generate",
     "studio": "pnpm with-env prisma studio --port 5556",
+    "seed": "pnpm with-env prisma db seed",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
   },
