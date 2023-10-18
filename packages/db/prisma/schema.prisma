@@ -10,6 +10,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN // OWNER
+  USER // MANAGE_WORKSPACE
+  MANAGER // MANAGE_BILLING
+  GUEST // VIEW_TEAMS
+}
+
+type WorkingHours {
+  from String
+  to   String
+}
+
+enum DayType {
+  WORKING
+  HOME_OFFICE
+  NOT_WORKING
+  HALF_DAY_VACATION
+  VACATION
+  SICK_DAY
+  ILLNESS
+  TRAVELING
+}
+
+enum TeamRole {
+  FILL_WORKDAYS
+  MANAGE_TEAM
+  VIEW_TEAM
+}
+
+enum IntegrationProvider {
+  GITHUB
+  SLACK
+  ACCOUNTING
+  PROJECT_REPORTS
+}
+
 model Post {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
@@ -49,17 +85,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
+  id            String              @id @default(auto()) @map("_id") @db.ObjectId
+  firstName     String?
+  lastName      String?
+  email         String              @unique
   emailVerified DateTime?
+  displayName   String?
   image         String?
   password      String?
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  country       String?
+  workingHours  WorkingHours?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
   accounts      Account[]
   sessions      Session[]
+  teams         TeamsOnUsers[]
+  workspaces    WorkspacesOnUsers[]
+  sprints       Sprint[]
 }
 
 model VerificationToken {
@@ -71,9 +113,114 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum Role {
-  ADMIN
-  USER
-  MANAGER
-  GUEST
+model TeamsOnUsers {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String     @db.ObjectId
+  teamId      String     @db.ObjectId
+  permissions TeamRole[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User       @relation(fields: [userId], references: [id])
+  team        Team       @relation(fields: [teamId], references: [id])
+}
+
+model Team {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  workspaceId   String         @db.ObjectId
+  invitationIDs String[]       @db.ObjectId
+  name          String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  users         TeamsOnUsers[]
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id])
+  invitations   Invitation[]   @relation(fields: [invitationIDs], references: [id])
+}
+
+// Many to many relations https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations#mongodb
+model WorkspacesOnUsers {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  workspaceId String    @db.ObjectId
+  permissions Role[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model Workspace {
+  id           String              @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  country      String?
+  image        String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  teams        Team[]
+  projects     Project[]
+  integrations Integration[]
+  users        WorkspacesOnUsers[]
+  invitations  Invitation[]
+  sprints      Sprint[]
+}
+
+model Invitation {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  workspaceId String    @db.ObjectId
+  teamIDs     String[]  @db.ObjectId
+  email       String?
+  hash        String?
+  permissions Role[]
+  assignedBy  String
+  assignedAt  DateTime  @default(now())
+  teams       Team[]    @relation(fields: [teamIDs], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model Integration {
+  id             String              @id @default(auto()) @map("_id") @db.ObjectId
+  workspaceId    String              @db.ObjectId
+  status         Boolean             @default(false)
+  provider       IntegrationProvider
+  review_access  String
+  refresh_access String
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  workspace      Workspace           @relation(fields: [workspaceId], references: [id])
+}
+
+model Project {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  workspaceId String    @db.ObjectId
+  name        String
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  reports     Report[]
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model Sprint {
+  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  workspaceId          String    @db.ObjectId
+  userId               String    @db.ObjectId
+  date                 String
+  type                 DayType
+  tomorrowsDescription String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  reports              Report[]
+  workspace            Workspace @relation(fields: [workspaceId], references: [id])
+  user                 User      @relation(fields: [userId], references: [id])
+}
+
+model Report {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  sprintId    String   @db.ObjectId
+  projectId   String   @db.ObjectId
+  description String?
+  hours       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  project     Project  @relation(fields: [projectId], references: [id])
+  sprint      Sprint   @relation(fields: [sprintId], references: [id])
 }
