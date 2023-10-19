@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import "~/styles/globals.css";
+import "~/styles/globals.scss";
 
 import { headers } from "next/headers";
 
+import Footer from "./_components/footer";
 import { TRPCReactProvider } from "./providers";
 
 const fontSans = Inter({
