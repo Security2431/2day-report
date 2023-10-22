@@ -1,0 +1,61 @@
+$size: 10;
+
+input[type="checkbox"].ios8Switch {
+  position: absolute;
+  margin: 8px 0 0 16px;    
+}
+
+input[type="checkbox"].ios8Switch + label {
+  position: relative;
+  padding: 5px 0 0 50px;
+  line-height: 2.0em;
+  cursor: pointer;
+}
+
+input[type="checkbox"].ios8Switch + label:before {
+  content: "OFF";
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  width: $size*7px; /* x*5 */
+  height: $size*3px; /* x*3 */
+  border-radius: $size*2px; /* x*2 */
+  border: 1px solid #d9d9d9;
+  font-size: 14px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+input[type="checkbox"].ios8Switch + label:after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0px;
+  top: 0px;
+  width: $size*3px; /* x*3 */
+  height: $size*3px; /* x*3 */
+  border-radius: $size*2px; /* x*2 */
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+input[type="checkbox"].ios8Switch + label:hover:after {
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+input[type="checkbox"].ios8Switch:checked + label:after {
+  margin-left: $size*4px;
+}
+
+input[type="checkbox"].ios8Switch:checked + label:before {
+  content: "ON";
+  justify-content: flex-start;
+  background: #55D069;
+}

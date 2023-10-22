@@ -20,6 +20,9 @@ export default {
           },
         },
       },
+      fontSize: {
+        xxs: "0.5rem",
+      },
     },
     container: {
       center: true,
