@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import "~/styles/globals.css";
+import "~/styles/globals.scss";
 
 import { headers } from "next/headers";
 
+import Footer from "./_components/footer";
+import Header from "./_components/header";
 import { TRPCReactProvider } from "./providers";
 
 const fontSans = Inter({
@@ -40,8 +42,17 @@ export default function Layout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={["font-sans", fontSans.variable].join(" ")}>
         <TRPCReactProvider headers={headers()}>
-          {props.children}
+          <header className="header">
+            <Header />
+          </header>
+          <main className="main">{props.children}</main>
+
+          <footer className="footer flex items-end">
+            <Footer />
+          </footer>
         </TRPCReactProvider>
+
+        <div id="modal"></div>
       </body>
     </html>
   );

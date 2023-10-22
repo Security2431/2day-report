@@ -59,7 +59,6 @@ export function CreatePostForm() {
           {error.data.zodError.fieldErrors.content}
         </span>
       )}
-      {}
       <button type="submit" className="rounded bg-pink-400 p-2 font-bold">
         Create
       </button>
