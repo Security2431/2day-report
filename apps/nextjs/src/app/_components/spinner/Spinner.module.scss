@@ -1,0 +1,47 @@
+$size: 1.25em;
+
+.icon {
+  @apply pointer-events-none relative ml-2 inline-block align-middle text-red-500;
+  width: $size;
+  height: $size;
+  transition: transform 0.3s;
+
+  &.fullscreen {
+    @apply fixed left-0 top-0 z-[9999] h-screen w-screen bg-[#000000ad] text-5xl;
+  }
+}
+
+.icon::before,
+.icon::after {
+  @apply absolute inset-0 m-auto block rounded-full;
+  content: "";
+  border: $size/12 solid #fff;
+}
+
+.icon::before {
+  @apply border-l-current border-r-current;
+
+  width: $size;
+  height: $size;
+  animation: rotation 3s linear infinite;
+}
+
+.icon::after {
+  @apply border-b-current border-t-current;
+
+  width: $size / 2;
+  height: $size / 2;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

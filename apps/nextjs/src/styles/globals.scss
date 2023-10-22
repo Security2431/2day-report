@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .visually-hidden,
+  .visually-hidden-focusable:not(:focus):not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: 7px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}
+
+html,
+body {
+  @apply m-0 h-full min-h-full p-0 text-white;
+}
+
+body {
+  @apply relative grid bg-gradient-to-b from-[#2e026d] to-[#15162c];
+  grid-template-columns: 1fr;
+  grid-template-areas: "header" "main" "footer";
+  grid-template-rows: 100px 1fr 100px;
+}
+
+p {
+  @apply mb-6 leading-normal;
+}
+
+.header {
+  grid-area: header;
+}
+
+.main {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}

@@ -86,14 +86,12 @@ model Session {
 
 model User {
   id            String              @id @default(auto()) @map("_id") @db.ObjectId
-  firstName     String?
-  lastName      String?
+  name          String?
   email         String              @unique
   emailVerified DateTime?
-  displayName   String?
   image         String?
   password      String?
-  country       String?
+  city          String?
   workingHours  WorkingHours?
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
@@ -203,7 +201,7 @@ model Sprint {
   id                   String    @id @default(auto()) @map("_id") @db.ObjectId
   workspaceId          String    @db.ObjectId
   userId               String    @db.ObjectId
-  date                 String
+  date                 DateTime
   type                 DayType
   tomorrowsDescription String?
   createdAt            DateTime  @default(now())
