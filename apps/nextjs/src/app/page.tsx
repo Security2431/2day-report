@@ -1,14 +1,10 @@
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
 import { auth } from "@acme/auth";
 
 import { AuthShowcase } from "./_components/auth-showcase";
-import {
-  CreatePostForm,
-  PostCardSkeleton,
-  PostList,
-} from "./_components/posts";
+import Heading from "./_components/heading";
+import { Meteors } from "./_components/meteors";
 import routes from "./_lib/routes";
 
 export default async function HomePage() {
@@ -19,25 +15,21 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="container mt-12 flex flex-col items-center justify-center gap-4 py-8">
-      <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-        Create <span className="text-pink-400">T3</span> Turbo
-      </h1>
-      <AuthShowcase provider="github" />
+    <div className="container flex h-full w-full items-center justify-center">
+      {/* <div className="absolute inset-0 h-full w-full scale-[0.80] transform rounded-full bg-red-500 bg-gradient-to-r from-blue-500 to-teal-500 blur-3xl" /> */}
+      <div className="relative max-w-sm overflow-hidden rounded-2xl border border-white bg-white bg-opacity-10 p-8 text-center shadow-xl backdrop-blur">
+        <Heading as="h1" className="mb-4 !text-2xl">
+          Simplify, Track, Succeed!
+        </Heading>
 
-      <CreatePostForm />
-      <div className="h-[40vh] w-full max-w-2xl overflow-y-scroll">
-        <Suspense
-          fallback={
-            <div className="flex w-full flex-col gap-4">
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-            </div>
-          }
-        >
-          <PostList />
-        </Suspense>
+        <p>
+          Gain a clear overview of your team&apos;s progress and availability
+          with 2day.report!
+        </p>
+
+        <AuthShowcase provider="github" />
+
+        <Meteors number={10} />
       </div>
     </div>
   );
