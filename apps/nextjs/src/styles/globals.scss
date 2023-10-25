@@ -19,11 +19,13 @@
 
 html,
 body {
-  @apply m-0 h-full min-h-full p-0 text-white;
+  @apply m-0 p-0 text-white;
 }
 
 body {
-  @apply relative grid bg-gradient-to-b from-[#2e026d] to-[#15162c];
+  @apply relative grid min-h-screen bg-gradient-to-b from-[#2e026d] to-[#15162c];
+  // grid-template-rows: auto 1fr auto; // Header, Main, Footer
+
   grid-template-columns: 1fr;
   grid-template-areas: "header" "main" "footer";
   grid-template-rows: 100px 1fr 100px;
