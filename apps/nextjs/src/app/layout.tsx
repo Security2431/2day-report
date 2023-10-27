@@ -4,10 +4,13 @@ import { Inter } from "next/font/google";
 import "~/styles/globals.scss";
 
 import { headers } from "next/headers";
+import { ToastContainer } from "react-toastify";
 
 import Footer from "./_components/footer";
 import Header from "./_components/header";
 import { TRPCReactProvider } from "./providers";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -41,6 +44,8 @@ export default function Layout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={["font-sans", fontSans.variable].join(" ")}>
+        <ToastContainer theme="dark" autoClose={3000} />
+
         <TRPCReactProvider headers={headers()}>
           <header className="header">
             <Header />

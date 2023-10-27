@@ -4,6 +4,11 @@ export default {
   content: [""],
   theme: {
     extend: {
+      colors: {
+        purple: {
+          500: "#2e026d",
+        },
+      },
       spacing: {
         "96": "24rem",
       },
