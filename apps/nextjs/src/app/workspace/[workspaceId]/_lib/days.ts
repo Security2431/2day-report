@@ -6,7 +6,16 @@ import { IoIosConstruct } from "react-icons/io";
 import { MdOutlineSick } from "react-icons/md";
 import { TbBeach, TbHome } from "react-icons/tb";
 
-import type { Prisma } from "@acme/db";
+export enum DayTypes { // FIXME: add types from prisma
+  WORKING = "Working",
+  HOME_OFFICE = "Home Office",
+  NOT_WORKING = "Not Working",
+  HALF_DAY_VACATION = "Half-Day Vacation",
+  VACATION = "Vacation",
+  SICK_DAY = "Sick Day",
+  ILLNESS = "Illness",
+  TRAVELING = "Traveling",
+}
 
 export const getDaysOfWeek = (date?: Date) => {
   const today = date ?? new Date();
@@ -30,28 +39,44 @@ export const getDaysOfWeek = (date?: Date) => {
 
 export const getWeekdays = (weekend?: boolean) => (!weekend ? 5 : 7);
 
-export const getDayType = (workday?: Prisma.SprintCreateInput["type"]) => {
+export const getDayType = (workday?: DayTypes) => {
   return {
-    WORKING: { icon: IoIosConstruct, name: "Working", color: "text-green-500" },
-    HOME_OFFICE: {
+    [DayTypes.WORKING]: {
+      icon: IoIosConstruct,
+      name: "Working",
+      color: "text-green-500",
+    },
+    [DayTypes.HOME_OFFICE]: {
       icon: TbHome,
       name: "Home Office",
       color: "text-yellow-500",
     },
-    NOT_WORKING: {
+    [DayTypes.NOT_WORKING]: {
       icon: BsSignDoNotEnter,
       name: "Not Working",
       color: "text-red-500",
     },
-    HALF_DAY_VACATION: {
+    [DayTypes.HALF_DAY_VACATION]: {
       icon: GiSandsOfTime,
       name: "Half Day Vacation",
       color: "text-orange-400",
     },
-    VACATION: { icon: TbBeach, name: "Vacation", color: "text-red-500" },
-    SICK_DAY: { icon: MdOutlineSick, name: "Sick day", color: "text-red-500" },
-    ILLNESS: { icon: GiMedicines, name: "Illness", color: "text-red-500" },
-    TRAVELING: {
+    [DayTypes.VACATION]: {
+      icon: TbBeach,
+      name: "Vacation",
+      color: "text-red-500",
+    },
+    [DayTypes.SICK_DAY]: {
+      icon: MdOutlineSick,
+      name: "Sick day",
+      color: "text-red-500",
+    },
+    [DayTypes.ILLNESS]: {
+      icon: GiMedicines,
+      name: "Illness",
+      color: "text-red-500",
+    },
+    [DayTypes.TRAVELING]: {
       icon: BiSolidPlaneTakeOff,
       name: "Traveling",
       color: "text-blue-500",

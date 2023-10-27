@@ -22,7 +22,7 @@ const Button = forwardRef<Ref, Props>(
     {
       onClick,
       className,
-      type,
+      type = "button",
       children,
       variant = "primary",
       isAnimating = false,
