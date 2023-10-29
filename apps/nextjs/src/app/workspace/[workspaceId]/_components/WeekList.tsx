@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import classNames from "classnames";
-import { addWeeks, format, isToday, isValid, subWeeks } from "date-fns";
+import { addWeeks, format, isToday, isValid, parse, subWeeks } from "date-fns";
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 
 import { getDaysOfWeek } from "../_lib/days";
@@ -35,8 +35,8 @@ export const WeekList = () => {
 
   useEffect(() => {
     const date = searchParams.get("today");
-    if (date && isValid(date)) {
-      setToday(new Date(date));
+    if (date && isValid(new Date(date))) {
+      setToday(parse(date, "yyyy-MM-dd", new Date()));
     }
   }, [searchParams]);
 
@@ -48,27 +48,36 @@ export const WeekList = () => {
           "grid-cols-8": weekend,
         })}
       >
-        <div className="flex items-center justify-center text-2xl font-thin">
+        <div className="flex items-center justify-center gap-3 text-2xl font-thin">
           <Link
             href={
               pathname +
               "?" +
               createQueryString(
                 "today",
-                format(subWeeks(today, 1), "yyyy-mm-dd"),
+                format(subWeeks(today, 1), "yyyy-MM-dd"),
               )
             }
           >
             <HiArrowSmLeft />
           </Link>
-          {startWeek}-{endWeek}
+          <Link
+            title="Today"
+            href={
+              pathname +
+              "?" +
+              createQueryString("today", format(new Date(), "yyyy-MM-dd"))
+            }
+          >
+            {startWeek}-{endWeek}
+          </Link>
           <Link
             href={
               pathname +
               "?" +
               createQueryString(
                 "today",
-                format(addWeeks(today, 1), "yyyy-mm-dd"),
+                format(addWeeks(today, 1), "yyyy-MM-dd"),
               )
             }
           >
