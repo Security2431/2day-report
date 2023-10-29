@@ -20,7 +20,7 @@ interface Props {
 
 /* <Projects />
 ============================================================================= */
-const Projects: React.FC<Props> = ({ fieldArrays, projects }) => {
+export const Projects: React.FC<Props> = ({ fieldArrays, projects }) => {
   const { register } = useFormContext<FormData>();
   const { prepend, fields } = fieldArrays.reports;
   // Should filter all projects that are contained in the fieldArrays()
@@ -60,5 +60,3 @@ const Projects: React.FC<Props> = ({ fieldArrays, projects }) => {
     </aside>
   );
 };
-
-export default Projects;

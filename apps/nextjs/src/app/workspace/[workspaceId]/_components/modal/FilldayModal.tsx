@@ -17,7 +17,7 @@ import { api } from "~/utils/api";
 import { isObjectEmpty } from "../../_lib/common";
 import type { DayTypes } from "../../_lib/days";
 import WorkTypes from "../form/WorkTypes/WorkTypes";
-import Projects from "../Projects";
+import { Projects } from "../projects";
 import ComposedTabs from "../TabPanel";
 import TomorrowsDescription from "../TomorrowsDescription";
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import type { ReactNode } from "react";
 import classNames from "classnames";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -14,6 +14,7 @@ import useConfirm from "~/app/_hooks/useConfirm";
 import { api } from "~/utils/api";
 import { isObjectEmpty } from "../_lib/common";
 import { DayTypes, getDayType } from "../_lib/days";
+import { Markdown } from "./markdown";
 import FilldayModal from "./modal/FilldayModal";
 
 /* Local constants & types
@@ -72,10 +73,10 @@ export function ReportList(props: {
 
           {props.sprint?.tomorrowsDescription && (
             <>
-              <Heading as="h6">Tomorrow:</Heading>
-              <p className="mb-0 mt-2 text-sm">
-                {props.sprint?.tomorrowsDescription}
-              </p>
+              <Heading as="h6" className="text-sm">
+                Tomorrow:
+              </Heading>
+              <Markdown content={props.sprint?.tomorrowsDescription} />
             </>
           )}
         </>
@@ -165,7 +166,7 @@ export const ReportRow = (props: {
   }
 
   return (
-    <section className="mb-4">
+    <section className="mb-2">
       <header className="flex gap-2 text-sm">
         <img
           className="object-fit h-5 w-5 rounded-full border border-white"
@@ -178,7 +179,10 @@ export const ReportRow = (props: {
           {props.report.hours}h
         </span>
       </header>
-      <p className="mb-0 mt-2 text-sm">{props.report?.description}</p>
+
+      {props.report?.description && (
+        <Markdown content={props.report?.description} />
+      )}
     </section>
   );
 };
