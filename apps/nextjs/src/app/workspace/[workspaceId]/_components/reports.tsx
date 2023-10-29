@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import type { RouterOutputs } from "@acme/api";
 
 import Button from "~/app/_components/button";
-import Heading from "~/app/_components/heading";
 import useConfirm from "~/app/_hooks/useConfirm";
 import { api } from "~/utils/api";
 import { isObjectEmpty } from "../_lib/common";

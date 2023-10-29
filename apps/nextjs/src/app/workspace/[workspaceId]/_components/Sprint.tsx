@@ -27,7 +27,7 @@ export const Sprint: React.FC<Props> = ({ session }) => {
   const searchParams = useSearchParams();
   const { weekend, weekdays: showDaysPerWeek } = useContext(WeekendContext);
 
-  const date = searchParams.get("date");
+  const date = searchParams.get("today");
   const weekdays = getDaysOfWeek(date);
 
   const [users] = api.user.byWorkspaceId.useSuspenseQuery({
