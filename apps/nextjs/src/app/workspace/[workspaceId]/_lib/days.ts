@@ -17,7 +17,7 @@ export enum DayTypes { // FIXME: add types from prisma
   TRAVELING = "Traveling",
 }
 
-export const getDaysOfWeek = (date?: string | null) => {
+export const getDaysOfWeek = (date?: string | Date | null) => {
   const today = !date ? new Date() : new Date(date);
 
   const weekStartDay = 1; // Get the start of the week

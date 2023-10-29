@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer components {
   .visually-hidden,
   .visually-hidden-focusable:not(:focus):not(:focus-within) {
     position: absolute !important;

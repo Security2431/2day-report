@@ -29,11 +29,13 @@ export const userRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
-        name: z.string().min(1),
-        country: z.string().optional(),
+        name: z.string().optional(),
+        email: z.string(),
+        emailVerified: z.date().optional(),
         image: z.string().optional(),
-        createdAt: z.date().optional(),
-        updatedAt: z.date().optional(),
+        password: z.string().optional(),
+        city: z.string().optional(),
+        workingHours: z.object({ from: z.string(), to: z.string() }).optional(),
       }),
     )
     .mutation(({ ctx, input }) => {
