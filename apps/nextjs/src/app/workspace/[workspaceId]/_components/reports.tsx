@@ -1,11 +1,187 @@
+import { useCallback, useEffect } from "react";
+import type { ReactNode } from "react";
 import classNames from "classnames";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
+import { toast } from "react-toastify";
 
-/* <ReportCardSkeleton />
+import type { RouterOutputs } from "@acme/api";
+
+import Button from "~/app/_components/button";
+import Heading from "~/app/_components/heading";
+import useConfirm from "~/app/_hooks/useConfirm";
+import { api } from "~/utils/api";
+import { isObjectEmpty } from "../_lib/common";
+import { DayTypes, getDayType } from "../_lib/days";
+import FilldayModal from "./modal/FilldayModal";
+
+/* Local constants & types
 ============================================================================= */
 interface Props {
   pulse?: boolean;
 }
+
+/* <ReportList />
+============================================================================= */
+export function ReportList(props: {
+  date: Date;
+  sprint?: RouterOutputs["sprint"]["byDateRange"][number];
+  projects: RouterOutputs["project"]["byWorkspaceId"];
+  userId: string;
+  workspaceId: string;
+  isAuth: boolean;
+}) {
+  const dayType = getDayType(props.sprint && DayTypes[props.sprint.type]);
+
+  if (isObjectEmpty(props.sprint) || !dayType) {
+    return (
+      <ReportCard className="flex flex-col items-center justify-center gap-6">
+        <p>No availability & No report</p>
+
+        {props.isAuth && (
+          <FilldayModal
+            date={props.date}
+            projects={props.projects}
+            workspaceId={props.workspaceId}
+            userId={props.userId}
+          />
+        )}
+      </ReportCard>
+    );
+  }
+
+  return (
+    <ReportCard>
+      <h6 className="mb-2 flex items-center">
+        <GoDotFill className={classNames("text-md", dayType.color)} />
+        {dayType.name}
+        {props.isAuth && <DeleteReport id={props.sprint?.id} />}
+      </h6>
+
+      {!props.sprint?.reports?.length ? (
+        <div className="flex items-center justify-center gap-2">
+          <dayType.icon />
+          <span>No report yet</span>
+        </div>
+      ) : (
+        <>
+          {props.sprint?.reports.map((report) => (
+            <ReportRow key={report.id} report={report} />
+          ))}
+
+          {props.sprint?.tomorrowsDescription && (
+            <>
+              <Heading as="h6">Tomorrow:</Heading>
+              <p className="mb-0 mt-2 text-sm">
+                {props.sprint?.tomorrowsDescription}
+              </p>
+            </>
+          )}
+        </>
+      )}
+
+      {props.isAuth && (
+        <FilldayModal
+          date={props.date}
+          projects={props.projects}
+          sprint={props.sprint}
+          workspaceId={props.workspaceId}
+          userId={props.userId}
+        />
+      )}
+    </ReportCard>
+  );
+}
+
+/* <DeleteReport />
+============================================================================= */
+export const DeleteReport = ({ id }: { id?: string }) => {
+  const context = api.useContext();
+  const [Dialog, confirmDelete] = useConfirm(
+    "Are you sure?",
+    "Surely you want delete this report?",
+  );
+
+  const { mutateAsync: deleteSprint, error } = api.sprint.delete.useMutation({
+    async onSuccess() {
+      toast.success("Your sprint day deleted successfully!");
+
+      await context.sprint.all.invalidate();
+    },
+    onError() {
+      console.error(error);
+      // toast.error(error);
+    },
+  });
+
+  const handleDelete = useCallback(async () => {
+    const ans = await confirmDelete();
+
+    if (ans && id) {
+      await deleteSprint(id);
+    }
+  }, [confirmDelete, deleteSprint, id]);
+
+  return (
+    <>
+      <Button
+        onClick={handleDelete}
+        variant="base"
+        className="ml-auto text-red-500"
+      >
+        <BsTrash />
+      </Button>
+      <Dialog />
+    </>
+  );
+};
+
+/* <ReportCard />
+============================================================================= */
+export const ReportCard = (props: {
+  children: ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={classNames(
+        "flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4",
+        props.className,
+      )}
+    >
+      {props.children}
+    </div>
+  );
+};
+
+/* <ReportRow />
+============================================================================= */
+export const ReportRow = (props: {
+  report: RouterOutputs["sprint"]["byDateRange"][number]["reports"][number];
+}) => {
+  if (!props.report) {
+    return null;
+  }
+
+  return (
+    <section className="mb-4">
+      <header className="flex gap-2 text-sm">
+        <img
+          className="object-fit h-5 w-5 rounded-full border border-white"
+          src={props.report.project?.image ?? ""}
+          alt=""
+        />
+        <p className="m-0 flex-1 truncate">{props.report.project.name}</p>
+        <span className="inline-flex items-center gap-1">
+          <AiOutlineClockCircle />
+          {props.report.hours}h
+        </span>
+      </header>
+      <p className="mb-0 mt-2 text-sm">{props.report?.description}</p>
+    </section>
+  );
+};
 
 /* <ReportCardSkeleton />
 ============================================================================= */
@@ -69,7 +245,7 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
       {[...Array<never>(2)].map((_, index) => (
         <p
           key={index}
-          className={classNames("text-xxs mb-2 w-full rounded bg-current", {
+          className={classNames("mb-2 w-full rounded bg-current text-xxs", {
             "animate-pulse": pulse,
           })}
         >

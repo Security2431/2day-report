@@ -31,7 +31,7 @@ const WorkTypes: React.FC<Props> = ({ workType }) => {
                 type="radio"
                 defaultChecked={daytype === workType}
                 value={daytype}
-                {...register("workType", { required: true })}
+                {...register("type", { required: true })}
               />
               <label
                 htmlFor={`${id}-work-types-${index}`}

@@ -8,6 +8,8 @@ import TextArea from "~/app/_components/form/TextArea";
 import useConfirm from "~/app/_hooks/useConfirm";
 import type { FormData } from "./modal/FilldayModal";
 
+/* <TomorrowsDescription />
+============================================================================= */
 const TomorrowsDescription = () => {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
@@ -34,8 +36,8 @@ const TomorrowsDescription = () => {
   };
 
   const handleCancel = async () => {
-    if (!dirtyFields.tomorrowsPlan) {
-      resetField("tomorrowsPlan");
+    if (!dirtyFields.tomorrowsDescription) {
+      resetField("tomorrowsDescription");
       dialogHandleClose();
       return;
     }
@@ -46,7 +48,7 @@ const TomorrowsDescription = () => {
       return;
     }
 
-    resetField("tomorrowsPlan");
+    resetField("tomorrowsDescription");
     dialogHandleClose();
   };
 
@@ -71,8 +73,8 @@ const TomorrowsDescription = () => {
               className="rounded border border-white bg-transparent p-2 backdrop-blur"
               id={`${id}-tomorrows-plan`}
               rows={5}
-              defaultValue={getValues("tomorrowsPlan")}
-              {...register(`tomorrowsPlan`)}
+              defaultValue={getValues("tomorrowsDescription")}
+              {...register(`tomorrowsDescription`)}
             />
           </fieldset>
           <footer className="flex justify-end gap-2">
@@ -91,7 +93,7 @@ const TomorrowsDescription = () => {
         variant="link"
         className="mr-auto gap-2"
       >
-        {!getValues("tomorrowsPlan") ? (
+        {!getValues("tomorrowsDescription") ? (
           <>
             <AiOutlinePlus />
             Add

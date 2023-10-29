@@ -6,6 +6,7 @@ import type { Prisma } from "@acme/db";
 import Button from "~/app/_components/button";
 import Input from "~/app/_components/form/Input";
 import Heading from "~/app/_components/heading";
+import { initialFormValues } from "./modal/FilldayModal";
 import type { FormData } from "./modal/FilldayModal";
 
 /* Props - <Projects />
@@ -43,14 +44,15 @@ const Projects: React.FC<Props> = ({ fieldArrays, projects }) => {
           type="button"
           onClick={() =>
             prepend({
-              description: "",
-              hours: "8",
+              description: initialFormValues.description,
+              hours: initialFormValues.workingHours,
               projectId: id!,
               projectName: name,
+              reportId: initialFormValues.reportId,
             })
           }
         >
-          <span className="truncate" title="kittie.tech">
+          <span className="truncate" title={name}>
             {name}
           </span>
         </Button>

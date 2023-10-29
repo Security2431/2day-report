@@ -1,7 +1,9 @@
 import { useId } from "react";
 import type { UseFieldArrayReturn } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
+import { BsTrash } from "react-icons/bs";
 
+import Button from "~/app/_components/button";
 import Input from "~/app/_components/form/Input";
 import TextArea from "~/app/_components/form/TextArea";
 import {
@@ -38,57 +40,68 @@ const ComposedTabs: React.FC<Props> = ({ fieldArrays }) => {
         ))}
       </TabList>
       <TabPanels>
-        {fields.map(({ id, projectId, description, hours }, index) => (
-          <TabPanel key={id}>
-            <Input
-              type="hidden"
-              defaultValue={projectId}
-              {...register(`reports.${index}.projectId`)}
-            />
-            <button
-              className="ml-auto"
-              type="button"
-              onClick={() => remove(index)}
-            >
-              Remove
-            </button>
-            <fieldset className="mb-4 flex flex-col">
-              <label htmlFor={`${fieldId}-description`} className="uppercase">
-                Description:
-              </label>
-              <TextArea
-                className="rounded border border-white bg-transparent p-2 backdrop-blur"
-                id={`${fieldId}-description`}
-                rows={5}
-                defaultValue={description}
-                {...register(`reports.${index}.description`)}
-              />
-            </fieldset>
-
-            <fieldset className="relative mb-4 flex flex-col">
-              <label htmlFor={`${fieldId}-hours`} className="uppercase">
-                Working hours:
-              </label>
-              <input
-                id={`${fieldId}-hours`}
-                type="range"
-                min="0"
-                max="24"
-                step="0.5"
-                defaultValue={hours}
-                {...register(`reports.${index}.hours`)}
-              />
-              <output
-                className="absolute -bottom-5 -translate-x-1/2"
-                style={{
-                  left: `${(100 / 24) * Number(watchReports[index]?.hours)}%`,
-                }}
+        {fields.map(
+          ({ id, projectId, description, hours, reportId }, index) => (
+            <TabPanel key={id}>
+              <Button
+                variant="base"
+                className="ml-auto text-red-500"
+                type="button"
+                onClick={() => remove(index)}
               >
-                {watchReports[index]?.hours}
-              </output>
-            </fieldset>
-          </TabPanel>
-        ))}
+                <BsTrash />
+                Remove
+              </Button>
+              <Input
+                type="hidden"
+                defaultValue={projectId}
+                {...register(`reports.${index}.projectId`)}
+              />
+              <Input
+                type="hidden"
+                defaultValue={reportId}
+                {...register(`reports.${index}.reportId`)}
+              />
+              <fieldset className="mb-4 flex flex-col">
+                <label htmlFor={`${fieldId}-description`} className="uppercase">
+                  Description:
+                </label>
+                <TextArea
+                  className="rounded border border-white bg-transparent p-2 backdrop-blur"
+                  id={`${fieldId}-description`}
+                  rows={5}
+                  defaultValue={description}
+                  {...register(`reports.${index}.description`)}
+                />
+              </fieldset>
+
+              <fieldset className="relative mb-4 flex flex-col">
+                <label htmlFor={`${fieldId}-hours`} className="uppercase">
+                  Working hours:
+                </label>
+                <input
+                  id={`${fieldId}-hours`}
+                  type="range"
+                  min="0"
+                  max="24"
+                  step="0.5"
+                  defaultValue={hours}
+                  {...register(`reports.${index}.hours`, {
+                    valueAsNumber: true,
+                  })}
+                />
+                <output
+                  className="absolute -bottom-5 -translate-x-1/2"
+                  style={{
+                    left: `${(100 / 24) * watchReports[index]!.hours}%`,
+                  }}
+                >
+                  {watchReports[index]?.hours.toString()}
+                </output>
+              </fieldset>
+            </TabPanel>
+          ),
+        )}
       </TabPanels>
     </Tabs>
   );
