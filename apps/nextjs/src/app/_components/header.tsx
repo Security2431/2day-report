@@ -19,7 +19,7 @@ const Header = async () => {
       {session && (
         <div className="flex items-center gap-3">
           Hello, {session.user.name}!
-          <SignOut className="rounded border border-white bg-transparent px-4 py-2 font-semibold uppercase text-white hover:border-transparent hover:bg-red-300 hover:text-[#2e026d]">
+          <SignOut className="rounded border border-white bg-transparent px-4 py-2 font-semibold uppercase text-white hover:border-transparent hover:bg-red-300 hover:text-purple-500">
             Sign Out
           </SignOut>
         </div>

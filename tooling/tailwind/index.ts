@@ -1,9 +1,15 @@
 import type { Config } from "tailwindcss";
 
 export default {
+  darkMode: "class",
   content: [""],
   theme: {
     extend: {
+      colors: {
+        purple: {
+          500: "#2e026d",
+        },
+      },
       spacing: {
         "96": "24rem",
       },
@@ -20,10 +26,13 @@ export default {
           },
         },
       },
+      fontSize: {
+        xxs: "0.5rem",
+      },
     },
     container: {
       center: true,
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 } satisfies Config;

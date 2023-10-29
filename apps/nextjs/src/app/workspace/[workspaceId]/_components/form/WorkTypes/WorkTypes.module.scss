@@ -1,0 +1,11 @@
+.radio {
+  @apply visually-hidden;
+}
+
+.label {
+  @apply flex cursor-pointer items-center justify-center gap-2 rounded border border-white px-3 py-2 text-xs uppercase text-white;
+}
+
+.radio:checked + .label {
+  @apply bg-white text-purple-500;
+}

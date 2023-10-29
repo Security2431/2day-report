@@ -97,8 +97,8 @@ model User {
   updatedAt     DateTime            @updatedAt
   accounts      Account[]
   sessions      Session[]
-  teams         TeamsOnUsers[]
-  workspaces    WorkspacesOnUsers[]
+  teams         TeamsMembers[]
+  workspaces    WorkspacesMembers[]
   sprints       Sprint[]
 }
 
@@ -111,7 +111,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model TeamsOnUsers {
+model TeamsMembers {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   userId      String     @db.ObjectId
   teamId      String     @db.ObjectId
@@ -129,13 +129,13 @@ model Team {
   name          String
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  users         TeamsOnUsers[]
+  users         TeamsMembers[]
   workspace     Workspace      @relation(fields: [workspaceId], references: [id])
   invitations   Invitation[]   @relation(fields: [invitationIDs], references: [id])
 }
 
 // Many to many relations https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations#mongodb
-model WorkspacesOnUsers {
+model WorkspacesMembers {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   userId      String    @db.ObjectId
   workspaceId String    @db.ObjectId
@@ -156,7 +156,7 @@ model Workspace {
   teams        Team[]
   projects     Project[]
   integrations Integration[]
-  users        WorkspacesOnUsers[]
+  users        WorkspacesMembers[]
   invitations  Invitation[]
   sprints      Sprint[]
 }
