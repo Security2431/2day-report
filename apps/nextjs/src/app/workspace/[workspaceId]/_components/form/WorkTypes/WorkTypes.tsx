@@ -9,7 +9,7 @@ import styles from "./WorkTypes.module.scss";
 /* Props - <WorkTypes />
 ============================================================================= */
 interface Props {
-  workType: keyof typeof DayTypes;
+  workType?: keyof typeof DayTypes;
 }
 
 /* <WorkTypes />

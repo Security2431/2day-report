@@ -65,16 +65,19 @@ export const getDayType = (workday?: DayTypes) => {
       icon: TbBeach,
       name: "Vacation",
       color: "text-red-500",
+      description: "{name} is enjoying vacation",
     },
     [DayTypes.SICK_DAY]: {
       icon: MdOutlineSick,
       name: "Sick day",
       color: "text-red-500",
+      description: "{name} is sick",
     },
     [DayTypes.ILLNESS]: {
       icon: GiMedicines,
       name: "Illness",
       color: "text-red-500",
+      description: "{name} is sick",
     },
     [DayTypes.TRAVELING]: {
       icon: BiSolidPlaneTakeOff,

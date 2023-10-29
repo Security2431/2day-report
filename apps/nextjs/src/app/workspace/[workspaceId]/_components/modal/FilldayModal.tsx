@@ -51,9 +51,15 @@ const schemaValidation = z.object({
 
 export const initialFormValues = {
   type: "WORKING" as keyof typeof DayTypes,
-  tomorrowsDescription: "",
+  tomorrowsDescription: `#### 🗓️ Features:
+- `,
   workingHours: 8,
-  description: "",
+  description: `#### ✅ Done:
+- 
+
+#### 🚫 Blockers:
+- NaN
+`,
   reportId: "",
 };
 
@@ -197,24 +203,6 @@ const FilldayModal: React.FC<Props> = ({
     } catch {
       // noop
     }
-
-    // if (isObjectEmpty(sprint)) {
-    //   return await createSprint({
-    //     ...data,
-    //     userId,
-    //     workspaceId,
-    //     date,
-    //   });
-    // }
-
-    // await updateSprint({
-    //   ...data,
-    //   userId,
-    //   workspaceId,
-    //   date,
-    // });
-
-    // hideModal();
   };
 
   return (
@@ -239,7 +227,7 @@ const FilldayModal: React.FC<Props> = ({
       >
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <WorkTypes workType="WORKING" />
+            <WorkTypes workType={sprint?.type} />
             <hr className="mb-4 w-full bg-white" />
             <article className="mb-4 flex w-full gap-12">
               <Projects

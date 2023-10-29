@@ -32,6 +32,7 @@ export function ReportList(props: {
   userId: string;
   workspaceId: string;
   isAuth: boolean;
+  username: string;
 }) {
   const dayType = getDayType(props.sprint && DayTypes[props.sprint.type]);
 
@@ -61,9 +62,13 @@ export function ReportList(props: {
       </h6>
 
       {!props.sprint?.reports?.length ? (
-        <div className="flex items-center justify-center gap-2">
-          <dayType.icon />
-          <span>No report yet</span>
+        <div className="mb-2 flex flex-col gap-2 text-center">
+          <dayType.icon className="mx-auto text-3xl" />
+          {dayType?.description ? (
+            <span>{dayType.description.replace("{name}", props.username)}</span>
+          ) : (
+            <span>No report yet</span>
+          )}
         </div>
       ) : (
         <>
@@ -73,9 +78,6 @@ export function ReportList(props: {
 
           {props.sprint?.tomorrowsDescription && (
             <>
-              <Heading as="h6" className="text-sm">
-                Tomorrow:
-              </Heading>
               <Markdown content={props.sprint?.tomorrowsDescription} />
             </>
           )}
@@ -167,7 +169,7 @@ export const ReportRow = (props: {
 
   return (
     <section className="mb-2">
-      <header className="flex gap-2 text-sm">
+      <header className="mb-2 flex gap-2 text-sm">
         <img
           className="object-fit h-5 w-5 rounded-full border border-white"
           src={props.report.project?.image ?? ""}
