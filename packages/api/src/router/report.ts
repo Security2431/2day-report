@@ -16,8 +16,10 @@ export const reportRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
-        name: z.string().min(1),
-        image: z.string().min(1),
+        sprintId: z.string().min(1),
+        projectId: z.string().min(1),
+        hours: z.number(),
+        description: z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {

@@ -5,7 +5,8 @@ import Heading from "../_components/heading";
 
 const useConfirm = (title: string, message: string) => {
   // TODO: add types to useState
-  const [promise, setPromise] = useState(null);
+  // eslint-disable-next-line
+  const [promise, setPromise] = useState<any>(null);
 
   const confirm = () =>
     new Promise((resolve) => {
@@ -17,11 +18,13 @@ const useConfirm = (title: string, message: string) => {
   };
 
   const handleConfirm = () => {
+    // eslint-disable-next-line
     promise?.resolve(true);
     handleClose();
   };
 
   const handleCancel = () => {
+    // eslint-disable-next-line
     promise?.resolve(false);
     handleClose();
   };

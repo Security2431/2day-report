@@ -26,8 +26,9 @@ export const projectRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
-        title: z.string().min(1),
-        content: z.string().min(1),
+        name: z.string().min(1),
+        workspaceId: z.string(),
+        image: z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {
