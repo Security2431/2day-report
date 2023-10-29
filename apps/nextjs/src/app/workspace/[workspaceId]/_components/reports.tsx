@@ -15,6 +15,7 @@ import { isObjectEmpty } from "../_lib/common";
 import { DayTypes, getDayType } from "../_lib/days";
 import { Markdown } from "./markdown";
 import FilldayModal from "./modal/FilldayModal";
+import { ReactionRow } from "./reactions";
 
 /* Local constants & types
 ============================================================================= */
@@ -28,10 +29,9 @@ export function ReportList(props: {
   date: Date;
   sprint?: RouterOutputs["sprint"]["byDateRange"][number];
   projects: RouterOutputs["project"]["byWorkspaceId"];
-  userId: string;
+  user: RouterOutputs["user"]["byWorkspaceId"][number];
   workspaceId: string;
   isAuth: boolean;
-  username: string;
 }) {
   const dayType = getDayType(props.sprint && DayTypes[props.sprint.type]);
 
@@ -45,7 +45,7 @@ export function ReportList(props: {
             date={props.date}
             projects={props.projects}
             workspaceId={props.workspaceId}
-            userId={props.userId}
+            userId={props.user.id}
           />
         )}
       </ReportCard>
@@ -64,7 +64,9 @@ export function ReportList(props: {
         <div className="mb-2 flex flex-col gap-2 text-center">
           <dayType.icon className="mx-auto text-3xl" />
           {dayType?.description ? (
-            <span>{dayType.description.replace("{name}", props.username)}</span>
+            <span>
+              {dayType.description.replace("{name}", props.user.name)}
+            </span>
           ) : (
             <span>No report yet</span>
           )}
@@ -83,13 +85,17 @@ export function ReportList(props: {
         </>
       )}
 
+      {props.sprint && (
+        <ReactionRow userId={props.user.id} sprintId={props.sprint.id} />
+      )}
+
       {props.isAuth && (
         <FilldayModal
           date={props.date}
           projects={props.projects}
           sprint={props.sprint}
           workspaceId={props.workspaceId}
-          userId={props.userId}
+          userId={props.user.id}
         />
       )}
     </ReportCard>

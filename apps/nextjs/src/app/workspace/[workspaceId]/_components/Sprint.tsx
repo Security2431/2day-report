@@ -45,7 +45,7 @@ export const Sprint: React.FC<Props> = ({ session }) => {
   });
 
   const sortedUsers = useMemo(() => {
-    const sortedUsers = users.sort((a, b) => a.name!.localeCompare(b.name!));
+    const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
 
     const movePersonInArray = (
       userId: string,
@@ -86,10 +86,9 @@ export const Sprint: React.FC<Props> = ({ session }) => {
                   sprint.user.id === user.id,
               )}
               projects={projects}
-              userId={session.user.id}
               workspaceId={params.workspaceId}
               isAuth={session.user.id === user.id}
-              username={session.user.name!}
+              user={session.user}
             />
           ))}
         </section>
