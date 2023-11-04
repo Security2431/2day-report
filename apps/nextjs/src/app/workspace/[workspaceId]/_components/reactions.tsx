@@ -22,7 +22,7 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
   });
 
   const [reactions] = api.reaction.bySprintId.useSuspenseQuery({
-    sprintId: sprintId,
+    sprintId,
   });
 
   const counts = reactions.reduce(
@@ -120,7 +120,10 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
       </div>
 
       {open && (
-        <div ref={ref} className="absolute left-0 top-[calc(100%+0.25rem)]">
+        <div
+          ref={ref}
+          className="absolute left-0 top-[calc(100%+0.25rem)] z-[1]"
+        >
           <EmojiPicker
             height={500}
             width={400}
