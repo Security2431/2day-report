@@ -88,7 +88,8 @@ export const Sprint: React.FC<Props> = ({ session }) => {
               projects={projects}
               workspaceId={params.workspaceId}
               isAuth={session.user.id === user.id}
-              user={session.user}
+              session={session}
+              user={user}
             />
           ))}
         </section>
