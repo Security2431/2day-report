@@ -7,6 +7,7 @@ import { GoDotFill } from "react-icons/go";
 import { toast } from "react-toastify";
 
 import type { RouterOutputs } from "@acme/api";
+import type { Session } from "@acme/auth";
 
 import Button from "~/app/_components/button";
 import useConfirm from "~/app/_hooks/useConfirm";
@@ -30,6 +31,7 @@ export function ReportList(props: {
   sprint?: RouterOutputs["sprint"]["byDateRange"][number];
   projects: RouterOutputs["project"]["byWorkspaceId"];
   user: RouterOutputs["user"]["byWorkspaceId"][number];
+  session: Session;
   workspaceId: string;
   isAuth: boolean;
 }) {
@@ -45,7 +47,7 @@ export function ReportList(props: {
             date={props.date}
             projects={props.projects}
             workspaceId={props.workspaceId}
-            userId={props.user.id}
+            userId={props.session.user.id}
           />
         )}
       </ReportCard>
@@ -86,7 +88,10 @@ export function ReportList(props: {
       )}
 
       {props.sprint && (
-        <ReactionRow userId={props.user.id} sprintId={props.sprint.id} />
+        <ReactionRow
+          userId={props.session.user.id}
+          sprintId={props.sprint.id}
+        />
       )}
 
       {props.isAuth && (
@@ -95,7 +100,7 @@ export function ReportList(props: {
           projects={props.projects}
           sprint={props.sprint}
           workspaceId={props.workspaceId}
-          userId={props.user.id}
+          userId={props.session.user.id}
         />
       )}
     </ReportCard>
