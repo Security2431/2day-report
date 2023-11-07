@@ -181,7 +181,9 @@ const FilldayModal: React.FC<Props> = ({
         .filter((report) => !data.reports.find((r) => r.reportId === report.id))
         .map((report) => report.id) ?? [];
 
-    await deleteReports(reportIdsToBeDeleted);
+    if (reportIdsToBeDeleted.length) {
+      await deleteReports(reportIdsToBeDeleted);
+    }
 
     try {
       if (isObjectEmpty(sprint)) {
