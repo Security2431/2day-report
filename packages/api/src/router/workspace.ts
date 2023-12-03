@@ -3,24 +3,52 @@ import { z } from "zod";
 
 import { Role } from "@acme/db";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const workspaceRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.workspace.findMany({
+  all: protectedProcedure.query(async ({ ctx }) => {
+    const workspaces = await ctx.prisma.workspace.findMany({
+      where: {
+        users: {
+          some: {
+            userId: ctx.session.user.id,
+          },
+        },
+      },
+      include: {
+        users: true,
+      },
       orderBy: { id: "desc" },
     });
+
+    const decoratedWorkspaces = workspaces.map(({ users, ...workspace }) => ({
+      ...workspace,
+      people: users.length,
+      workspacePermissions:
+        users.find((user) => user.userId === ctx.session.user.id)
+          ?.permissions ?? [],
+    }));
+
+    return decoratedWorkspaces;
   }),
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.workspace.findFirst({ where: { id: input.id } });
+      return ctx.prisma.workspace.findFirst({
+        where: {
+          id: input.id,
+          users: {
+            some: {
+              userId: ctx.session.user.id,
+            },
+          },
+        },
+      });
     }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         name: z.string().min(1),
-        userId: z.string().min(1),
         country: z.string().optional(),
         image: z.string().optional(),
         createdAt: z.date().optional(),
@@ -47,15 +75,15 @@ export const workspaceRouter = createTRPCRouter({
 
       await ctx.prisma.workspacesMembers.create({
         data: {
-          userId: input.userId,
-          workspaceId: workspace.id,
           permissions: [Role.ADMIN],
+          user: { connect: { id: ctx.session.user.id } },
+          workspace: { connect: { id: workspace.id } },
         },
       });
 
       return workspace;
     }),
-  update: publicProcedure
+  update: protectedProcedure
     .input(
       z
         .object({
@@ -75,7 +103,18 @@ export const workspaceRouter = createTRPCRouter({
         data: data,
       });
     }),
-  delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.workspace.delete({ where: { id: input } });
-  }),
+  delete: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const [, workspace] = await ctx.prisma.$transaction([
+        ctx.prisma.workspacesMembers.deleteMany({
+          where: {
+            workspaceId: input,
+          },
+        }),
+        ctx.prisma.workspace.delete({ where: { id: input } }),
+      ]);
+
+      return workspace;
+    }),
 });

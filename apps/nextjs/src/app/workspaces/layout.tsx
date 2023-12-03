@@ -23,7 +23,7 @@ export default async function WorkspaceLayout({
         <Heading as="h1" className="col-start-3 flex-1">
           My Workspaces
         </Heading>
-        <WorkspaceModal className="col-start-5" user={session.user} />
+        <WorkspaceModal className="col-start-5" />
       </header>
       {children}
     </section>
