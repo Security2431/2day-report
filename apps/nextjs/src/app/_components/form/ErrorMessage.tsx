@@ -4,7 +4,7 @@ import type { FieldError, Merge } from "react-hook-form";
 /* Props - <ErrorMessage />
 ============================================================================= */
 interface Props {
-  error: Merge<FieldError, (FieldError | undefined)[]> | undefined;
+  error: FieldError | Merge<FieldError, FieldError[] | undefined> | undefined;
 }
 
 /* <ErrorMessage />

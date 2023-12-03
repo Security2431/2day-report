@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
-import { HiPlus } from "react-icons/hi";
 
 import { auth } from "@acme/auth";
 
-import Button from "../_components/button";
 import Heading from "../_components/heading";
 import routes from "../_lib/routes";
+import WorkspaceModal from "./_components/WorkspaceModal";
 
 export default async function WorkspaceLayout({
   children,
@@ -24,9 +23,7 @@ export default async function WorkspaceLayout({
         <Heading as="h1" className="col-start-3 flex-1">
           My Workspaces
         </Heading>
-        <Button className="col-start-5">
-          <HiPlus className="mr-2" /> Add new workspaces
-        </Button>
+        <WorkspaceModal className="col-start-5" user={session.user} />
       </header>
       {children}
     </section>

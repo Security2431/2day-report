@@ -6,6 +6,7 @@ import type { RouterOutputs } from "@acme/api";
 
 import Button from "~/app/_components/button";
 import Heading from "~/app/_components/heading";
+import { NO_AVATAR_IMG } from "~/app/_lib/constants";
 
 /* <WorkspaceCard />
 ============================================================================= */
@@ -20,11 +21,10 @@ const WorkspaceCard: React.FC<Props> = (props) => {
 
   return (
     <div className="flex h-64 max-w-sm flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-white p-4 shadow-lg  hover:bg-[#2e026fff]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="h-12 w-12 rounded-full"
-        src={props.workspace.image ?? ""}
-        alt=""
+        src={props.workspace.image ? props.workspace.image : NO_AVATAR_IMG}
+        alt={props.workspace.name}
       />
       <Heading className="w-full truncate whitespace-nowrap text-xl font-bold">
         {props.workspace.name}
