@@ -1,3 +1,4 @@
+import Credentials from "@auth/core/providers/credentials";
 import Github from "@auth/core/providers/github";
 // import Google from "@auth/core/providers/google";
 import type { DefaultSession } from "@auth/core/types";
@@ -36,6 +37,39 @@ export const {
     Github({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+    }),
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email: ",
+          type: "text",
+        },
+        password: {
+          label: "Password: ",
+          type: "password",
+        },
+      },
+      async authorize(credentials) {
+        // This is where you need to retrieve user data
+        // to verify with credentials
+
+        const user = {
+          id: "1",
+          name: "J Smith",
+          email: "j@j.com",
+          password: "123",
+        };
+
+        if (
+          credentials.email === user.email &&
+          credentials.password === user.password
+        ) {
+          return user;
+        }
+
+        return null;
+      },
     }),
   ],
   callbacks: {
