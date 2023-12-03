@@ -29,8 +29,8 @@ export const userRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
-        name: z.string().optional(),
-        email: z.string(),
+        name: z.string().min(1),
+        email: z.string().min(1),
         emailVerified: z.date().optional(),
         image: z.string().optional(),
         password: z.string().optional(),

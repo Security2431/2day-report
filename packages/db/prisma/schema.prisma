@@ -17,11 +17,6 @@ enum Role {
   GUEST // VIEW_TEAMS
 }
 
-type WorkingHours {
-  from String
-  to   String
-}
-
 enum DayType {
   WORKING
   HOME_OFFICE
@@ -44,6 +39,11 @@ enum IntegrationProvider {
   SLACK
   ACCOUNTING
   PROJECT_REPORTS
+}
+
+type WorkingHours {
+  from String
+  to   String
 }
 
 model Post {

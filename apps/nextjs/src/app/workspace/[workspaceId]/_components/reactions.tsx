@@ -28,9 +28,9 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
   const counts = reactions.reduce(
     (acc, value) => ({
       ...acc,
-      [value.unified]: (acc[value.unified] || 0) + 1,
+      [value.unified]: (acc[value.unified] ?? 0) + 1,
     }),
-    {},
+    {} as Record<string, number>,
   );
 
   const { mutateAsync: createReaction, error: createReactionError } =

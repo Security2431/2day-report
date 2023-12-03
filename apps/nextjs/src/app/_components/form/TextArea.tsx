@@ -2,8 +2,13 @@ import type { TextareaHTMLAttributes } from "react";
 import React, { forwardRef } from "react";
 import classNames from "classnames";
 
-type Props = TextareaHTMLAttributes<HTMLTextAreaElement>;
+/* Local constants & types
+============================================================================= */
 export type Ref = HTMLTextAreaElement;
+
+/* Props - <TextArea />
+============================================================================= */
+type Props = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 /* <TextArea />
 ============================================================================= */
