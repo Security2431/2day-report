@@ -9,8 +9,6 @@ import { HiPlus } from "react-icons/hi";
 import { toast } from "react-toastify";
 import * as z from "zod";
 
-import type { Session } from "@acme/auth";
-
 import Button from "~/app/_components/button";
 import Field from "~/app/_components/form/Field";
 import Modal from "~/app/_components/modal/Modal";
@@ -28,18 +26,17 @@ const schemaValidation = z.object({
 /* Props - <WorkspaceModal />
 ============================================================================= */
 interface Props {
-  user: Session["user"];
   className?: string;
 }
 
 /* <WorkspaceModal />
 ============================================================================= */
-const WorkspaceModal: React.FC<Props> = ({ className, user }) => {
+const WorkspaceModal: React.FC<Props> = ({ className }) => {
   const context = api.useContext();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { mutateAsync: createWorkspace } = api.workspace.create.useMutation({
     async onSuccess() {
-      toast.success("Your report day updated successfully!");
+      toast.success("Your workspace has been created!");
 
       hideModal();
       await context.workspace.all.invalidate();
@@ -66,7 +63,6 @@ const WorkspaceModal: React.FC<Props> = ({ className, user }) => {
     await createWorkspace({
       name: data.name,
       image: data.image,
-      userId: user.id,
     });
   };
 

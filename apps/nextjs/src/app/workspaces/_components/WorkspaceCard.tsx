@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { BsGear } from "react-icons/bs";
 import { HiOutlineArrowRight, HiUsers } from "react-icons/hi";
 
 import type { RouterOutputs } from "@acme/api";
+import { Role } from "@acme/db";
 
 import Button from "~/app/_components/button";
 import Heading from "~/app/_components/heading";
@@ -17,10 +20,16 @@ interface Props {
 /* <WorkspaceCard />
 ============================================================================= */
 const WorkspaceCard: React.FC<Props> = (props) => {
-  const router = useRouter();
-
   return (
-    <div className="flex h-64 max-w-sm flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-white p-4 shadow-lg  hover:bg-[#2e026fff]">
+    <div className="relative flex h-64 max-w-sm flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-white p-4 shadow-lg  hover:bg-[#2e026fff]">
+      {props.workspace.workspacePermissions.includes(Role.ADMIN) && (
+        <Link href={`/workspaces/manage/${props.workspace.id}/`}>
+          <Button className="absolute right-0 top-0 border-none px-4 py-4">
+            <BsGear />
+          </Button>
+        </Link>
+      )}
+
       <img
         className="h-12 w-12 rounded-full"
         src={props.workspace.image ? props.workspace.image : NO_AVATAR_IMG}
@@ -33,7 +42,7 @@ const WorkspaceCard: React.FC<Props> = (props) => {
         <HiUsers className="mr-2" />2 people
       </span>
       <Link href={`/workspace/${props.workspace.id}`}>
-        <Button onClick={() => router.push(`/workspace/${props.workspace.id}`)}>
+        <Button>
           <HiOutlineArrowRight className="mr-2" /> Enter
         </Button>
       </Link>
