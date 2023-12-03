@@ -23,6 +23,7 @@ export const workspaceRouter = createTRPCRouter({
 
     const decoratedWorkspaces = workspaces.map(({ users, ...workspace }) => ({
       ...workspace,
+      people: users.length,
       workspacePermissions:
         users.find((user) => user.userId === ctx.session.user.id)
           ?.permissions ?? [],

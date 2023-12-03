@@ -39,7 +39,9 @@ const WorkspaceCard: React.FC<Props> = (props) => {
         {props.workspace.name}
       </Heading>
       <span className="flex items-center">
-        <HiUsers className="mr-2" />2 people
+        <HiUsers className="mr-2" />
+        {props.workspace.people}{" "}
+        {props.workspace.people > 1 ? "people" : "person"}
       </span>
       <Link href={`/workspace/${props.workspace.id}`}>
         <Button>
