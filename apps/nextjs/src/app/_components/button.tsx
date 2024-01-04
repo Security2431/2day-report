@@ -37,6 +37,8 @@ const Button = forwardRef<Ref, Props>(
         {
           "border border-white bg-transparent px-4 py-2 text-white no-underline hover:border-transparent hover:bg-white  hover:text-purple-500":
             variant === "primary",
+          "rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20":
+            variant === "secondary",
           "p-0 text-white  hover:underline": variant === "link",
         },
         className,
