@@ -12,10 +12,7 @@ export async function AuthShowcase({ provider }: Props) {
 
   if (!session) {
     return (
-      <SignIn
-        provider={provider}
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-      >
+      <SignIn provider={provider}>
         Sign in with {provider.charAt(0).toUpperCase() + provider.slice(1)}
       </SignIn>
     );
@@ -27,9 +24,7 @@ export async function AuthShowcase({ provider }: Props) {
         {session && <span>Logged in as {session.user.name}</span>}
       </p>
 
-      <SignOut className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20">
-        Sign out
-      </SignOut>
+      <SignOut>Sign out</SignOut>
     </div>
   );
 }

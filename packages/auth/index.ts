@@ -1,5 +1,5 @@
 import Github from "@auth/core/providers/github";
-// import Google from "@auth/core/providers/google";
+import Google from "@auth/core/providers/google";
 import type { DefaultSession } from "@auth/core/types";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
@@ -28,14 +28,19 @@ export const {
   CSRF_experimental,
 } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  secret: env.NEXTAUTH_SECRET,
   providers: [
-    // Google({
-    //   clientId: env.GOOGLE_CLIENT_ID,
-    //   clientSecret: env.GOOGLE_CLIENT_SECRET,
-    // }),
+    Google({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      // NextJS is able to automatically link accounts. See the discussion thread:
+      // https://github.com/nextauthjs/next-auth/discussions/2808#discussioncomment-6021287
+      allowDangerousEmailAccountLinking: true,
+    }),
     Github({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   callbacks: {

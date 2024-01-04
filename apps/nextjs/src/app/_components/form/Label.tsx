@@ -17,7 +17,10 @@ const Label = forwardRef<Ref, Props>(
     <label
       ref={ref}
       htmlFor={htmlFor}
-      className={classNames("mb-1 text-sm font-semibold uppercase", className)}
+      className={classNames(
+        "mb-1 text-left text-sm font-semibold uppercase",
+        className,
+      )}
       {...props}
     />
   ),
