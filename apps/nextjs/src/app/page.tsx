@@ -27,7 +27,19 @@ export default async function HomePage() {
           with 2day.report!
         </p>
 
-        <AuthShowcase provider="github" />
+        <p
+          className="my-6 flex items-center overflow-hidden text-center text-xs uppercase before:relative 
+           before:right-2 before:inline-block before:h-[1px] before:w-1/2 
+           before:bg-white before:align-middle after:relative after:left-2 
+           after:inline-block after:h-[1px] after:w-1/2 after:bg-white after:align-middle"
+        >
+          or
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <AuthShowcase provider="google" />
+          <AuthShowcase provider="github" />
+        </div>
 
         <Meteors number={10} />
       </div>
