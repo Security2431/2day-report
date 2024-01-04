@@ -25,6 +25,7 @@
     "@trpc/next": "^10.40.0",
     "@trpc/react-query": "^10.40.0",
     "@trpc/server": "^10.40.0",
+    "argon2": "^0.31.2",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "emoji-picker-react": "^4.5.7",
