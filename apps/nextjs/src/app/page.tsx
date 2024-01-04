@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@acme/auth";
 
 import { AuthShowcase } from "./_components/auth-showcase";
+import CredentialAuth from "./_components/credential-auth";
 import Heading from "./_components/heading";
 import { Meteors } from "./_components/meteors";
 import routes from "./_lib/routes";
@@ -26,6 +27,8 @@ export default async function HomePage() {
           Gain a clear overview of your team&apos;s progress and availability
           with 2day.report!
         </p>
+
+        <CredentialAuth />
 
         <p
           className="my-6 flex items-center overflow-hidden text-center text-xs uppercase before:relative 

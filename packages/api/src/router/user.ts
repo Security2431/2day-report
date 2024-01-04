@@ -26,6 +26,11 @@ export const userRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.prisma.user.findFirst({ where: { id: input.id } });
     }),
+  byEmail: protectedProcedure
+    .input(z.object({ email: z.string().min(1) }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.user.findFirst({ where: { email: input.email } });
+    }),
   create: publicProcedure
     .input(
       z.object({
