@@ -128,6 +128,13 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
             height={500}
             width={400}
             onEmojiClick={(emoji) => handleClick(emoji.unified)}
+            customEmojis={[
+              {
+                names: ["Mustache"],
+                imgUrl: "/emojis/Mustache.png",
+                id: "mustache",
+              },
+            ]}
           />
         </div>
       )}
