@@ -131,7 +131,7 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
             customEmojis={[
               {
                 names: ["Mustache"],
-                imgUrl: "/emojis/Mustache.png",
+                imgUrl: "https://2day.report/emojis/Mustache.png",
                 id: "mustache",
               },
             ]}
