@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext } from "react";
+import Link from "next/link";
 import { HiOutlineCalendar, HiOutlineClock, HiUserGroup } from "react-icons/hi";
 
 import Button from "~/app/_components/button";
@@ -14,9 +15,11 @@ const WorkspaceHeader = () => {
 
   return (
     <header className="container flex gap-8 py-8">
-      <Button>
-        <HiUserGroup className="mr-2" /> Teams Overivew
-      </Button>
+      <Link href="#" passHref>
+        <Button>
+          <HiUserGroup className="mr-2" /> Teams Overivew
+        </Button>
+      </Link>
 
       <button className="inline-flex w-64 items-center justify-center rounded border border-white bg-transparent px-4 py-2 font-semibold uppercase text-white hover:border-transparent hover:bg-white hover:text-purple-500">
         <HiOutlineClock className="mr-2" /> Time Zones
