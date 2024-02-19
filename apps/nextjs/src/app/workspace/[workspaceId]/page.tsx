@@ -12,7 +12,7 @@ import {
 import { Sprint } from "./_components/Sprint";
 import { getDaysOfWeek } from "./_lib/days";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default async function WorkspacePage({
   params,

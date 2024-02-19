@@ -4,7 +4,7 @@ import { api } from "~/trpc/server";
 import WorkspaceCardSkeleton from "./_components/WorkspaceCardSkeleton";
 import WorkspaceList from "./_components/WorkspaceList";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default async function WorkspacePage() {
   // You can await this here if you don't want to show Suspense fallback below

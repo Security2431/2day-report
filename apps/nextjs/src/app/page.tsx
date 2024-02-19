@@ -7,7 +7,7 @@ import Heading from "./_components/heading";
 import { Meteors } from "./_components/meteors";
 import routes from "./_lib/routes";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default async function HomePage() {
   const session = await auth();

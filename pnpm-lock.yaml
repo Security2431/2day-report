@@ -351,6 +351,9 @@ importers:
       '@prisma/client':
         specifier: ^5.9.1
         version: 5.9.1(prisma@5.9.1)
+      '@prisma/extension-accelerate':
+        specifier: ^0.6.3
+        version: 0.6.3(@prisma/client@5.9.1)
     devDependencies:
       '@acme/eslint-config':
         specifier: ^0.2.0
@@ -3225,6 +3228,15 @@ packages:
       '@prisma/engines-version': 5.9.0-32.23fdc5965b1e05fc54e5f26ed3de66776b93de64
       '@prisma/fetch-engine': 5.9.1
       '@prisma/get-platform': 5.9.1
+
+  /@prisma/extension-accelerate@0.6.3(@prisma/client@5.9.1):
+    resolution: {integrity: sha512-KnIfqbwCNMP3t1jgw76IVCE4HspRmWxagR0L4wJS+/74BgkRHrt/9ic8ONo7dir4AGGoHyg/Ej8yN+uGXNrXeg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@prisma/client': '>=4.16.1'
+    dependencies:
+      '@prisma/client': 5.9.1(prisma@5.9.1)
+    dev: false
 
   /@prisma/fetch-engine@5.9.1:
     resolution: {integrity: sha512-l0goQOMcNVOJs1kAcwqpKq3ylvkD9F04Ioe1oJoCqmz05mw22bNAKKGWuDd3zTUoUZr97va0c/UfLNru+PDmNA==}
