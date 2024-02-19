@@ -19,7 +19,8 @@
     "studio": "pnpm with-env prisma studio --port 5556",
     "seed": "pnpm with-env prisma db seed",
     "typecheck": "tsc --noEmit",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "dotenv -e ../../.env --",
+    "postinstall": "pnpm generate"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
