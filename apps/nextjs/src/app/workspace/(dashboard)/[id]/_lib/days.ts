@@ -37,7 +37,7 @@ export const getDaysOfWeek = (date?: string | Date | null) => {
   return weekData;
 };
 
-export const getWeekdays = (weekend?: boolean) => (!weekend ? 5 : 7);
+export const getWeekdays = (weekend?: boolean): number => (!weekend ? 5 : 7);
 
 export const getDayType = (workday?: DayTypes) => {
   return {

@@ -10,7 +10,7 @@ import {
   ReportPictureSkeleton,
 } from "./_components/reports";
 import { Sprint } from "./_components/Sprint";
-import { getDaysOfWeek } from "./_lib/days";
+import { getDaysOfWeek, getWeekdays } from "./_lib/days";
 
 export const runtime = "edge";
 
@@ -18,7 +18,7 @@ export default async function WorkspacePage({
   params,
   searchParams,
 }: {
-  params: { workspaceId: string };
+  params: { id: string };
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const session = await auth();
@@ -33,33 +33,38 @@ export default async function WorkspacePage({
   const sprints = api.sprint.byDateRange({
     from: weekdays.at(0)!.date,
     to: weekdays.at(-1)!.date,
-    workspaceId: params.workspaceId,
+    workspaceId: params.id,
   });
 
   const users = api.user.byWorkspaceId({
-    workspaceId: params.workspaceId,
+    workspaceId: params.id,
   });
 
   const projects = api.project.byWorkspaceId({
-    id: params.workspaceId,
+    id: params.id,
   });
 
-  const cards = [...Array(weekdays)];
+  const cards = [...Array<number>(getWeekdays(weekend))];
 
   return (
     <Suspense
       fallback={
-        <div
-          className={clsx("my-4 grid items-stretch gap-4", {
-            "grid-cols-6": !weekend,
-            "grid-cols-8": weekend,
-          })}
-        >
-          <ReportPictureSkeleton />
-          {cards.map((_, index) => (
-            <ReportCardSkeleton key={index} />
+        <>
+          {[...Array<number>(2)].map((_, index) => (
+            <div
+              key={index}
+              className={clsx("my-4 grid items-stretch gap-4", {
+                "grid-cols-6": !weekend,
+                "grid-cols-8": weekend,
+              })}
+            >
+              <ReportPictureSkeleton />
+              {cards.map((_, index) => (
+                <ReportCardSkeleton key={index} />
+              ))}
+            </div>
           ))}
-        </div>
+        </>
       }
     >
       <Sprint
@@ -68,7 +73,7 @@ export default async function WorkspacePage({
         projects={projects}
         sprints={sprints}
         weekend={weekend}
-        workspaceId={params.workspaceId}
+        workspaceId={params.id}
         today={today}
       />
     </Suspense>
