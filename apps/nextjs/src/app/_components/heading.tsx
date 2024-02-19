@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 /* Props - <Heading />
 ============================================================================= */
@@ -16,7 +16,7 @@ const Heading: React.FC<Props> = ({ as = "h2", className, children }) => {
 
   return (
     <As
-      className={classNames(
+      className={clsx(
         "text-center uppercase",
         {
           "text-4xl": as === "h1",

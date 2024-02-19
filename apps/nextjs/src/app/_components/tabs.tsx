@@ -5,7 +5,7 @@ import type {
   SetStateAction,
 } from "react";
 import React, { Children, createContext, useContext, useState } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import Button from "./button";
 
@@ -27,7 +27,7 @@ const Tabs: React.FC<{ children: ReactNode; className?: string }> = ({
 
   return (
     <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
-      <section className={classNames(className)}>{children}</section>
+      <section className={clsx(className)}>{children}</section>
     </TabsContext.Provider>
   );
 };
@@ -56,7 +56,7 @@ const Tab: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
     <Button
       variant="base"
       key={index + "tab"}
-      className={classNames("border border-white px-4 py-2", {
+      className={clsx("border border-white px-4 py-2", {
         "bg-white text-purple-500": isActive,
         "text-white": !isActive,
       })}

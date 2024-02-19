@@ -1,6 +1,6 @@
 import type { LabelHTMLAttributes } from "react";
 import React, { forwardRef } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 /* Local constants & types
 ============================================================================= */
@@ -17,7 +17,7 @@ const Label = forwardRef<Ref, Props>(
     <label
       ref={ref}
       htmlFor={htmlFor}
-      className={classNames(
+      className={clsx(
         "mb-1 text-left text-sm font-semibold uppercase",
         className,
       )}

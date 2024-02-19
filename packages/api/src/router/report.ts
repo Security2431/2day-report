@@ -4,14 +4,14 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const reportRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.report.findMany({
+    return ctx.db.report.findMany({
       orderBy: { id: "desc" },
     });
   }),
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.report.findFirst({ where: { id: input.id } });
+      return ctx.db.report.findFirst({ where: { id: input.id } });
     }),
   create: publicProcedure
     .input(
@@ -23,15 +23,15 @@ export const reportRouter = createTRPCRouter({
       }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.report.create({ data: input });
+      return ctx.db.report.create({ data: input });
     }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.report.delete({ where: { id: input } });
+    return ctx.db.report.delete({ where: { id: input } });
   }),
   deleteMany: protectedProcedure
     .input(z.array(z.string()))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.report.deleteMany({
+      return ctx.db.report.deleteMany({
         where: {
           id: { in: input },
         },

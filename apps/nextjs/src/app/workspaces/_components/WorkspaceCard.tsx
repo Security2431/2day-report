@@ -23,7 +23,7 @@ const WorkspaceCard: React.FC<Props> = (props) => {
   return (
     <div className="relative flex h-64 max-w-sm flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-white p-4 shadow-lg  hover:bg-[#2e026fff]">
       {props.workspace.workspacePermissions.includes(Role.ADMIN) && (
-        <Link href={`/workspaces/manage/${props.workspace.id}/`}>
+        <Link href={`/workspace/${props.workspace.id}/settings`}>
           <Button className="absolute right-0 top-0 border-none px-4 py-4">
             <BsGear />
           </Button>

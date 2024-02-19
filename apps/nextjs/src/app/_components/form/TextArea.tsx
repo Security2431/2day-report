@@ -1,6 +1,6 @@
 import type { TextareaHTMLAttributes } from "react";
 import React, { forwardRef } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 /* Local constants & types
 ============================================================================= */
@@ -15,7 +15,7 @@ type Props = TextareaHTMLAttributes<HTMLTextAreaElement>;
 const TextArea = forwardRef<Ref, Props>(
   ({ onClick, className, ...props }, ref) => (
     <textarea
-      className={classNames(
+      className={clsx(
         `rounded border border-white bg-transparent p-2 backdrop-blur`,
         className,
       )}

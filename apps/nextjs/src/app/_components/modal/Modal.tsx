@@ -1,8 +1,8 @@
 // The original Modal repo https://github.com/michu2k/react-framer-motion-modal-example
+import type { AnimationProps } from "framer-motion";
 import type { PropsWithChildren } from "react";
 import React, { useCallback, useEffect, useId } from "react";
-import cn from "classnames";
-import type { AnimationProps } from "framer-motion";
+import cn from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { RxCross2 } from "react-icons/rx";
 

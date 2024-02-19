@@ -1,5 +1,5 @@
-import { auth } from "@acme/auth";
 import type { OAuthProviders } from "@acme/auth";
+import { auth } from "@acme/auth";
 
 import { SignIn, SignOut } from "~/components/auth";
 

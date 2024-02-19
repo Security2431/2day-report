@@ -4,14 +4,14 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const reactionRouter = createTRPCRouter({
   all: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.reaction.findMany({
+    return ctx.db.reaction.findMany({
       orderBy: { id: "desc" },
     });
   }),
   bySprintId: protectedProcedure
     .input(z.object({ sprintId: z.string() }))
     .query(async ({ ctx, input }) => {
-      return ctx.prisma.reaction.findMany({
+      return ctx.db.reaction.findMany({
         where: {
           sprint: {
             id: input.sprintId,
@@ -22,7 +22,7 @@ export const reactionRouter = createTRPCRouter({
   byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.reaction.findFirst({ where: { id: input.id } });
+      return ctx.db.reaction.findFirst({ where: { id: input.id } });
     }),
   create: protectedProcedure
     .input(
@@ -33,7 +33,7 @@ export const reactionRouter = createTRPCRouter({
       }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.reaction.create({
+      return ctx.db.reaction.create({
         data: {
           unified: input.unified,
           user: { connect: { id: input.userId } },
@@ -42,6 +42,6 @@ export const reactionRouter = createTRPCRouter({
       });
     }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.reaction.delete({ where: { id: input } });
+    return ctx.db.reaction.delete({ where: { id: input } });
   }),
 });

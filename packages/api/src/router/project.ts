@@ -4,17 +4,17 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const projectRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.project.findMany({ orderBy: { id: "desc" } });
+    return ctx.db.project.findMany({ orderBy: { id: "desc" } });
   }),
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.project.findFirst({ where: { id: input.id } });
+      return ctx.db.project.findFirst({ where: { id: input.id } });
     }),
   byWorkspaceId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.project.findMany({
+      return ctx.db.project.findMany({
         where: { workspaceId: input.id },
         select: {
           id: true,
@@ -33,9 +33,9 @@ export const projectRouter = createTRPCRouter({
     )
     .mutation(({ ctx, input }) => {
       // TODO: before create, check this project name doesn't exist in this workspace
-      return ctx.prisma.project.create({ data: input });
+      return ctx.db.project.create({ data: input });
     }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.project.delete({ where: { id: input } });
+    return ctx.db.project.delete({ where: { id: input } });
   }),
 });

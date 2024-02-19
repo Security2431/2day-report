@@ -4,14 +4,14 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const sprintRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.sprint.findMany({
+    return ctx.db.sprint.findMany({
       orderBy: { id: "desc" },
     });
   }),
   byDateRange: publicProcedure
     .input(z.object({ workspaceId: z.string(), from: z.date(), to: z.date() }))
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.sprint.findMany({
+      return await ctx.db.sprint.findMany({
         where: {
           date: {
             gte: input.from, //"2022-01-15"
@@ -52,7 +52,7 @@ export const sprintRouter = createTRPCRouter({
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.sprint.findFirst({ where: { id: input.id } });
+      return ctx.db.sprint.findFirst({ where: { id: input.id } });
     }),
   create: protectedProcedure
     .input(
@@ -84,7 +84,7 @@ export const sprintRouter = createTRPCRouter({
       }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.sprint.create({
+      return ctx.db.sprint.create({
         data: {
           workspaceId: input.workspaceId,
           userId: input.userId,
@@ -142,7 +142,7 @@ export const sprintRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const sprint = await ctx.prisma.sprint.update({
+      const sprint = await ctx.db.sprint.update({
         where: { id: input.id },
         data: {
           workspaceId: input.workspaceId,
@@ -156,7 +156,7 @@ export const sprintRouter = createTRPCRouter({
         },
       });
 
-      const reports = await ctx.prisma.$transaction(async (tx) => {
+      const reports = await ctx.db.$transaction(async (tx) => {
         return Promise.all(
           input.reports?.map((report) => {
             if (!report.reportId) {
@@ -189,7 +189,7 @@ export const sprintRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.sprint.update({
+      await ctx.db.sprint.update({
         where: {
           id: input,
         },
@@ -200,7 +200,7 @@ export const sprintRouter = createTRPCRouter({
         },
       });
 
-      return ctx.prisma.sprint.delete({
+      return ctx.db.sprint.delete({
         where: { id: input },
       });
     }),

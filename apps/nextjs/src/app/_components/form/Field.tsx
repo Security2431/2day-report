@@ -1,6 +1,6 @@
-import { useId } from "react";
 import type { InputHTMLAttributes } from "react";
-import classNames from "classnames";
+import { useId } from "react";
+import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
 
 import ErrorMessage from "./ErrorMessage";
@@ -25,7 +25,7 @@ const Field: React.FC<Props> = ({ label, className, ...props }) => {
   } = useFormContext();
 
   return (
-    <figure className={classNames(className)}>
+    <figure className={clsx(className)}>
       <Label htmlFor={`input-field-${id}`} className="block">
         {label}
       </Label>
