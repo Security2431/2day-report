@@ -2,20 +2,23 @@
   "name": "@acme/prettier-config",
   "private": true,
   "version": "0.1.0",
-  "main": "index.mjs",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "format": "prettier --check \"**/*.{mjs,ts,md,json}\"",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
-    "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.4"
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11"
   },
   "devDependencies": {
-    "@acme/tsconfig": "^0.1.0",
-    "typescript": "^5.2.2"
+    "@acme/tsconfig": "workspace:^0.1.0",
+    "typescript": "^5.3.3"
   },
   "prettier": "@acme/prettier-config"
 }

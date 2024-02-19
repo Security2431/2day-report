@@ -1,10 +1,10 @@
 "use client";
 
+import type { SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import classNames from "classnames";
 import { FormProvider, useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
 import { HiPlus } from "react-icons/hi";
 import { toast } from "react-toastify";
 import * as z from "zod";
@@ -12,7 +12,7 @@ import * as z from "zod";
 import Button from "~/app/_components/button";
 import Field from "~/app/_components/form/Field";
 import Modal from "~/app/_components/modal/Modal";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 /* Local constants & types
 ============================================================================= */
@@ -32,14 +32,22 @@ interface Props {
 /* <WorkspaceModal />
 ============================================================================= */
 const WorkspaceModal: React.FC<Props> = ({ className }) => {
-  const context = api.useContext();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { mutateAsync: createWorkspace } = api.workspace.create.useMutation({
+
+  const utils = api.useUtils();
+  const createWorkspace = api.workspace.create.useMutation({
     async onSuccess() {
       toast.success("Your workspace has been created!");
 
       hideModal();
-      await context.workspace.all.invalidate();
+      await utils.workspace.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete a post"
+          : "Failed to delete post",
+      );
     },
   });
 
@@ -59,8 +67,8 @@ const WorkspaceModal: React.FC<Props> = ({ className }) => {
     setModalVisible(false);
   };
 
-  const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
-    await createWorkspace({
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    createWorkspace.mutate({
       name: data.name,
       image: data.image,
     });

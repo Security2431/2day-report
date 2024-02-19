@@ -4,14 +4,14 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   all: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.user.findMany({
+    return ctx.db.user.findMany({
       orderBy: { id: "desc" },
     });
   }),
   byWorkspaceId: protectedProcedure
     .input(z.object({ workspaceId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.user.findMany({
+      return ctx.db.user.findMany({
         where: {
           workspaces: {
             some: {
@@ -24,7 +24,7 @@ export const userRouter = createTRPCRouter({
   byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.user.findFirst({ where: { id: input.id } });
+      return ctx.db.user.findFirst({ where: { id: input.id } });
     }),
   create: publicProcedure
     .input(
@@ -39,7 +39,7 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.user.create({ data: input });
+      return ctx.db.user.create({ data: input });
     }),
   update: publicProcedure
     .input(
@@ -56,12 +56,12 @@ export const userRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       const { id, ...data } = input;
 
-      return ctx.prisma.user.update({
+      return ctx.db.user.update({
         where: { id },
         data: data,
       });
     }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.user.delete({ where: { id: input } });
+    return ctx.db.user.delete({ where: { id: input } });
   }),
 });

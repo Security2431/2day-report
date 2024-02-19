@@ -1,5 +1,5 @@
 import type { OAuthProviders } from "@acme/auth";
-import { CSRF_experimental } from "@acme/auth";
+import { signIn, signOut } from "@acme/auth";
 
 import Button from "~/app/_components/button";
 
@@ -11,22 +11,35 @@ export function SignIn({
   children: React.ReactNode;
 }) {
   return (
-    <form action={`/api/auth/signin/${provider}`} method="post">
-      <Button variant="secondary" type="submit" className="w-full">
+    <form>
+      <Button
+        variant="secondary"
+        type="submit"
+        className="w-full"
+        formAction={async () => {
+          "use server";
+          await signIn(provider);
+        }}
+      >
         {props.children}
       </Button>
-      <CSRF_experimental />
     </form>
   );
 }
 
 export function SignOut(props: { children: React.ReactNode }) {
   return (
-    <form action="/api/auth/signout" method="post" className="w-full">
-      <Button variant="secondary" type="submit">
+    <form>
+      <Button
+        variant="secondary"
+        type="submit"
+        formAction={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
         {props.children}
       </Button>
-      <CSRF_experimental />
     </form>
   );
 }

@@ -3,7 +3,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter, createTRPCContext } from "@acme/api";
 import { auth } from "@acme/auth";
 
-export const runtime = "nodejs";
+// export const runtime = "edge";
 
 /**
  * Configure basic CORS headers
@@ -29,7 +29,11 @@ const handler = auth(async (req) => {
     endpoint: "/api/trpc",
     router: appRouter,
     req,
-    createContext: () => createTRPCContext({ auth: req.auth, req }),
+    createContext: () =>
+      createTRPCContext({
+        session: req.auth,
+        headers: req.headers,
+      }),
     onError({ error, path }) {
       console.error(`>>> tRPC Error on '${path}'`, error);
     },

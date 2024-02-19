@@ -7,7 +7,7 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const workspaceRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const workspaces = await ctx.prisma.workspace.findMany({
+    const workspaces = await ctx.db.workspace.findMany({
       where: {
         users: {
           some: {
@@ -34,7 +34,7 @@ export const workspaceRouter = createTRPCRouter({
   byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.workspace.findFirst({
+      return ctx.db.workspace.findFirst({
         where: {
           id: input.id,
           users: {
@@ -56,7 +56,7 @@ export const workspaceRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const isExist = await ctx.prisma.workspace.findFirst({
+      const isExist = await ctx.db.workspace.findFirst({
         where: { name: input.name.toLowerCase() },
       });
 
@@ -67,13 +67,13 @@ export const workspaceRouter = createTRPCRouter({
         });
       }
 
-      const workspace = await ctx.prisma.workspace.create({
+      const workspace = await ctx.db.workspace.create({
         data: {
           name: input.name,
         },
       });
 
-      await ctx.prisma.workspacesMembers.create({
+      await ctx.db.workspacesMembers.create({
         data: {
           permissions: [Role.ADMIN],
           user: { connect: { id: ctx.session.user.id } },
@@ -98,7 +98,7 @@ export const workspaceRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       const { id, ...data } = input;
 
-      return ctx.prisma.workspace.update({
+      return ctx.db.workspace.update({
         where: { id },
         data: data,
       });
@@ -106,13 +106,13 @@ export const workspaceRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const [, workspace] = await ctx.prisma.$transaction([
-        ctx.prisma.workspacesMembers.deleteMany({
+      const [, workspace] = await ctx.db.$transaction([
+        ctx.db.workspacesMembers.deleteMany({
           where: {
             workspaceId: input,
           },
         }),
-        ctx.prisma.workspace.delete({ where: { id: input } }),
+        ctx.db.workspace.delete({ where: { id: input } }),
       ]);
 
       return workspace;

@@ -25,6 +25,7 @@ export default async function WorkspaceLayout({
         </Heading>
         <WorkspaceModal className="col-start-5" />
       </header>
+
       {children}
     </section>
   );
