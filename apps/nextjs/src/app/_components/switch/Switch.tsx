@@ -1,29 +1,38 @@
 "use client";
 
+import type { InputHTMLAttributes } from "react";
 import { useId } from "react";
 import classNames from "classnames";
+import clsx from "clsx";
+import { useFormContext } from "react-hook-form";
 
 import styles from "./Switch.module.scss";
 
+/* Props - <Switch />
+============================================================================= */
+type Props = {
+  name: string;
+  className?: string;
+} & InputHTMLAttributes<HTMLInputElement>;
+
 /* <Switch />
 ============================================================================= */
-const Switch: React.FC<React.HTMLAttributes<HTMLInputElement>> = (props) => {
+const Switch: React.FC<Props> = ({ className, ...props }) => {
   const id = useId();
+  const { register } = useFormContext();
 
   return (
-    <fieldset>
+    <figure className={clsx(className)}>
       <input
+        id={`input-field-${id}`}
         type="checkbox"
-        className={classNames(
-          styles.ios8Switch,
-          "visually-hidden",
-          props.className,
-        )}
-        id={`${id}-checkbox`}
+        className={classNames(styles.ios8Switch, "visually-hidden", className)}
         {...props}
+        {...register(props.name, { required: true })}
       />
-      <label htmlFor={`${id}-checkbox`}>&nbsp;</label>
-    </fieldset>
+
+      <label htmlFor={`input-field-${id}`}>&nbsp;</label>
+    </figure>
   );
 };
 

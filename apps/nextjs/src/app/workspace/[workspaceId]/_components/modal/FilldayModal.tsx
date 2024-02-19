@@ -1,21 +1,21 @@
 "use client";
 
+import type { SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as z from "zod";
 
 import type { RouterOutputs } from "@acme/api";
 
+import type { DayTypes } from "../../_lib/days";
 import Button from "~/app/_components/button";
 import Modal from "~/app/_components/modal/Modal";
 import useConfirm from "~/app/_hooks/useConfirm";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 import { isObjectEmpty } from "../../_lib/common";
-import type { DayTypes } from "../../_lib/days";
 import WorkTypes from "../form/WorkTypes/WorkTypes";
 import { Projects } from "../Projects";
 import ComposedTabs from "../TabPanel";
@@ -82,48 +82,54 @@ const FilldayModal: React.FC<Props> = ({
   workspaceId,
   userId,
 }) => {
-  const context = api.useContext();
+  const utils = api.useUtils();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { mutateAsync: updateSprint, error: updateSprintError } =
-    api.sprint.update.useMutation({
-      async onSuccess() {
-        toast.success("Your report day updated successfully!");
+  const updateSprint = api.sprint.update.useMutation({
+    async onSuccess() {
+      toast.success("Your report day updated successfully!");
 
-        hideModal();
-        await context.sprint.all.invalidate();
-        await context.report.all.invalidate();
-      },
-      onError() {
-        console.error(updateSprintError);
-        // toast.error(error);
-      },
-    });
+      hideModal();
+      await utils.sprint.invalidate();
+      await utils.report.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to update day report"
+          : "Failed to update day report",
+      );
+    },
+  });
 
-  const { mutateAsync: createSprint, error: createSprintError } =
-    api.sprint.create.useMutation({
-      async onSuccess() {
-        toast.success("Your report day create successfully!");
-        hideModal();
+  const createSprint = api.sprint.create.useMutation({
+    async onSuccess() {
+      toast.success("Your report day create successfully!");
+      hideModal();
 
-        await context.sprint.all.invalidate();
-        await context.report.all.invalidate();
-      },
-      onError() {
-        console.error(createSprintError);
-        // toast.error(error);
-      },
-    });
+      await utils.sprint.invalidate();
+      await utils.report.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to create day report"
+          : "Failed to create day report",
+      );
+    },
+  });
 
-  const { mutateAsync: deleteReports, error: deleteReportsError } =
-    api.report.deleteMany.useMutation({
-      async onSuccess() {
-        await context.report.all.invalidate();
-      },
-      onError() {
-        console.error(deleteReportsError);
-        // toast.error(error);
-      },
-    });
+  const deleteReports = api.report.deleteMany.useMutation({
+    async onSuccess() {
+      await utils.report.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete day report"
+          : "Failed to delete day report",
+      );
+    },
+  });
 
   const methods = useForm<FormData>({
     resolver: zodResolver(schemaValidation),
@@ -182,12 +188,12 @@ const FilldayModal: React.FC<Props> = ({
         .map((report) => report.id) ?? [];
 
     if (reportIdsToBeDeleted.length) {
-      await deleteReports(reportIdsToBeDeleted);
+      deleteReports.mutate(reportIdsToBeDeleted);
     }
 
     try {
       if (isObjectEmpty(sprint)) {
-        return await createSprint({
+        return createSprint.mutate({
           ...data,
           userId,
           workspaceId,
@@ -195,7 +201,7 @@ const FilldayModal: React.FC<Props> = ({
         });
       }
 
-      await updateSprint({
+      updateSprint.mutate({
         ...data,
         id: sprint!.id,
         userId,

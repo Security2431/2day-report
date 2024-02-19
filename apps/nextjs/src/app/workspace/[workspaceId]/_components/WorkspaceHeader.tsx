@@ -1,17 +1,38 @@
 "use client";
 
-import { useContext } from "react";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { FormProvider, useForm } from "react-hook-form";
 import { HiOutlineCalendar, HiOutlineClock, HiUserGroup } from "react-icons/hi";
 
 import Button from "~/app/_components/button";
 import Switch from "~/app/_components/switch/Switch";
-import { WeekendContext } from "../providers";
 
 /* <WorkspaceHeader />
 ============================================================================= */
 const WorkspaceHeader = () => {
-  const { weekend, setWeekend } = useContext(WeekendContext);
+  const methods = useForm<{ weekend: boolean }>({
+    defaultValues: {
+      weekend: false,
+    },
+  });
 
+  useEffect(() => {
+    const weekendCookie = Boolean(Cookies.get("weekend"));
+    if (weekendCookie) {
+      methods.setValue("weekend", weekendCookie);
+    }
+  }, [methods]);
+
+  useEffect(() => {
+    const subscription = methods.watch((value) =>
+      Cookies.set("weekend", value.weekend!.toString(), {
+        expires: 365,
+      }),
+    );
+
+    return () => subscription.unsubscribe();
+  });
   return (
     <header className="container flex gap-8 py-8">
       <Button>
@@ -28,10 +49,9 @@ const WorkspaceHeader = () => {
 
       <div className="ml-auto inline-flex items-center">
         <h6 className="text-md mr-2 uppercase">Weekends: </h6>
-        <Switch
-          defaultChecked={weekend}
-          onChange={() => setWeekend((prevState) => !prevState)}
-        />
+        <FormProvider {...methods}>
+          <Switch name="weekend" />
+        </FormProvider>
       </div>
     </header>
   );

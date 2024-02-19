@@ -1,5 +1,7 @@
-import { useCallback } from "react";
+"use client";
+
 import type { ReactNode } from "react";
+import { useCallback } from "react";
 import classNames from "classnames";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
@@ -11,7 +13,7 @@ import type { Session } from "@acme/auth";
 
 import Button from "~/app/_components/button";
 import useConfirm from "~/app/_hooks/useConfirm";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 import { isObjectEmpty } from "../_lib/common";
 import { DayTypes, getDayType } from "../_lib/days";
 import { Markdown } from "./markdown";
@@ -110,21 +112,24 @@ export function ReportList(props: {
 /* <DeleteReport />
 ============================================================================= */
 export const DeleteReport = ({ id }: { id?: string }) => {
-  const context = api.useContext();
+  const utils = api.useUtils();
   const [Dialog, confirmDelete] = useConfirm(
     "Are you sure?",
     "Surely you want delete this report?",
   );
 
-  const { mutateAsync: deleteSprint, error } = api.sprint.delete.useMutation({
+  const deleteSprint = api.sprint.delete.useMutation({
     async onSuccess() {
       toast.success("Your sprint day deleted successfully!");
 
-      await context.sprint.all.invalidate();
+      await utils.sprint.invalidate();
     },
-    onError() {
-      console.error(error);
-      // toast.error(error);
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete sprint"
+          : "Failed to delete sprint",
+      );
     },
   });
 
@@ -132,7 +137,7 @@ export const DeleteReport = ({ id }: { id?: string }) => {
     const ans = await confirmDelete();
 
     if (ans && id) {
-      await deleteSprint(id);
+      deleteSprint.mutate(id);
     }
   }, [confirmDelete, deleteSprint, id]);
 
@@ -261,7 +266,7 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
       {[...Array<never>(2)].map((_, index) => (
         <p
           key={index}
-          className={classNames("mb-2 w-full rounded bg-current text-xxs", {
+          className={classNames("text-xxs mb-2 w-full rounded bg-current", {
             "animate-pulse": pulse,
           })}
         >

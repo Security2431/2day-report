@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import classNames from "classnames";
@@ -8,15 +8,13 @@ import { addWeeks, format, isToday, isValid, parse, subWeeks } from "date-fns";
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 
 import { getDaysOfWeek } from "../_lib/days";
-import { WeekendContext } from "../providers";
 
 /* <WeekList />
 ============================================================================= */
-export const WeekList = () => {
-  const { weekend, weekdays } = useContext(WeekendContext);
+export const WeekList = (props: { weekend: boolean; weekdays: number }) => {
   const [today, setToday] = useState(new Date());
   const pathname = usePathname();
-  const searchParams = useSearchParams()!;
+  const searchParams = useSearchParams();
   const daysOfWeek = getDaysOfWeek(today);
   const { formattedDate: startWeek } = daysOfWeek.at(0)!;
   const { formattedDate: endWeek } = daysOfWeek.at(-1)!;
@@ -44,8 +42,8 @@ export const WeekList = () => {
     <section className="sticky top-0 z-10 mb-8 border-y border-white backdrop-blur">
       <div
         className={classNames("my-4 grid items-stretch gap-4", {
-          "grid-cols-6": !weekend,
-          "grid-cols-8": weekend,
+          "grid-cols-6": !props.weekend,
+          "grid-cols-8": props.weekend,
         })}
       >
         <div className="flex items-center justify-center gap-3 text-2xl font-thin">
@@ -84,7 +82,7 @@ export const WeekList = () => {
             <HiArrowSmRight />
           </Link>
         </div>
-        {daysOfWeek.slice(0, weekdays).map(({ day, date }) => (
+        {daysOfWeek.slice(0, props.weekdays).map(({ day, date }) => (
           <Day key={day} day={day} date={date} />
         ))}
       </div>

@@ -1,37 +1,45 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
 
-import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
+import type { RouterOutputs } from "@acme/api";
+
+import { api } from "~/trpc/react";
 
 export function CreatePostForm() {
-  const context = api.useContext();
+  const utils = api.useUtils();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const { mutateAsync: createPost, error } = api.post.create.useMutation({
+  const createPost = api.post.create.useMutation({
     async onSuccess() {
       setTitle("");
       setContent("");
-      await context.post.all.invalidate();
+      await utils.post.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete a post"
+          : "Failed to delete post",
+      );
     },
   });
 
   return (
     <form
       className="flex w-full max-w-2xl flex-col"
-      onSubmit={async (e) => {
+      onSubmit={(e) => {
         e.preventDefault();
         try {
-          await createPost({
+          createPost.mutate({
             title,
             content,
           });
           setTitle("");
           setContent("");
-          await context.post.all.invalidate();
         } catch {
           // noop
         }
@@ -43,28 +51,15 @@ export function CreatePostForm() {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
       />
-      {error?.data?.zodError?.fieldErrors.title && (
-        <span className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.title}
-        </span>
-      )}
       <input
         className="mb-2 rounded bg-white/10 p-2 text-white"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Content"
       />
-      {error?.data?.zodError?.fieldErrors.content && (
-        <span className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.content}
-        </span>
-      )}
       <button type="submit" className="rounded bg-pink-400 p-2 font-bold">
         Create
       </button>
-      {error?.data?.code === "UNAUTHORIZED" && (
-        <span className="mt-2 text-red-500">You must be logged in to post</span>
-      )}
     </form>
   );
 }
@@ -98,8 +93,19 @@ export function PostList() {
 export function PostCard(props: {
   post: RouterOutputs["post"]["all"][number];
 }) {
-  const context = api.useContext();
-  const deletePost = api.post.delete.useMutation();
+  const utils = api.useUtils();
+  const deletePost = api.post.delete.useMutation({
+    onSuccess: async () => {
+      await utils.post.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete a post"
+          : "Failed to delete post",
+      );
+    },
+  });
 
   return (
     <div className="flex flex-row rounded-lg bg-white/10 p-4 transition-all hover:scale-[101%]">
@@ -111,8 +117,7 @@ export function PostCard(props: {
         <button
           className="cursor-pointer text-sm font-bold uppercase text-pink-400"
           onClick={async () => {
-            await deletePost.mutateAsync(props.post.id);
-            await context.post.all.invalidate();
+            deletePost.mutate(props.post.id);
           }}
         >
           Delete

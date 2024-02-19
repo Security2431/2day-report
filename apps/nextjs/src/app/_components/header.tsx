@@ -11,8 +11,6 @@ import Logo from "./logo";
 const Header = async () => {
   const session = await auth();
 
-  console.log("---------", session);
-
   return (
     <div className="container flex items-center justify-between py-8">
       <Link href={routes.home}>

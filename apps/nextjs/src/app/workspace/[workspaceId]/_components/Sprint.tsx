@@ -1,48 +1,60 @@
 "use client";
 
-import React, { useContext, useMemo } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import React, { use, useMemo } from "react";
 import classNames from "classnames";
 import { isSameDay } from "date-fns";
 
+import type { RouterOutputs } from "@acme/api";
 import type { Session } from "@acme/auth";
 
 import Avatar from "~/app/_components/avatar";
-import type { RouterOutputs } from "~/utils/api";
-import { api } from "~/utils/api";
-import { getDaysOfWeek } from "../_lib/days";
-import { WeekendContext } from "../providers";
+import { api } from "~/trpc/react";
+import { getDaysOfWeek, getWeekdays } from "../_lib/days";
 import { ReportList } from "./reports";
-
-/* Props = <Sprint />
-============================================================================= */
-interface Props {
-  session: Session;
-}
 
 /* <Sprint />
 ============================================================================= */
-export const Sprint: React.FC<Props> = ({ session }) => {
-  const params = useParams<{ workspaceId: string }>();
-  const searchParams = useSearchParams();
-  const { weekend, weekdays: showDaysPerWeek } = useContext(WeekendContext);
+export const Sprint = (props: {
+  session: Session;
+  users: Promise<RouterOutputs["user"]["byWorkspaceId"]>;
+  projects: Promise<RouterOutputs["project"]["byWorkspaceId"]>;
+  sprints: Promise<RouterOutputs["sprint"]["byDateRange"]>;
+  weekend: boolean;
+  workspaceId: string;
+  today: string;
+}) => {
+  const showDaysPerWeek = getWeekdays(props.weekend);
+  const weekdays = getDaysOfWeek(props.today);
 
-  const date = searchParams.get("today");
-  const weekdays = getDaysOfWeek(date);
+  // TODO: Make `useSuspenseQuery` work without having to pass a promise from RSC
+  const { data: users } = api.user.byWorkspaceId.useQuery(
+    {
+      workspaceId: props.workspaceId,
+    },
+    {
+      initialData: use(props.users),
+    },
+  );
 
-  const [users] = api.user.byWorkspaceId.useSuspenseQuery({
-    workspaceId: params.workspaceId,
-  });
+  const { data: projects } = api.project.byWorkspaceId.useQuery(
+    {
+      id: props.workspaceId,
+    },
+    {
+      initialData: use(props.projects),
+    },
+  );
 
-  const [sprints] = api.sprint.byDateRange.useSuspenseQuery({
-    from: weekdays.at(0)!.date,
-    to: weekdays.at(-1)!.date,
-    workspaceId: params.workspaceId,
-  });
-
-  const [projects] = api.project.byWorkspaceId.useSuspenseQuery({
-    id: params.workspaceId,
-  });
+  const { data: sprints } = api.sprint.byDateRange.useQuery(
+    {
+      from: weekdays.at(0)!.date,
+      to: weekdays.at(-1)!.date,
+      workspaceId: props.workspaceId,
+    },
+    {
+      initialData: use(props.sprints),
+    },
+  );
 
   const sortedUsers = useMemo(() => {
     const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
@@ -56,11 +68,14 @@ export const Sprint: React.FC<Props> = ({ session }) => {
 
       const filteredUsers = users.filter((p) => p.id !== userId);
       // add it at the beginning
-      return [{ ...user }, ...filteredUsers];
+      return [
+        { ...user },
+        ...filteredUsers,
+      ] as RouterOutputs["user"]["byWorkspaceId"];
     };
 
-    return movePersonInArray(session.user.id, sortedUsers);
-  }, [users, session]);
+    return movePersonInArray(props.session.user.id, sortedUsers);
+  }, [users, props.session]);
 
   return (
     <article>
@@ -68,8 +83,8 @@ export const Sprint: React.FC<Props> = ({ session }) => {
         <section
           key={user.id}
           className={classNames("my-4 grid items-start gap-4", {
-            "grid-cols-6": !weekend,
-            "grid-cols-8": weekend,
+            "grid-cols-6": !props.weekend,
+            "grid-cols-8": props.weekend,
           })}
         >
           <div className="sticky bottom-4 top-36 flex h-24 flex-col items-center">
@@ -86,9 +101,9 @@ export const Sprint: React.FC<Props> = ({ session }) => {
                   sprint.user.id === user.id,
               )}
               projects={projects}
-              workspaceId={params.workspaceId}
-              isAuth={session.user.id === user.id}
-              session={session}
+              workspaceId={props.workspaceId}
+              isAuth={props.session.user.id === user.id}
+              session={props.session}
               user={user}
             />
           ))}

@@ -4,10 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
+import { toast } from "react-toastify";
 
 import Button from "~/app/_components/button";
 import useOutsideClick from "~/app/_hooks/useOutsideClick";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 interface Props {
   sprintId: string;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
-  const context = api.useContext();
+  const utils = api.useUtils();
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(() => {
     setOpen(false);
@@ -33,25 +34,31 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
     {} as Record<string, number>,
   );
 
-  const { mutateAsync: createReaction, error: createReactionError } =
-    api.reaction.create.useMutation({
-      async onSuccess() {
-        await context.reaction.all.invalidate();
-      },
-      onError() {
-        console.error(createReactionError);
-      },
-    });
+  const createReaction = api.reaction.create.useMutation({
+    async onSuccess() {
+      await utils.reaction.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to add reaction"
+          : "Failed to add reaction",
+      );
+    },
+  });
 
-  const { mutateAsync: deleteReaction, error: deleteReactionError } =
-    api.reaction.delete.useMutation({
-      async onSuccess() {
-        await context.reaction.all.invalidate();
-      },
-      onError() {
-        console.error(deleteReactionError);
-      },
-    });
+  const deleteReaction = api.reaction.delete.useMutation({
+    async onSuccess() {
+      await utils.reaction.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete reaction"
+          : "Failed to delete reaction",
+      );
+    },
+  });
 
   const handleClick = async (unified: string) => {
     setOpen(false);
@@ -64,14 +71,14 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
     );
 
     if (!reaction?.id) {
-      return createReaction({
+      return createReaction.mutate({
         unified,
         sprintId,
         userId,
       });
     }
 
-    return deleteReaction(reaction.id);
+    return deleteReaction.mutate(reaction.id);
   };
 
   const uniqueReactions = [...new Set(reactions.map(({ unified }) => unified))];

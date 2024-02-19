@@ -45,8 +45,8 @@ const WorkspaceModal: React.FC<Props> = ({ className }) => {
     onError: (err) => {
       toast.error(
         err?.data?.code === "UNAUTHORIZED"
-          ? "You must be logged in to delete a post"
-          : "Failed to delete post",
+          ? "You must be logged in to create workspace"
+          : "Failed to create workspace",
       );
     },
   });

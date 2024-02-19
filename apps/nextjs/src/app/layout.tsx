@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import classNames from "classnames";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { ToastContainer } from "react-toastify";
 
 import { env } from "~/env";
 import { TRPCReactProvider } from "~/trpc/react";
-
-import classNames from "classnames";
-import Header from "./_components/header";
 import Footer from "./_components/footer";
-import { ToastContainer } from "react-toastify";
+import Header from "./_components/header";
 
 import "~/app/globals.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={classNames(
           "min-h-screen bg-background font-sans text-foreground antialiased",
@@ -51,7 +51,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ToastContainer theme="dark" autoClose={3000} />
-        
+
         <TRPCReactProvider>
           <header className="header">
             <Header />
@@ -68,4 +68,3 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     </html>
   );
 }
-
