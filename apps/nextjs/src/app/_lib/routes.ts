@@ -10,6 +10,8 @@ const routes = {
   404: "/404",
   500: "/500",
   thankYou: "/thank-you",
+  workspace: (id: string) => `/workspace/${id}`,
+  workspaceSettings: (id: string) => `/workspace/${id}/settings`,
 };
 
 export default routes;
