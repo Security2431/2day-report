@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -101,7 +101,7 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
         {uniqueReactions.map((unified) => (
           <Button
             variant="base"
-            className={classNames(
+            className={clsx(
               "text-md rounded-full border border-white px-2 py-1 text-xs",
               {
                 "bg-blue-500 hover:bg-blue-300": reactions.find(

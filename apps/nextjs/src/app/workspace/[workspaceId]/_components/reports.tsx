@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useCallback } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
@@ -59,7 +59,7 @@ export function ReportList(props: {
   return (
     <ReportCard>
       <h6 className="mb-2 flex items-center">
-        <GoDotFill className={classNames("text-md", dayType.color)} />
+        <GoDotFill className={clsx("text-md", dayType.color)} />
         {dayType.name}
         {props.isAuth && <DeleteReport id={props.sprint?.id} />}
       </h6>
@@ -163,7 +163,7 @@ export const ReportCard = (props: {
 }) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         "flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4",
         props.className,
       )}
@@ -211,12 +211,12 @@ export const ReportCardSkeleton: React.FC<Props> = ({ pulse = true }) => {
     <div className="min-h-[12rem] rounded border border-white px-3 py-2 text-white shadow">
       <h6 className="mb-4 flex items-center">
         <GoDotFill
-          className={classNames("text-md mr-2", {
+          className={clsx("text-md mr-2", {
             "animate-pulse": pulse,
           })}
         />
         <span
-          className={classNames(
+          className={clsx(
             "w-3/4 rounded bg-current text-sm font-bold uppercase",
             {
               "animate-pulse": pulse,
@@ -240,7 +240,7 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
     <section className="mb-4">
       <header className="mb-4 flex items-center gap-2 text-sm">
         <picture
-          className={classNames(
+          className={clsx(
             "h-5 w-5 flex-none overflow-hidden rounded-full border bg-pink-400",
             {
               "animate-pulse": pulse,
@@ -248,14 +248,14 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
           )}
         />
         <p
-          className={classNames("mb-0 w-3/4 rounded bg-current text-sm", {
+          className={clsx("mb-0 w-3/4 rounded bg-current text-sm", {
             "animate-pulse": pulse,
           })}
         >
           &nbsp;
         </p>
         <span
-          className={classNames("w-1/4 rounded bg-current text-xs", {
+          className={clsx("w-1/4 rounded bg-current text-xs", {
             "animate-pulse": pulse,
           })}
         >
@@ -266,7 +266,7 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
       {[...Array<never>(2)].map((_, index) => (
         <p
           key={index}
-          className={classNames("text-xxs mb-2 w-full rounded bg-current", {
+          className={clsx("text-xxs mb-2 w-full rounded bg-current", {
             "animate-pulse": pulse,
           })}
         >
@@ -283,7 +283,7 @@ export const ReportPictureSkeleton: React.FC<Props> = ({ pulse = true }) => {
   return (
     <div className="sticky bottom-4 top-36 flex h-24 flex-col items-center">
       <picture
-        className={classNames(
+        className={clsx(
           "mb-4 h-12 w-12 overflow-hidden rounded-full border bg-pink-400",
           {
             "animate-pulse": pulse,
@@ -291,7 +291,7 @@ export const ReportPictureSkeleton: React.FC<Props> = ({ pulse = true }) => {
         )}
       />
       <h2
-        className={classNames("w-1/3 rounded bg-current font-bold uppercase", {
+        className={clsx("w-1/3 rounded bg-current font-bold uppercase", {
           "animate-pulse": pulse,
         })}
       >

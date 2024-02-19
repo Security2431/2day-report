@@ -3,7 +3,7 @@
 import type { SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import classNames from "classnames";
+import clsx from "clsx";
 import { FormProvider, useForm } from "react-hook-form";
 import { HiPlus } from "react-icons/hi";
 import { toast } from "react-toastify";
@@ -76,7 +76,7 @@ const WorkspaceModal: React.FC<Props> = ({ className }) => {
 
   return (
     <>
-      <Button className={classNames(className)} onClick={showModal}>
+      <Button className={clsx(className)} onClick={showModal}>
         <HiPlus className="mr-2" /> Add new workspace
       </Button>
 

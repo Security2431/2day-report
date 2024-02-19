@@ -1,9 +1,9 @@
 import React, { useId } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
 
-import { DayTypes, getDayType } from "../../../_lib/days";
 import type { FormData } from "../../modal/FilldayModal";
+import { DayTypes, getDayType } from "../../../_lib/days";
 import styles from "./WorkTypes.module.scss";
 
 /* Props - <WorkTypes />
@@ -27,7 +27,7 @@ const WorkTypes: React.FC<Props> = ({ workType }) => {
           return (
             <fieldset className="text-center" key={daytype}>
               <input
-                className={classNames("visually-hidden", styles.radio)}
+                className={clsx("visually-hidden", styles.radio)}
                 id={`${id}-work-types-${index}`}
                 type="radio"
                 defaultChecked={daytype === workType}

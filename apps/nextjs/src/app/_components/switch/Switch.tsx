@@ -2,7 +2,6 @@
 
 import type { InputHTMLAttributes } from "react";
 import { useId } from "react";
-import classNames from "classnames";
 import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
 
@@ -26,7 +25,7 @@ const Switch: React.FC<Props> = ({ className, ...props }) => {
       <input
         id={`input-field-${id}`}
         type="checkbox"
-        className={classNames(styles.ios8Switch, "visually-hidden", className)}
+        className={clsx(styles.ios8Switch, "visually-hidden", className)}
         {...props}
         {...register(props.name, { required: true })}
       />

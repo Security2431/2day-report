@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import classNames from "classnames";
+import clsx from "clsx";
 import { addWeeks, format, isToday, isValid, parse, subWeeks } from "date-fns";
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 
@@ -41,7 +41,7 @@ export const WeekList = (props: { weekend: boolean; weekdays: number }) => {
   return (
     <section className="sticky top-0 z-10 mb-8 border-y border-white backdrop-blur">
       <div
-        className={classNames("my-4 grid items-stretch gap-4", {
+        className={clsx("my-4 grid items-stretch gap-4", {
           "grid-cols-6": !props.weekend,
           "grid-cols-8": props.weekend,
         })}
@@ -102,7 +102,7 @@ interface DayProps {
 export const Day: React.FC<DayProps> = ({ day, date }) => {
   return (
     <span
-      className={classNames(
+      className={clsx(
         "m-auto flex h-24 w-24 items-center justify-center self-center rounded-full p-3  text-6xl font-thin",
         {
           "bg-white text-purple-500": isToday(date),

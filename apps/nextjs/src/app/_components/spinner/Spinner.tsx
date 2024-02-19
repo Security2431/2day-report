@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import styles from "./Spinner.module.scss";
 
@@ -15,7 +15,7 @@ interface Props {
 const Spinner: React.FC<Props> = ({ isFullScreen, className }) => {
   return (
     <i
-      className={classNames(styles.icon, className, {
+      className={clsx(styles.icon, className, {
         [styles.fullscreen!]: isFullScreen,
       })}
       aria-hidden="true"

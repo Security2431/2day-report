@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import classNames from "classnames";
+import clsx from "clsx";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { ToastContainer } from "react-toastify";
@@ -44,7 +44,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={classNames(
+        className={clsx(
           "min-h-screen bg-background font-sans text-foreground antialiased",
           GeistSans.variable,
           GeistMono.variable,

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import { auth } from "@acme/auth";
 
@@ -50,7 +50,7 @@ export default async function WorkspacePage({
     <Suspense
       fallback={
         <div
-          className={classNames("my-4 grid items-stretch gap-4", {
+          className={clsx("my-4 grid items-stretch gap-4", {
             "grid-cols-6": !weekend,
             "grid-cols-8": weekend,
           })}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { use, useMemo } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import { isSameDay } from "date-fns";
 
 import type { RouterOutputs } from "@acme/api";
@@ -82,7 +82,7 @@ export const Sprint = (props: {
       {sortedUsers.map((user) => (
         <section
           key={user.id}
-          className={classNames("my-4 grid items-start gap-4", {
+          className={clsx("my-4 grid items-start gap-4", {
             "grid-cols-6": !props.weekend,
             "grid-cols-8": props.weekend,
           })}

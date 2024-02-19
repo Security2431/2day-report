@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 import React, { forwardRef } from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import Spinner from "./spinner/Spinner";
 
@@ -32,7 +32,7 @@ const Button = forwardRef<Ref, Props>(
   ) => (
     <button
       ref={ref}
-      className={classNames(
+      className={clsx(
         "inline-flex cursor-pointer select-none items-center justify-center rounded text-center align-middle font-sans font-semibold uppercase transition-colors disabled:pointer-events-none disabled:opacity-70",
         {
           "border border-white bg-transparent px-4 py-2 text-white no-underline hover:border-transparent hover:bg-white  hover:text-purple-500":
