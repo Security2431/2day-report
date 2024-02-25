@@ -146,6 +146,7 @@ const FilldayModal: React.FC<Props> = ({
           description: report.description ?? initialFormValues.description,
           reportId: report.id ?? initialFormValues.reportId,
         })) ?? [],
+      mood: sprint?.mood ?? initialFormValues.mood,
     },
   });
 
