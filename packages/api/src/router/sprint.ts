@@ -24,6 +24,7 @@ export const sprintRouter = createTRPCRouter({
           date: true,
           type: true,
           tomorrowsDescription: true,
+          mood: true,
           reports: {
             select: {
               id: true,
@@ -81,6 +82,7 @@ export const sprintRouter = createTRPCRouter({
             }),
           )
           .default([]),
+        mood: z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {
@@ -91,6 +93,7 @@ export const sprintRouter = createTRPCRouter({
           date: input.date,
           tomorrowsDescription: input.tomorrowsDescription,
           type: input.type,
+          mood: input.mood,
           // Include reports only if there are any to be created
           ...(input.reports?.length > 0 && {
             reports: {
@@ -139,6 +142,7 @@ export const sprintRouter = createTRPCRouter({
             }),
           )
           .default([]),
+        mood: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -150,6 +154,7 @@ export const sprintRouter = createTRPCRouter({
           date: input.date,
           tomorrowsDescription: input.tomorrowsDescription,
           type: input.type,
+          mood: input.mood,
         },
         select: {
           id: true,

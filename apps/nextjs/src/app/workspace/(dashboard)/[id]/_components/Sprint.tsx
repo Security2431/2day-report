@@ -88,7 +88,7 @@ export const Sprint = (props: {
           })}
         >
           <div className="sticky bottom-4 top-36 flex h-24 flex-col items-center">
-            <Avatar src={user.image!} alt="" />
+            <Avatar src={user.image} alt="" />
             <h4>{user.name}</h4>
           </div>
           {weekdays.slice(0, showDaysPerWeek).map((weekday) => (
