@@ -97,7 +97,7 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
 
   return (
     <section className="relative">
-      <div className="flex gap-1">
+      <div className="flex flex-wrap gap-1">
         {uniqueReactions.map((unified) => (
           <Button
             variant="base"

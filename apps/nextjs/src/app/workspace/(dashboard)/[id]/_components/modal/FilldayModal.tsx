@@ -47,6 +47,7 @@ const schemaValidation = z.object({
       reportId: z.string().optional(),
     }),
   ),
+  mood: z.string().optional(),
 });
 
 export const initialFormValues = {

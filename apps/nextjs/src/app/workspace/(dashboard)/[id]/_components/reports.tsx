@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useCallback } from "react";
 import clsx from "clsx";
+import { Emoji } from "emoji-picker-react";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
@@ -58,6 +59,12 @@ export function ReportList(props: {
 
   return (
     <ReportCard>
+      {props.sprint?.mood && (
+        <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+          <Emoji unified={props.sprint.mood} size={18} />
+        </span>
+      )}
+
       <h6 className="mb-2 flex items-center">
         <GoDotFill className={clsx("text-md", dayType.color)} />
         {dayType.name}
@@ -164,7 +171,7 @@ export const ReportCard = (props: {
   return (
     <div
       className={clsx(
-        "flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4",
+        "relative flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4",
         props.className,
       )}
     >

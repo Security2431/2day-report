@@ -206,6 +206,7 @@ model Sprint {
   date                 DateTime
   type                 DayType
   tomorrowsDescription String?
+  mood                 String?
   createdAt            DateTime   @default(now())
   updatedAt            DateTime   @updatedAt
   reports              Report[]
