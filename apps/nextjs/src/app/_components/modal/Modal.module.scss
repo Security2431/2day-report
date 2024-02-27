@@ -4,7 +4,6 @@
 
 .modal {
   @apply fixed inset-4 z-50 m-auto flex h-fit flex-col rounded bg-white bg-opacity-5 text-white backdrop-blur;
-  max-width: 800px;
   min-height: 350px;
   max-height: calc(100% - 30px);
 }
