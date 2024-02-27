@@ -73,7 +73,7 @@ const TabPanels: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { activeIndex } = useContext(TabsContext);
 
   return (
-    <div>
+    <div className="flex flex-col">
       {React.Children.map(children, (child, i) =>
         i === activeIndex ? child : null,
       )}

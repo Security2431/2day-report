@@ -2,9 +2,9 @@
 import type { AnimationProps } from "framer-motion";
 import type { PropsWithChildren } from "react";
 import React, { useCallback, useEffect, useId } from "react";
-import cn from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { RxCross2 } from "react-icons/rx";
+import { twMerge } from "tailwind-merge";
 
 import Heading from "../heading";
 import styles from "./Modal.module.scss";
@@ -46,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({
   const headingId = useId();
 
   // Combine the modal class names from the props and the default class names
-  const modalMainClassName = cn(styles.modal, modalClassName);
+  const modalMainClassName = twMerge("max-w-4xl", styles.modal, modalClassName);
 
   const modalAnimation = shouldReduceMotion ? {} : animation;
   const modalBackdropAnimation = shouldReduceMotion ? {} : backdropAnimation;

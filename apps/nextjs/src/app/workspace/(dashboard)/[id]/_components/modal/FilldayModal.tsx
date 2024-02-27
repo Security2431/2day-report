@@ -222,6 +222,7 @@ const FilldayModal: React.FC<Props> = ({
       </Button>
 
       <Modal
+        modalClassName="max-w-5xl"
         isVisible={modalVisible}
         heading={
           <>
@@ -236,28 +237,36 @@ const FilldayModal: React.FC<Props> = ({
         onClickBackdrop={handleCancelBtnClick}
       >
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <WorkTypes workType={sprint?.type} />
-            <hr className="mb-4 w-full bg-white" />
-            <article className="mb-4 flex w-full gap-12">
-              <Projects
-                fieldArrays={{
-                  reports: fieldArraysMethods,
-                }}
-                projects={projects}
-              />
-              <ComposedTabs
-                fieldArrays={{
-                  reports: fieldArraysMethods,
-                }}
-              />
-            </article>
-            <footer className="relative mt-auto flex flex-shrink justify-between gap-4 self-stretch">
+          <form
+            className="grid-flow relative grid gap-4"
+            onSubmit={methods.handleSubmit(onSubmit)}
+          >
+            <Projects
+              className="sticky top-0 col-start-1 row-start-1 self-start"
+              fieldArrays={{
+                reports: fieldArraysMethods,
+              }}
+              projects={projects}
+            />
+            <div className="h-full w-[1px] flex-none bg-white">&nbsp;</div>
+
+            <div className="col-start-3 row-start-1">
+              <WorkTypes className="w-full" workType={sprint?.type} />
+              <hr className="mb-4 w-full bg-white" />
+              <article className="mb-4 flex w-full gap-12">
+                <ComposedTabs
+                  fieldArrays={{
+                    reports: fieldArraysMethods,
+                  }}
+                />
+              </article>
+            </div>
+            <footer className="relative col-span-3 row-start-2 mt-auto flex w-full flex-shrink justify-between gap-4 self-stretch">
               <TomorrowsDescription />
               <Button onClick={handleCancelBtnClick}>Cancel</Button>
               <Button type="submit">Save</Button>
+              <Dialog />
             </footer>
-            <Dialog />
           </form>
         </FormProvider>
       </Modal>

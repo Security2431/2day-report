@@ -10,16 +10,17 @@ import styles from "./WorkTypes.module.scss";
 ============================================================================= */
 interface Props {
   workType?: keyof typeof DayTypes;
+  className?: string;
 }
 
 /* <WorkTypes />
 ============================================================================= */
-const WorkTypes: React.FC<Props> = ({ workType }) => {
+const WorkTypes: React.FC<Props> = ({ workType, className }) => {
   const id = useId();
   const { register } = useFormContext<FormData>(); // retrieve all hook methods
 
   return (
-    <section className="mb-4 grid grid-cols-4 gap-4">
+    <section className={clsx("mb-4 grid grid-cols-4 gap-4", className)}>
       {(Object.keys(DayTypes) as (keyof typeof DayTypes)[]).map(
         (daytype, index) => {
           const Icon = getDayType(DayTypes[daytype])?.icon;
