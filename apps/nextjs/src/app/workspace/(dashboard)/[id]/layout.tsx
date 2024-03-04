@@ -6,6 +6,7 @@ import { auth } from "@acme/auth";
 import routes from "~/app/_lib/routes";
 import { WeekList } from "./_components/WeekList";
 import WorkspaceHeader from "./_components/WorkspaceHeader";
+import WorkspaceTimer from "./_components/WorkspaceTimer";
 import { getWeekdays } from "./_lib/days";
 
 export default async function WorkspaceLayout({
@@ -24,6 +25,7 @@ export default async function WorkspaceLayout({
 
   return (
     <section>
+      <WorkspaceTimer />
       <WorkspaceHeader />
       <WeekList weekend={weekend} weekdays={weekdays} />
 

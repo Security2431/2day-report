@@ -10,6 +10,7 @@ import { Role } from "@acme/db";
 import Button from "~/app/_components/button";
 import Heading from "~/app/_components/heading";
 import { NO_AVATAR_IMG } from "~/app/_lib/constants";
+import routes from "~/app/_lib/routes";
 
 /* <WorkspaceCard />
 ============================================================================= */
@@ -43,7 +44,7 @@ const WorkspaceCard: React.FC<Props> = (props) => {
         {props.workspace.people}{" "}
         {props.workspace.people > 1 ? "people" : "person"}
       </span>
-      <Link href={`/workspace/${props.workspace.id}`}>
+      <Link href={routes.workspace(props.workspace.id)}>
         <Button>
           <HiOutlineArrowRight className="mr-2" /> Enter
         </Button>
