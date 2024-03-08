@@ -24,27 +24,14 @@ body {
 
 body {
   @apply relative grid min-h-screen bg-gradient-to-b from-[#2e026d] to-[#15162c];
-  // grid-template-rows: auto 1fr auto; // Header, Main, Footer
+  grid-template-rows: auto 1fr auto; // Header, Main, Footer
 
   grid-template-columns: 1fr;
-  grid-template-areas: "header" "main" "footer";
-  grid-template-rows: 100px 1fr 100px;
+  grid-template-rows: auto 1fr auto;
 }
 
 p {
   @apply mb-6 leading-normal;
-}
-
-.header {
-  grid-area: header;
-}
-
-.main {
-  grid-area: main;
-}
-
-.footer {
-  grid-area: footer;
 }
 
 ::backdrop {

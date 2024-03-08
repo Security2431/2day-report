@@ -171,7 +171,7 @@ export const ReportCard = (props: {
   return (
     <div
       className={clsx(
-        "relative flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4",
+        "relative flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4 w-full",
         props.className,
       )}
     >
@@ -215,7 +215,7 @@ export const ReportRow = (props: {
 ============================================================================= */
 export const ReportCardSkeleton: React.FC<Props> = ({ pulse = true }) => {
   return (
-    <div className="min-h-[12rem] rounded border border-white px-3 py-2 text-white shadow">
+    <div className="min-h-[12rem] rounded border border-white px-3 py-2 text-white shadow w-full">
       <h6 className="mb-4 flex items-center">
         <GoDotFill
           className={clsx("text-md mr-2", {

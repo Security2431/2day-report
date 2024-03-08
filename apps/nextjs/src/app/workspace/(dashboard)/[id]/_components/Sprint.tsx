@@ -78,18 +78,15 @@ export const Sprint = (props: {
   }, [users, props.session]);
 
   return (
-    <article>
+    <>
       {sortedUsers.map((user) => (
         <section
           key={user.id}
-          className={clsx("my-4 grid items-start gap-4", {
-            "grid-cols-6": !props.weekend,
-            "grid-cols-8": props.weekend,
-          })}
+          className={clsx("my-4 flex items-start justify-stretch gap-3 px-3")}
         >
-          <div className="sticky bottom-4 top-36 flex h-24 flex-col items-center">
+          <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center">
             <Avatar src={user.image} alt="" />
-            <h4>{user.name}</h4>
+            <h4 className="truncate">{user.name}</h4>
           </div>
           {weekdays.slice(0, showDaysPerWeek).map((weekday) => (
             <ReportList
@@ -109,6 +106,6 @@ export const Sprint = (props: {
           ))}
         </section>
       ))}
-    </article>
+    </>
   );
 };

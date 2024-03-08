@@ -50,19 +50,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
+        <TRPCReactProvider>{props.children}</TRPCReactProvider>
+
         <ToastContainer theme="dark" autoClose={3000} />
-
-        <TRPCReactProvider>
-          <header className="header">
-            <Header />
-          </header>
-          <main className="main">{props.children}</main>
-
-          <footer className="footer flex items-end">
-            <Footer />
-          </footer>
-        </TRPCReactProvider>
-
         <div id="modal"></div>
       </body>
     </html>
