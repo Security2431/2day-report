@@ -84,9 +84,9 @@ export const Sprint = (props: {
           key={user.id}
           className={clsx("my-4 flex items-start justify-stretch gap-3 px-3")}
         >
-          <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center">
+          <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center text-center">
             <Avatar src={user.image} alt="" />
-            <h4 className="truncate">{user.name}</h4>
+            <h4 className="w-full truncate">{user.name}</h4>
           </div>
           {weekdays.slice(0, showDaysPerWeek).map((weekday) => (
             <ReportList

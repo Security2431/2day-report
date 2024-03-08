@@ -171,7 +171,7 @@ export const ReportCard = (props: {
   return (
     <div
       className={clsx(
-        "relative flex min-h-[12rem] flex-col gap-2 rounded border border-white p-4 w-full",
+        "relative flex min-h-[12rem] w-full flex-col gap-2 rounded border border-white p-4",
         props.className,
       )}
     >
@@ -215,7 +215,7 @@ export const ReportRow = (props: {
 ============================================================================= */
 export const ReportCardSkeleton: React.FC<Props> = ({ pulse = true }) => {
   return (
-    <div className="min-h-[12rem] rounded border border-white px-3 py-2 text-white shadow w-full">
+    <div className="min-h-[12rem] w-full rounded border border-white px-3 py-2 text-white shadow">
       <h6 className="mb-4 flex items-center">
         <GoDotFill
           className={clsx("text-md mr-2", {
@@ -288,7 +288,7 @@ export const DayReportSkeleton: React.FC<Props> = ({ pulse = true }) => {
 ============================================================================= */
 export const ReportPictureSkeleton: React.FC<Props> = ({ pulse = true }) => {
   return (
-    <div className="sticky bottom-4 top-36 flex h-24 flex-col items-center">
+    <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center">
       <picture
         className={clsx(
           "mb-4 h-12 w-12 overflow-hidden rounded-full border bg-pink-400",

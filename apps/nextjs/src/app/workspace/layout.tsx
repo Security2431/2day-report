@@ -7,7 +7,7 @@ export default async function WorkspaceLayout({
 }) {
   return (
     <div className="flex h-full">
-      {/* <Navigation /> */}
+      <Navigation />
 
       <article className="flex-1">{children}</article>
     </div>
