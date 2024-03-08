@@ -1,5 +1,6 @@
 const routes = {
   home: "/",
+  timeZones: "/timezones",
   login: "/sign-in",
   forgotPassword: "/forgot-password",
   confirmEmail: "/confirm-email",

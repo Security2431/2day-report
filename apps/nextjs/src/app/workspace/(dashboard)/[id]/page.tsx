@@ -24,7 +24,7 @@ export default async function WorkspacePage({
   const session = await auth();
 
   const cookieStore = cookies();
-  const weekend = Boolean(cookieStore.get("weekend"));
+  const weekend = JSON.parse(cookieStore.get("weekend")?.value ?? null);
 
   const today = searchParams?.today as string;
   const weekdays = getDaysOfWeek(today);
@@ -53,10 +53,9 @@ export default async function WorkspacePage({
           {[...Array<number>(2)].map((_, index) => (
             <div
               key={index}
-              className={clsx("my-4 grid items-stretch gap-4", {
-                "grid-cols-6": !weekend,
-                "grid-cols-8": weekend,
-              })}
+              className={clsx(
+                "my-4 flex items-start justify-stretch gap-3 px-3",
+              )}
             >
               <ReportPictureSkeleton />
               {cards.map((_, index) => (
