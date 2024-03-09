@@ -7,10 +7,10 @@ import { Emoji } from "emoji-picker-react";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
-import { toast } from "react-toastify";
 
 import type { RouterOutputs } from "@acme/api";
 import type { Session } from "@acme/auth";
+import { toast } from "@acme/ui/toast";
 
 import Button from "~/app/_components/button";
 import useConfirm from "~/app/_hooks/useConfirm";

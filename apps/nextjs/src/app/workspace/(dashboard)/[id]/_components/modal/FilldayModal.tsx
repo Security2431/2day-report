@@ -5,10 +5,10 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import * as z from "zod";
 
 import type { RouterOutputs } from "@acme/api";
+import { toast } from "@acme/ui/toast";
 
 import type { DayTypes } from "../../_lib/days";
 import Button from "~/app/_components/button";

@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
-import { toast } from "react-toastify";
+
+import { toast } from "@acme/ui/toast";
 
 import Button from "~/app/_components/button";
 import useOutsideClick from "~/app/_hooks/useOutsideClick";

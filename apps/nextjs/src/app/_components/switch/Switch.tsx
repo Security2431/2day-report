@@ -2,8 +2,9 @@
 
 import type { InputHTMLAttributes } from "react";
 import { useId } from "react";
-import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
+
+import { cn } from "@acme/ui";
 
 import styles from "./Switch.module.scss";
 
@@ -21,11 +22,11 @@ const Switch: React.FC<Props> = ({ className, ...props }) => {
   const { register } = useFormContext();
 
   return (
-    <figure className={clsx(className)}>
+    <figure className={cn(className)}>
       <input
         id={`input-field-${id}`}
         type="checkbox"
-        className={clsx(styles.ios8Switch, "visually-hidden", className)}
+        className={cn(styles.ios8Switch, "sr-only", className)}
         {...props}
         {...register(props.name, { required: true })}
       />

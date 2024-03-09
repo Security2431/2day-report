@@ -6,8 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import { FormProvider, useForm } from "react-hook-form";
 import { HiPlus } from "react-icons/hi";
-import { toast } from "react-toastify";
 import * as z from "zod";
+
+import { toast } from "@acme/ui/toast";
 
 import Button from "~/app/_components/button";
 import Field from "~/app/_components/form/Field";

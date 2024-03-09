@@ -1,6 +1,7 @@
 import React, { useId } from "react";
-import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
+
+import { cn } from "@acme/ui";
 
 import type { FormData } from "../../modal/FilldayModal";
 import { DayTypes, getDayType } from "../../../_lib/days";
@@ -20,7 +21,7 @@ const WorkTypes: React.FC<Props> = ({ workType, className }) => {
   const { register } = useFormContext<FormData>(); // retrieve all hook methods
 
   return (
-    <section className={clsx("mb-4 grid grid-cols-4 gap-4", className)}>
+    <section className={cn("mb-4 grid grid-cols-4 gap-4", className)}>
       {(Object.keys(DayTypes) as (keyof typeof DayTypes)[]).map(
         (daytype, index) => {
           const Icon = getDayType(DayTypes[daytype])?.icon;
@@ -28,7 +29,7 @@ const WorkTypes: React.FC<Props> = ({ workType, className }) => {
           return (
             <fieldset className="text-center" key={daytype}>
               <input
-                className={clsx("visually-hidden", styles.radio)}
+                className={cn("sr-only", styles.radio)}
                 id={`${id}-work-types-${index}`}
                 type="radio"
                 defaultChecked={daytype === workType}

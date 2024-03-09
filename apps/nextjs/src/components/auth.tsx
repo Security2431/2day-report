@@ -1,7 +1,6 @@
 import type { OAuthProviders } from "@acme/auth";
 import { signIn, signOut } from "@acme/auth";
-
-import Button from "~/app/_components/button";
+import { Button } from "@acme/ui/button";
 
 export function SignIn({
   provider,
@@ -13,7 +12,7 @@ export function SignIn({
   return (
     <form>
       <Button
-        variant="secondary"
+        size="lg"
         type="submit"
         className="w-full"
         formAction={async () => {
@@ -31,7 +30,7 @@ export function SignOut(props: { children: React.ReactNode }) {
   return (
     <form>
       <Button
-        variant="secondary"
+        size="lg"
         type="submit"
         formAction={async () => {
           "use server";

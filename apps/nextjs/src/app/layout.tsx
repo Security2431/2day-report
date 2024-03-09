@@ -1,16 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import clsx from "clsx";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
-import { ToastContainer } from "react-toastify";
+
+import { cn } from "@acme/ui";
+import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
+import { Toaster } from "@acme/ui/toast";
 
 import { env } from "~/env";
 import { TRPCReactProvider } from "~/trpc/react";
-import Footer from "./_components/footer";
-import Header from "./_components/header";
 
 import "~/app/globals.scss";
-import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -42,18 +41,22 @@ export const viewport: Viewport = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={clsx(
+        className={cn(
           "min-h-screen bg-background font-sans text-foreground antialiased",
           GeistSans.variable,
           GeistMono.variable,
         )}
       >
-        <TRPCReactProvider>{props.children}</TRPCReactProvider>
-
-        <ToastContainer theme="dark" autoClose={3000} />
-        <div id="modal"></div>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <TRPCReactProvider>{props.children}</TRPCReactProvider>
+          <div className="absolute bottom-4 right-4">
+            <ThemeToggle />
+          </div>
+          <Toaster />
+          <div id="modal"></div>
+        </ThemeProvider>
       </body>
     </html>
   );
