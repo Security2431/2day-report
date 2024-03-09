@@ -30,19 +30,19 @@ export default async function WorkspacePage({
   const weekdays = getDaysOfWeek(today);
 
   // // You can await this here if you don't want to show Suspense fallback below
-  const sprints = api.sprint.byDateRange({
-    from: weekdays.at(0)!.date,
-    to: weekdays.at(-1)!.date,
-    workspaceId: params.id,
-  });
+  // const sprints = api.sprint.byDateRange({
+  //   from: weekdays.at(0)!.date,
+  //   to: weekdays.at(-1)!.date,
+  //   workspaceId: params.id,
+  // });
 
-  const users = api.user.byWorkspaceId({
-    workspaceId: params.id,
-  });
+  // const users = api.user.byWorkspaceId({
+  //   workspaceId: params.id,
+  // });
 
-  const projects = api.project.byWorkspaceId({
-    id: params.id,
-  });
+  // const projects = api.project.byWorkspaceId({
+  //   id: params.id,
+  // });
 
   const cards = [...Array<number>(getWeekdays(weekend))];
 
@@ -66,7 +66,7 @@ export default async function WorkspacePage({
         </>
       }
     >
-      <Sprint
+      {/* <Sprint
         session={session!}
         users={users}
         projects={projects}
@@ -74,7 +74,7 @@ export default async function WorkspacePage({
         weekend={weekend}
         workspaceId={params.id}
         today={today}
-      />
+      /> */}
     </Suspense>
   );
 }

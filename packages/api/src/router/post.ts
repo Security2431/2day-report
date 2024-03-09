@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { CreatePostSchema } from "@acme/validators";
+
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const postRouter = createTRPCRouter({
@@ -11,16 +13,9 @@ export const postRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.db.post.findFirst({ where: { id: input.id } });
     }),
-  create: publicProcedure
-    .input(
-      z.object({
-        title: z.string().min(1),
-        content: z.string().min(1),
-      }),
-    )
-    .mutation(({ ctx, input }) => {
-      return ctx.db.post.create({ data: input });
-    }),
+  create: publicProcedure.input(CreatePostSchema).mutation(({ ctx, input }) => {
+    return ctx.db.post.create({ data: input });
+  }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.db.post.delete({ where: { id: input } });
   }),

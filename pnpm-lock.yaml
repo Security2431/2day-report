@@ -147,6 +147,12 @@ importers:
       '@acme/db':
         specifier: workspace:^0.1.0
         version: link:../../packages/db
+      '@acme/ui':
+        specifier: workspace:^0.1.0
+        version: link:../../packages/ui
+      '@acme/validators':
+        specifier: workspace:^0.1.0
+        version: link:../../packages/validators
       '@hookform/resolvers':
         specifier: ^3.3.4
         version: 3.3.4(react-hook-form@7.50.1)
@@ -271,6 +277,9 @@ importers:
       '@acme/db':
         specifier: workspace:^0.1.0
         version: link:../db
+      '@acme/validators':
+        specifier: workspace:^0.1.0
+        version: link:../validators
       '@trpc/server':
         specifier: 11.0.0-next-beta.264
         version: 11.0.0-next-beta.264
@@ -303,14 +312,14 @@ importers:
   packages/auth:
     dependencies:
       '@acme/db':
-        specifier: ^0.1.0
+        specifier: workspace:^0.1.0
         version: link:../db
       '@auth/core':
-        specifier: ^0.27.0
-        version: 0.27.0
+        specifier: ^0.28.0
+        version: 0.28.0
       '@auth/prisma-adapter':
-        specifier: ^1.4.0
-        version: 1.4.0(@prisma/client@5.9.1)
+        specifier: ^1.5.0
+        version: 1.5.0(@prisma/client@5.9.1)
       '@t3-oss/env-nextjs':
         specifier: ^0.9.2
         version: 0.9.2(typescript@5.3.3)(zod@3.22.4)
@@ -318,8 +327,8 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)(sass@1.71.0)
       next-auth:
-        specifier: 5.0.0-beta.11
-        version: 5.0.0-beta.11(next@14.1.0)(react@18.2.0)
+        specifier: 5.0.0-beta.13
+        version: 5.0.0-beta.13(next@14.1.0)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -331,13 +340,13 @@ importers:
         version: 3.22.4
     devDependencies:
       '@acme/eslint-config':
-        specifier: ^0.2.0
+        specifier: workspace:^0.2.0
         version: link:../../tooling/eslint
       '@acme/prettier-config':
-        specifier: ^0.1.0
+        specifier: workspace:^0.1.0
         version: link:../../tooling/prettier
       '@acme/tsconfig':
-        specifier: ^0.1.0
+        specifier: workspace:^0.1.0
         version: link:../../tooling/typescript
       eslint:
         specifier: ^8.57.0
@@ -618,12 +627,35 @@ packages:
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
-  /@auth/prisma-adapter@1.4.0(@prisma/client@5.9.1):
-    resolution: {integrity: sha512-k5D6ajX8MZv9107WWaIpzcNmsB8+sumyc7y46lnAMbLdgBoUcwAYtxGLbwEFSvzgjDcxjWqzlB5AIAED4vioDA==}
+  /@auth/core@0.28.0:
+    resolution: {integrity: sha512-/fh/tb/L4NMSYcyPoo4Imn8vN6MskcVfgESF8/ndgtI4fhD/7u7i5fTVzWgNRZ4ebIEGHNDbWFRxaTu1NtQgvA==}
+    peerDependencies:
+      '@simplewebauthn/browser': ^9.0.1
+      '@simplewebauthn/server': ^9.0.2
+      nodemailer: ^6.8.0
+    peerDependenciesMeta:
+      '@simplewebauthn/browser':
+        optional: true
+      '@simplewebauthn/server':
+        optional: true
+      nodemailer:
+        optional: true
+    dependencies:
+      '@panva/hkdf': 1.1.1
+      '@types/cookie': 0.6.0
+      cookie: 0.6.0
+      jose: 5.2.2
+      oauth4webapi: 2.10.3
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3(preact@10.11.3)
+    dev: false
+
+  /@auth/prisma-adapter@1.5.0(@prisma/client@5.9.1):
+    resolution: {integrity: sha512-TNDY7z5VhC3E5xetb4qhTmSmjvyEurafaTM6dlYlhTGj+7K3xTki7fJ0oJwgkFsQ2fT1weJJJSBmjtH8Nqsnuw==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
     dependencies:
-      '@auth/core': 0.27.0
+      '@auth/core': 0.28.0
       '@prisma/client': 5.9.1(prisma@5.9.1)
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
@@ -9932,8 +9964,8 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: true
 
-  /next-auth@5.0.0-beta.11(next@14.1.0)(react@18.2.0):
-    resolution: {integrity: sha512-OrfOVyXBGC69O8lEe81ZwFzQuWnY3Bsqee7kawr1iBycgSD64oNCtoFvRXiOWe7R0jOaafqQQlpsOS0mARhT3Q==}
+  /next-auth@5.0.0-beta.13(next@14.1.0)(react@18.2.0):
+    resolution: {integrity: sha512-2m2Gq69WQ0YXcHCCpHn2y5z1bxSlqD/XOuAgrdtz49/VIAdTFFeYZz97RYqf6xMF8VGmoG32VUnJ6LzaHk6Fwg==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
