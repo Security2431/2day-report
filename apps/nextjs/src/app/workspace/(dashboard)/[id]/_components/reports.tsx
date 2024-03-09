@@ -60,9 +60,10 @@ export function ReportList(props: {
   return (
     <ReportCard>
       {props.sprint?.mood && (
-        <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+          {/* TODO: Hydration error */}
           <Emoji unified={props.sprint.mood} size={18} />
-        </span>
+        </div>
       )}
 
       <h6 className="mb-2 flex items-center">

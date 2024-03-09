@@ -6,7 +6,7 @@ export default async function WorkspaceLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full">
+    <div className="flex">
       <Navigation />
 
       <article className="flex-1">{children}</article>

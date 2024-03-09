@@ -4,10 +4,20 @@ import { createContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import { BsFillPatchQuestionFill } from "react-icons/bs";
-import { FaSignOutAlt } from "react-icons/fa";
-import { FaBoxArchive, FaChartSimple, FaGear, FaUser } from "react-icons/fa6";
-import { HiChevronDoubleLeft, HiOutlineCalendar } from "react-icons/hi";
+import { BsCalendarWeekFill, BsFillPatchQuestionFill } from "react-icons/bs";
+import { FaLayerGroup, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaChartArea,
+  FaChartSimple,
+  FaFileLines,
+  FaGear,
+  FaUser,
+  FaUsers,
+} from "react-icons/fa6";
+import { HiChevronDoubleLeft } from "react-icons/hi";
+import { IoIosFolder, IoMdNotifications } from "react-icons/io";
+import { MdSpaceDashboard } from "react-icons/md";
+import { RiMapPinTimeFill } from "react-icons/ri";
 import { twMerge } from "tailwind-merge";
 
 import Button from "~/app/_components/button";
@@ -28,7 +38,7 @@ type Props = {
 /* <Navigation />
 ============================================================================= */
 export function Navigation({ className }: Props) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <CollapsedContext.Provider value={isCollapsed}>
@@ -64,23 +74,23 @@ export function Navigation({ className }: Props) {
 
           <NavigationScope
             title={{
-              icon: FaBoxArchive,
+              icon: FaFileLines,
               text: "Overview",
               href: routes.home,
             }}
             navigation={[
               {
-                icon: HiOutlineCalendar,
+                icon: FaFileLines,
                 text: "Teams Overview",
                 href: routes.home,
               },
               {
-                icon: HiOutlineCalendar,
+                icon: RiMapPinTimeFill,
                 text: "Time Zones",
                 href: routes.home,
               },
               {
-                icon: HiOutlineCalendar,
+                icon: BsCalendarWeekFill,
                 text: "My Availability",
                 href: routes.home,
               },
@@ -94,7 +104,7 @@ export function Navigation({ className }: Props) {
               href: routes.home,
             }}
             navigation={[
-              { icon: HiOutlineCalendar, text: "Reports", href: routes.home },
+              { icon: FaChartArea, text: "Productivity", href: routes.home },
             ]}
           />
 
@@ -105,15 +115,15 @@ export function Navigation({ className }: Props) {
               href: routes.home,
             }}
             navigation={[
-              { icon: HiOutlineCalendar, text: "Members", href: routes.home },
-              { icon: HiOutlineCalendar, text: "Teams", href: routes.home },
-              { icon: HiOutlineCalendar, text: "Projects", href: routes.home },
+              { icon: FaUsers, text: "Members", href: routes.home },
+              { icon: MdSpaceDashboard, text: "Teams", href: routes.home },
+              { icon: IoIosFolder, text: "Projects", href: routes.home },
               {
-                icon: HiOutlineCalendar,
+                icon: FaLayerGroup,
                 text: "Integrations",
                 href: routes.home,
               },
-              { icon: HiOutlineCalendar, text: "Settings", href: routes.home },
+              { icon: FaGear, text: "Settings", href: routes.home },
             ]}
           />
 
@@ -125,7 +135,7 @@ export function Navigation({ className }: Props) {
             }}
             navigation={[
               {
-                icon: HiOutlineCalendar,
+                icon: IoMdNotifications,
                 text: "Notifications",
                 href: routes.home,
               },
@@ -183,7 +193,10 @@ export function Navigation({ className }: Props) {
         </aside>
 
         <Button
-          className="absolute left-full top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 p-2 backdrop-blur"
+          className={clsx(
+            "fixed top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 p-2 backdrop-blur",
+            isCollapsed ? "left-[3rem]" : "left-[13rem]",
+          )}
           onClick={() => setIsCollapsed((prevState) => !prevState)}
         >
           <HiChevronDoubleLeft
