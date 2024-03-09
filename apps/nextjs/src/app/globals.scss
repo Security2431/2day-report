@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 264.67 96.4% 21.76%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -49,22 +49,10 @@
   }
 }
 
-// html,
-// body {
-//   @apply m-0 p-0 text-white;
-// }
-
-// body {
-//   @apply relative grid min-h-screen bg-gradient-to-b from-[#2e026d] to-[#15162c];
-//   grid-template-rows: auto 1fr auto; // Header, Main, Footer
-
-//   grid-template-columns: 1fr;
-//   grid-template-rows: auto 1fr auto;
-// }
-
-// p {
-//   @apply mb-6 leading-normal;
-// }
+body {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+}
 
 ::backdrop {
   background-image: linear-gradient(
