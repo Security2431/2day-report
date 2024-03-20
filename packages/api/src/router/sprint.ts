@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { DayType } from "@acme/db";
+
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const sprintRouter = createTRPCRouter({
@@ -62,16 +64,7 @@ export const sprintRouter = createTRPCRouter({
         workspaceId: z.string().min(1),
         userId: z.string().min(1),
         date: z.date(),
-        type: z.enum([
-          "WORKING",
-          "HOME_OFFICE",
-          "NOT_WORKING",
-          "HALF_DAY_VACATION",
-          "VACATION",
-          "SICK_DAY",
-          "ILLNESS",
-          "TRAVELING",
-        ]),
+        type: z.nativeEnum(DayType),
         tomorrowsDescription: z.string().optional(),
         reports: z
           .array(
@@ -121,16 +114,7 @@ export const sprintRouter = createTRPCRouter({
         workspaceId: z.string().min(1),
         userId: z.string().min(1),
         date: z.date(),
-        type: z.enum([
-          "WORKING",
-          "HOME_OFFICE",
-          "NOT_WORKING",
-          "HALF_DAY_VACATION",
-          "VACATION",
-          "SICK_DAY",
-          "ILLNESS",
-          "TRAVELING",
-        ]),
+        type: z.nativeEnum(DayType),
         tomorrowsDescription: z.string().optional(),
         reports: z
           .array(

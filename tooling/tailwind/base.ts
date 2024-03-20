@@ -39,10 +39,36 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        purple: {
+          500: "#2e026d",
+        },
       },
       borderColor: {
         DEFAULT: "hsl(var(--border))",
       },
+      spacing: {
+        "96": "24rem",
+      },
+      animation: {
+        "meteor-effect": "meteor 5s linear infinite",
+      },
+      keyframes: {
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
+          "70%": { opacity: "1" },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: "0",
+          },
+        },
+      },
+      fontSize: {
+        xxs: "0.5rem",
+      },
+    },
+    container: {
+      center: true,
     },
   },
+  plugins: [require("@tailwindcss/typography")],
 } satisfies Config;
