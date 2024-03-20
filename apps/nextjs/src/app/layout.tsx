@@ -51,11 +51,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <TRPCReactProvider>{props.children}</TRPCReactProvider>
-          <div className="absolute bottom-4 right-4">
+          <div className="fixed bottom-4 right-4">
             <ThemeToggle />
           </div>
           <Toaster />
-          <div id="modal"></div>
         </ThemeProvider>
       </body>
     </html>

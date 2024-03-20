@@ -8,6 +8,7 @@ import seedWorkspacesMembers from "./workspacesMembers";
 
 async function main() {
   console.log("Seeding...");
+  console.time("Seeding complete 🌱");
 
   await seedWorkspaces();
   await seedProjects();
@@ -18,6 +19,8 @@ async function main() {
 
   // Dependent routes
   await seedWorkspacesMembers();
+
+  console.timeEnd("Seeding complete 🌱");
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
