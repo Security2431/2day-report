@@ -4,7 +4,7 @@ import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 
-import { prisma } from "@acme/db";
+import { prisma as db } from "@acme/db";
 
 import { env } from "../env";
 
@@ -28,7 +28,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
   providers: [
     Google({
       clientId: env.AUTH_GOOGLE_ID,
