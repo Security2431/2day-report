@@ -1,14 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import clsx from "clsx";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
-import { MdOutlineEmojiEmotions } from "react-icons/md";
 
+import { cn } from "@acme/ui";
+import { Button } from "@acme/ui/button";
+import { Icons } from "@acme/ui/icons";
 import { toast } from "@acme/ui/toast";
 
-import Button from "~/app/_components/button";
-import useOutsideClick from "~/app/_hooks/useOutsideClick";
+import useOutsideClick from "~/_hooks/useOutsideClick";
 import { api } from "~/trpc/react";
 
 interface Props {
@@ -101,8 +101,8 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
       <div className="flex flex-wrap gap-1">
         {uniqueReactions.map((unified) => (
           <Button
-            variant="base"
-            className={clsx(
+            variant="outline"
+            className={cn(
               "text-md rounded-full border border-white px-2 py-1 text-xs",
               {
                 "bg-blue-500 hover:bg-blue-300": reactions.find(
@@ -120,10 +120,10 @@ export const ReactionRow: React.FC<Props> = ({ sprintId, userId }) => {
         ))}
         <Button
           className="text-md rounded-full border border-white px-2 py-1"
-          variant="base"
+          variant="outline"
           onClick={() => setOpen((prevState) => !prevState)}
         >
-          <MdOutlineEmojiEmotions />
+          <Icons.Smile />
         </Button>
       </div>
 

@@ -4,10 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { addWeeks, format, isValid, parse, subWeeks } from "date-fns";
-import { FaRegCalendarPlus } from "react-icons/fa6";
-import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 
-import { getDaysOfWeek } from "../_lib/days";
+import { Icons } from "@acme/ui/icons";
+
+import { getDaysOfWeek } from "~/_utils/days";
 import WorkspaceHeader from "./WorkspaceHeader";
 
 export function ManageWeek() {
@@ -47,7 +47,7 @@ export function ManageWeek() {
             createQueryString("today", format(subWeeks(today, 1), "yyyy-MM-dd"))
           }
         >
-          <HiArrowSmLeft />
+          <Icons.MoveLeft />
         </Link>
         <Link
           className="inline-flex items-center gap-2"
@@ -58,7 +58,7 @@ export function ManageWeek() {
             createQueryString("today", format(new Date(), "yyyy-MM-dd"))
           }
         >
-          <FaRegCalendarPlus />
+          <Icons.CalendarDays className="size-4" />
           {startWeek}-{endWeek}
         </Link>
         <Link
@@ -68,7 +68,7 @@ export function ManageWeek() {
             createQueryString("today", format(addWeeks(today, 1), "yyyy-MM-dd"))
           }
         >
-          <HiArrowSmRight />
+          <Icons.MoveRight />
         </Link>
       </div>
 

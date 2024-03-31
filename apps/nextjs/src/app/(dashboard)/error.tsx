@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import Image from "next/image";
 
-import Button from "../_components/button";
-import Heading from "../_components/heading";
+import { Button } from "@acme/ui/button";
+import { Title } from "@acme/ui/title";
 
 export default function Error({
   error,
@@ -18,18 +18,18 @@ export default function Error({
   }, [error]);
 
   return (
-    <section className="container max-w-md text-center">
+    <section className="container flex min-h-screen max-w-md flex-col items-center justify-center gap-6 text-center">
       <Image
-        className="mx-auto mb-4"
+        className="mx-auto"
         width={300}
         height={300}
-        src="/something-went-wrong.svg"
+        src="/status-codes/something-went-wrong.svg"
         alt="Something went wrong"
       />
 
-      <Heading as="h4" className="mb-4">
-        Oops, looks like something went wrong!
-      </Heading>
+      <Title asChild variant="h4">
+        <h4>Oops, looks like something went wrong!</h4>
+      </Title>
       <p>
         We track these errors automatically, but if the problem persists feel
         free to{" "}

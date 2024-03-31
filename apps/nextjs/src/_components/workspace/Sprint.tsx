@@ -1,15 +1,16 @@
 "use client";
 
 import React, { use, useMemo } from "react";
-import clsx from "clsx";
 import { isSameDay } from "date-fns";
 
 import type { RouterOutputs } from "@acme/api";
 import type { Session } from "@acme/auth";
+import { cn } from "@acme/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
 
-import Avatar from "~/app/_components/avatar";
+import { getAvatarFallback } from "~/_utils/common";
+import { getDaysOfWeek, getWeekdays } from "~/_utils/days";
 import { api } from "~/trpc/react";
-import { getDaysOfWeek, getWeekdays } from "../_lib/days";
 import { ReportList } from "./reports";
 
 /* <Sprint />
@@ -82,11 +83,14 @@ export const Sprint = (props: {
       {sortedUsers.map((user) => (
         <section
           key={user.id}
-          className={clsx("my-4 flex items-start justify-stretch gap-3 px-3")}
+          className={cn("my-4 flex items-start justify-stretch gap-3 px-3")}
         >
           <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center text-center">
-            <Avatar src={user.image} alt="" />
-            <h4 className="w-full truncate">{user.name}</h4>
+            <Avatar>
+              <AvatarImage src={user.image} />
+              <AvatarFallback>{getAvatarFallback(user.name)}</AvatarFallback>
+            </Avatar>
+            <h4 className="w-full truncate text-sm">{user.name}</h4>
           </div>
           {weekdays.slice(0, showDaysPerWeek).map((weekday) => (
             <ReportList
