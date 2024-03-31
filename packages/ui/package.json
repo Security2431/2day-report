@@ -56,7 +56,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.15.3",
     "class-variance-authority": "^0.7.0",
-    "lucide-react": "^0.356.0",
+    "lucide-react": "^0.363.0",
     "next-themes": "^0.2.1",
     "react-hook-form": "^7.50.1",
     "sonner": "^1.4.1",
