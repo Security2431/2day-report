@@ -2,36 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .visually-hidden,
-  .visually-hidden-focusable:not(:focus):not(:focus-within) {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: 7px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 9.77 100% 66.27%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 72.22% 50.59%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5% 64.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 277.81 39.89% 35.88%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 0 0% 98%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 
-html,
 body {
-  @apply m-0 p-0 text-white;
-}
-
-body {
-  @apply relative grid min-h-screen bg-gradient-to-b from-[#2e026d] to-[#15162c];
-  grid-template-rows: auto 1fr auto; // Header, Main, Footer
-
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-}
 
-p {
-  @apply mb-6 leading-normal;
+  // TODO: make theme with this colors
+  // background: #3f1651;
+  // background: #653780;
+  // background: #9c3588;
+  // background: #e64071;
+  // background: #f8a05c;
+  // background: #2f6070;
 }
 
 ::backdrop {

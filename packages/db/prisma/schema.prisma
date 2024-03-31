@@ -120,8 +120,8 @@ model TeamsMembers {
   permissions TeamRole[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  user        User       @relation(fields: [userId], references: [id])
-  team        Team       @relation(fields: [teamId], references: [id])
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team        Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
 model Team {
@@ -132,7 +132,7 @@ model Team {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   users         TeamsMembers[]
-  workspace     Workspace      @relation(fields: [workspaceId], references: [id])
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   invitations   Invitation[]   @relation(fields: [invitationIDs], references: [id])
 }
 
@@ -144,8 +144,8 @@ model WorkspacesMembers {
   permissions Role[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  user        User      @relation(fields: [userId], references: [id])
-  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model Workspace {
@@ -173,7 +173,7 @@ model Invitation {
   assignedBy  String
   assignedAt  DateTime  @default(now())
   teams       Team[]    @relation(fields: [teamIDs], references: [id])
-  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model Integration {
@@ -185,7 +185,7 @@ model Integration {
   refresh_access String
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
-  workspace      Workspace           @relation(fields: [workspaceId], references: [id])
+  workspace      Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model Project {
@@ -196,7 +196,7 @@ model Project {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   reports     Report[]
-  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model Sprint {
@@ -211,8 +211,8 @@ model Sprint {
   updatedAt            DateTime   @updatedAt
   reports              Report[]
   reactions            Reaction[]
-  workspace            Workspace  @relation(fields: [workspaceId], references: [id])
-  user                 User       @relation(fields: [userId], references: [id])
+  workspace            Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user                 User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Report {
@@ -221,10 +221,20 @@ model Report {
   projectId   String   @db.ObjectId
   description String?
   hours       Float
+  blockers    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  project     Project  @relation(fields: [projectId], references: [id])
-  sprint      Sprint   @relation(fields: [sprintId], references: [id])
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sprint      Sprint   @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+}
+
+model TimeEntries {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  start     DateTime
+  stop      DateTime
+  duration  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Reaction {
@@ -234,6 +244,6 @@ model Reaction {
   unified   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  sprint    Sprint   @relation(fields: [sprintId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sprint    Sprint   @relation(fields: [sprintId], references: [id], onDelete: Cascade)
 }

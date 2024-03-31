@@ -1,17 +1,19 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { Role } from "@acme/db";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const projectRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
+  all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.project.findMany({ orderBy: { id: "desc" } });
   }),
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.project.findFirst({ where: { id: input.id } });
     }),
-  byWorkspaceId: publicProcedure
+  byWorkspaceId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.project.findMany({
@@ -23,7 +25,7 @@ export const projectRouter = createTRPCRouter({
         },
       });
     }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         name: z.string().min(1),
