@@ -30,7 +30,7 @@
     "@acme/eslint-config": "^0.2.0",
     "@acme/prettier-config": "^0.1.0",
     "@acme/tsconfig": "^0.1.0",
-    "dotenv-cli": "^7.3.0",
+    "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
     "jiti": "^1.21.0",
     "prettier": "^3.2.5",
