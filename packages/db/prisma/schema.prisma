@@ -221,6 +221,7 @@ model Report {
   projectId   String   @db.ObjectId
   description String?
   hours       Float
+  blockers    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)

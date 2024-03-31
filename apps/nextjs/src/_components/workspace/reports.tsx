@@ -102,19 +102,24 @@ export function ReportList(props: {
           ))}
 
           {props.sprint?.tomorrowsDescription && (
-            <>
+            <section>
+              <h6 className="flex items-center gap-2 text-sm font-bold">
+                <Icons.CalendarFold className="size-4 text-muted-foreground" />{" "}
+                Tomorrow:
+              </h6>
               <Markdown content={props.sprint?.tomorrowsDescription} />
-            </>
+            </section>
           )}
         </>
       )}
 
-      {/* {props.sprint && (
+      {props.sprint && (
         <ReactionRow
           userId={props.session.user.id}
           sprintId={props.sprint.id}
+          reactions={props.sprint.reactions}
         />
-      )} */}
+      )}
 
       {props.isAuth && (
         <FillMyDayModal
@@ -207,7 +212,7 @@ export const ReportRow = (props: {
   }
 
   return (
-    <section className="space-y-2">
+    <section className="space-y-3">
       <header className="flex  items-center gap-2 text-sm">
         <Avatar className="size-6">
           <AvatarImage src={props.report.project.image} />
@@ -224,7 +229,21 @@ export const ReportRow = (props: {
       </header>
 
       {props.report?.description && (
-        <Markdown content={props.report?.description} />
+        <section>
+          <h6 className="flex items-center gap-2 text-sm font-bold">
+            <Icons.SquareCheckBig className="size-4 text-green-500" /> Done:
+          </h6>
+          <Markdown content={props.report?.description} />
+        </section>
+      )}
+
+      {props.report?.description && (
+        <section>
+          <h6 className="flex items-center gap-2 text-sm font-bold">
+            <Icons.Ban className="size-4 text-red-500" /> Blockers:
+          </h6>
+          <Markdown content={props.report?.description} />
+        </section>
       )}
     </section>
   );

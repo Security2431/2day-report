@@ -48,6 +48,14 @@ export const sprintRouter = createTRPCRouter({
               image: true,
             },
           },
+          reactions: {
+            select: {
+              id: true,
+              sprintId: true,
+              userId: true,
+              unified: true,
+            },
+          },
         },
         orderBy: [{ date: "asc" }],
       });
@@ -123,6 +131,7 @@ export const sprintRouter = createTRPCRouter({
               projectId: z.string(),
               description: z.string().optional(),
               hours: z.number(),
+              blockers: z.string().optional(),
             }),
           )
           .default([]),
@@ -155,6 +164,7 @@ export const sprintRouter = createTRPCRouter({
                   hours: report.hours,
                   sprintId: sprint.id,
                   projectId: report.projectId,
+                  blockers: report.blockers,
                 },
               });
             }
