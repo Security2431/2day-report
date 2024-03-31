@@ -1,7 +1,7 @@
 import type { OAuthProviders } from "@acme/auth";
 import { auth } from "@acme/auth";
 
-import { SignIn, SignOut } from "~/_components/auth";
+import { SignIn } from "~/_components/auth";
 
 interface Props {
   provider: OAuthProviders;
@@ -23,8 +23,6 @@ export async function AuthShowcase({ provider }: Props) {
       <p className="text-center text-2xl text-white">
         {session && <span>Logged in as {session.user.name}</span>}
       </p>
-
-      <SignOut>Sign out</SignOut>
     </div>
   );
 }
