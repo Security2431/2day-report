@@ -134,13 +134,12 @@ export function FillMyDayModal({
   });
 
   const onSubmit = async (data: z.infer<typeof CreateFillMyDaySchema>) => {
-    console.log("data", data);
     const reportIdsToBeDeleted =
       sprint?.reports
-        .filter((report) => !data.reports.find((r) => r.reportId === report.id))
+        .filter(
+          (report) => !data.reports?.find((r) => r.reportId === report.id),
+        )
         .map((report) => report.id) ?? [];
-
-    console.log("reportIdsToBeDeleted", reportIdsToBeDeleted);
 
     if (reportIdsToBeDeleted.length) {
       deleteReports.mutate(reportIdsToBeDeleted);

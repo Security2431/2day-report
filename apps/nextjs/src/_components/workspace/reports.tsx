@@ -20,8 +20,15 @@ import {
 } from "@acme/ui/alert-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
 import { Button } from "@acme/ui/button";
-import { Card } from "@acme/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@acme/ui/card";
 import { Icons } from "@acme/ui/icons";
+import { Separator } from "@acme/ui/separator";
 import { toast } from "@acme/ui/toast";
 
 import { FillMyDayModal } from "~/_components/modals";
@@ -52,16 +59,19 @@ export function ReportList(props: {
 
   if (isObjectEmpty(props.sprint) || !dayType) {
     return (
-      <ReportCard className="flex flex-col items-center justify-center gap-6">
-        <p>No availability & No report</p>
-
+      <ReportCard className="flex flex-col">
+        <CardContent className="flex flex-1 items-center justify-center space-y-4 p-4 text-sm">
+          <p>No availability & No report</p>
+        </CardContent>
         {props.isAuth && (
-          <FillMyDayModal
-            date={props.date}
-            projects={props.projects}
-            workspaceId={props.workspaceId}
-            userId={props.session.user.id}
-          />
+          <CardFooter className="p-4 pt-0">
+            <FillMyDayModal
+              date={props.date}
+              projects={props.projects}
+              workspaceId={props.workspaceId}
+              userId={props.session.user.id}
+            />
+          </CardFooter>
         )}
       </ReportCard>
     );
@@ -76,60 +86,70 @@ export function ReportList(props: {
         </div>
       )}
 
-      <h6 className="flex items-center leading-[0]">
-        <span className={cn("mr-2 size-1.5 rounded bg-current", dayType.color)}>
-          &nbsp;
-        </span>
-        {dayType.name}
-        {props.isAuth && <DeleteReport id={props.sprint?.id!} />}
-      </h6>
+      <CardHeader className="p-4">
+        <CardTitle className="flex items-center leading-[0]">
+          <span
+            className={cn("mr-2 size-1.5 rounded bg-current", dayType.color)}
+          >
+            &nbsp;
+          </span>
+          {dayType.name}
+          {props.isAuth && <DeleteReport id={props.sprint?.id!} />}
+        </CardTitle>
+      </CardHeader>
 
-      {!props.sprint?.reports?.length ? (
-        <div className="flex flex-col gap-2 text-center">
-          <dayType.icon className="mx-auto text-3xl" />
-          {dayType?.description ? (
-            <span>
-              {dayType.description.replace("{name}", props.user.name)}
-            </span>
-          ) : (
-            <span>No report yet</span>
-          )}
-        </div>
-      ) : (
-        <>
-          {props.sprint?.reports.map((report) => (
-            <ReportRow key={report.id} report={report} />
-          ))}
+      <Separator />
 
-          {props.sprint?.tomorrowsDescription && (
-            <section>
-              <h6 className="flex items-center gap-2 text-sm font-bold">
-                <Icons.CalendarFold className="size-4 text-muted-foreground" />{" "}
-                Tomorrow:
-              </h6>
-              <Markdown content={props.sprint?.tomorrowsDescription} />
-            </section>
-          )}
-        </>
-      )}
+      <CardContent className="space-y-4 p-4">
+        {!props.sprint?.reports?.length ? (
+          <div className="flex flex-col gap-2 text-center text-sm">
+            <dayType.icon className="mx-auto size-5" />
+            {dayType?.description ? (
+              <span>
+                {dayType.description.replace("{name}", props.user.name)}
+              </span>
+            ) : (
+              <span>No report yet</span>
+            )}
+          </div>
+        ) : (
+          <>
+            {props.sprint?.reports.map((report) => (
+              <ReportRow key={report.id} report={report} />
+            ))}
 
-      {props.sprint && (
-        <ReactionRow
-          userId={props.session.user.id}
-          sprintId={props.sprint.id}
-          reactions={props.sprint.reactions}
-        />
-      )}
+            {props.sprint?.tomorrowsDescription && (
+              <section>
+                <h6 className="flex items-center gap-2 text-sm font-bold">
+                  <Icons.CalendarFold className="size-4 text-muted-foreground" />{" "}
+                  Tomorrow:
+                </h6>
+                <Markdown content={props.sprint?.tomorrowsDescription} />
+              </section>
+            )}
+          </>
+        )}
 
-      {props.isAuth && (
-        <FillMyDayModal
-          date={props.date}
-          projects={props.projects}
-          sprint={props.sprint}
-          workspaceId={props.workspaceId}
-          userId={props.session.user.id}
-        />
-      )}
+        {props.sprint && (
+          <ReactionRow
+            userId={props.session.user.id}
+            sprintId={props.sprint.id}
+            reactions={props.sprint.reactions}
+          />
+        )}
+      </CardContent>
+
+      <CardFooter className="p-4 pt-0">
+        {props.isAuth && (
+          <FillMyDayModal
+            date={props.date}
+            projects={props.projects}
+            sprint={props.sprint}
+            workspaceId={props.workspaceId}
+            userId={props.session.user.id}
+          />
+        )}
+      </CardFooter>
     </ReportCard>
   );
 }
@@ -191,12 +211,7 @@ export const ReportCard = (props: {
   className?: string;
 }) => {
   return (
-    <Card
-      className={cn(
-        "relative flex min-h-[12rem] w-full flex-col gap-4 p-4",
-        props.className,
-      )}
-    >
+    <Card className={cn("relative min-h-[12rem] w-full", props.className)}>
       {props.children}
     </Card>
   );
@@ -212,40 +227,43 @@ export const ReportRow = (props: {
   }
 
   return (
-    <section className="space-y-3">
-      <header className="flex  items-center gap-2 text-sm">
-        <Avatar className="size-6">
-          <AvatarImage src={props.report.project.image} />
-          <AvatarFallback>
-            {getAvatarFallback(props.report.project.name)}
-          </AvatarFallback>
-        </Avatar>
+    <>
+      <section className="space-y-3">
+        <header className="flex  items-center gap-2 text-sm">
+          <Avatar className="size-6">
+            <AvatarImage src={props.report.project.image} />
+            <AvatarFallback>
+              {getAvatarFallback(props.report.project.name)}
+            </AvatarFallback>
+          </Avatar>
 
-        <p className="m-0 flex-1 truncate">{props.report.project.name}</p>
-        <span className="inline-flex items-center gap-1">
-          <Icons.Clock4 className="size-3" />
-          {props.report.hours}h
-        </span>
-      </header>
+          <p className="m-0 flex-1 truncate">{props.report.project.name}</p>
+          <span className="inline-flex items-center gap-1">
+            <Icons.Clock4 className="size-3" />
+            {props.report.hours}h
+          </span>
+        </header>
 
-      {props.report?.description && (
-        <section>
-          <h6 className="flex items-center gap-2 text-sm font-bold">
-            <Icons.SquareCheckBig className="size-4 text-green-500" /> Done:
-          </h6>
-          <Markdown content={props.report?.description} />
-        </section>
-      )}
+        {props.report?.description && (
+          <section>
+            <h6 className="flex items-center gap-2 text-sm font-bold">
+              <Icons.SquareCheckBig className="size-4 text-green-500" /> Done:
+            </h6>
+            <Markdown content={props.report?.description} />
+          </section>
+        )}
 
-      {props.report?.description && (
-        <section>
-          <h6 className="flex items-center gap-2 text-sm font-bold">
-            <Icons.Ban className="size-4 text-red-500" /> Blockers:
-          </h6>
-          <Markdown content={props.report?.description} />
-        </section>
-      )}
-    </section>
+        {props.report?.blockers && (
+          <section>
+            <h6 className="flex items-center gap-2 text-sm font-bold">
+              <Icons.Ban className="size-4 text-red-500" /> Blockers:
+            </h6>
+            <Markdown content={props.report?.blockers} />
+          </section>
+        )}
+      </section>
+      <Separator />
+    </>
   );
 };
 

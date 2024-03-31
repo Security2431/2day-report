@@ -31,6 +31,7 @@ export const sprintRouter = createTRPCRouter({
             select: {
               id: true,
               description: true,
+              blockers: true,
               hours: true,
               project: {
                 select: {
@@ -79,6 +80,7 @@ export const sprintRouter = createTRPCRouter({
             z.object({
               projectId: z.string(),
               description: z.string().optional(),
+              blockers: z.string().optional(),
               hours: z.number(),
             }),
           )
@@ -102,6 +104,7 @@ export const sprintRouter = createTRPCRouter({
                 data:
                   input.reports?.map((report) => ({
                     description: report.description,
+                    blockers: report.blockers,
                     projectId: report.projectId,
                     hours: report.hours,
                   })) ?? [],
