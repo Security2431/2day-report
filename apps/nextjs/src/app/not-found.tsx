@@ -1,27 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Button from "./_components/button";
-import Heading from "./_components/heading";
-import routes from "./_lib/routes";
+import { Button } from "@acme/ui/button";
+import { Title } from "@acme/ui/title";
+
+import routes from "~/_utils/routes";
 
 export default function NotFound() {
   return (
-    <section className="container flex h-full max-w-md flex-col justify-center text-center">
+    <section className="container flex min-h-screen max-w-md flex-col justify-center gap-4 py-4 text-center">
       <Image
-        className="mx-auto mb-4"
+        className="mx-auto"
         width={300}
         height={300}
-        src="/404.svg"
+        src="/status-codes/404.svg"
         alt="404"
       />
-      <Heading as="h1" className="mb-4">
-        Not Found
-      </Heading>
+      <Title asChild variant="h1">
+        <h1>Not Found</h1>
+      </Title>
       <p>Could not find requested resource</p>
-      <Link href={routes.home}>
-        <Button>Return Home</Button>
-      </Link>
+      <Button asChild>
+        <Link href={routes.home}>Return Home</Link>
+      </Button>
     </section>
   );
 }
