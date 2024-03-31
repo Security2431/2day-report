@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId } from "react";
+import { useEffect, useId, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,9 @@ const FormSchema = z.object({
 ============================================================================= */
 const WorkspaceHeader = () => {
   const id = useId();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<{ weekend: boolean }>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -58,7 +62,14 @@ const WorkspaceHeader = () => {
                 <Switch
                   id={`switch-${id}`}
                   checked={field.value}
-                  onCheckedChange={field.onChange}
+                  onCheckedChange={(e) => {
+                    field.onChange(e);
+                    startTransition(() => {
+                      // Refresh the current route and fetch new data from the server without
+                      // losing client-side browser or React state.
+                      router.refresh();
+                    });
+                  }}
                 />
               </FormControl>
             </FormItem>
