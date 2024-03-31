@@ -1,14 +1,16 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { DayType } from "@acme/db";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const sprintRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
+  all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.sprint.findMany({
       orderBy: { id: "desc" },
     });
   }),
-  byDateRange: publicProcedure
+  byDateRange: protectedProcedure
     .input(z.object({ workspaceId: z.string(), from: z.date(), to: z.date() }))
     .query(async ({ ctx, input }) => {
       return await ctx.db.sprint.findMany({
@@ -50,7 +52,7 @@ export const sprintRouter = createTRPCRouter({
         orderBy: [{ date: "asc" }],
       });
     }),
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.sprint.findFirst({ where: { id: input.id } });
@@ -62,16 +64,7 @@ export const sprintRouter = createTRPCRouter({
         workspaceId: z.string().min(1),
         userId: z.string().min(1),
         date: z.date(),
-        type: z.enum([
-          "WORKING",
-          "HOME_OFFICE",
-          "NOT_WORKING",
-          "HALF_DAY_VACATION",
-          "VACATION",
-          "SICK_DAY",
-          "ILLNESS",
-          "TRAVELING",
-        ]),
+        type: z.nativeEnum(DayType),
         tomorrowsDescription: z.string().optional(),
         reports: z
           .array(
@@ -121,16 +114,7 @@ export const sprintRouter = createTRPCRouter({
         workspaceId: z.string().min(1),
         userId: z.string().min(1),
         date: z.date(),
-        type: z.enum([
-          "WORKING",
-          "HOME_OFFICE",
-          "NOT_WORKING",
-          "HALF_DAY_VACATION",
-          "VACATION",
-          "SICK_DAY",
-          "ILLNESS",
-          "TRAVELING",
-        ]),
+        type: z.nativeEnum(DayType),
         tomorrowsDescription: z.string().optional(),
         reports: z
           .array(

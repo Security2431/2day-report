@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   all: protectedProcedure.query(({ ctx }) => {
@@ -26,7 +26,7 @@ export const userRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.db.user.findFirst({ where: { id: input.id } });
     }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         name: z.string().min(1),
@@ -41,7 +41,7 @@ export const userRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.user.create({ data: input });
     }),
-  update: publicProcedure
+  update: protectedProcedure
     .input(
       z
         .object({

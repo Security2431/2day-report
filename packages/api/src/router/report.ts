@@ -1,19 +1,19 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const reportRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
+  all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.report.findMany({
       orderBy: { id: "desc" },
     });
   }),
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.report.findFirst({ where: { id: input.id } });
     }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         sprintId: z.string().min(1),
