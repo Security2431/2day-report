@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
-    "@prisma/extension-accelerate": "^0.6.3"
+    "@prisma/extension-accelerate": "^1.0.0"
   },
   "devDependencies": {
     "@acme/eslint-config": "^0.2.0",
