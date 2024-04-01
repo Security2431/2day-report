@@ -68,7 +68,11 @@ export function Tomorrows() {
 
           <footer className="flex justify-end gap-2">
             <PopoverClose asChild>
-              <Button type="button" variant="outline">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => form.resetField("tomorrowsDescription")}
+              >
                 Cancel
               </Button>
             </PopoverClose>
