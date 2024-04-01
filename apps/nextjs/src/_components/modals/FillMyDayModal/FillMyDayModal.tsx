@@ -1,7 +1,7 @@
 "use client";
 
 import type * as z from "zod";
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 
 import type { RouterOutputs } from "@acme/api";
@@ -61,13 +61,16 @@ export function FillMyDayModal({
   workspaceId,
   userId,
 }: Props) {
+  const [open, setOpen] = useState(false);
   const utils = api.useUtils();
+
   const updateSprint = api.sprint.update.useMutation({
     async onSuccess() {
       toast.success("Your report day updated successfully!");
 
       await utils.sprint.invalidate();
       await utils.report.invalidate();
+      setOpen(false);
     },
     onError: (err) => {
       toast.error(
@@ -84,6 +87,7 @@ export function FillMyDayModal({
 
       await utils.sprint.invalidate();
       await utils.report.invalidate();
+      setOpen(false);
     },
     onError: (err) => {
       toast.error(
@@ -97,6 +101,7 @@ export function FillMyDayModal({
   const deleteReports = api.report.deleteMany.useMutation({
     async onSuccess() {
       await utils.report.invalidate();
+      setOpen(false);
     },
     onError: (err) => {
       toast.error(
@@ -169,7 +174,7 @@ export function FillMyDayModal({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full">
           {isObjectEmpty(sprint) ? "Fill Day" : "Edit Day"}
