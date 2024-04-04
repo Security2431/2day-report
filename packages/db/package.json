@@ -35,7 +35,7 @@
     "jiti": "^1.21.0",
     "prettier": "^3.2.5",
     "prisma": "^5.9.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.4"
   },
   "eslintConfig": {
     "root": true,
