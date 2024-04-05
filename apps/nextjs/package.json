@@ -48,7 +48,7 @@
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.23",
+    "@types/react-dom": "^18.2.24",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.57.0",
     "jiti": "^1.21.0",
