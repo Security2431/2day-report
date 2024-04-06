@@ -5,6 +5,7 @@ import { Button } from "@acme/ui/button";
 import { Icons } from "@acme/ui/icons";
 import { TooltipProvider } from "@acme/ui/tooltip";
 
+import { BreadcrumbWithDropdown } from "~/_components/navigations/breadcrumb/breadcrumb";
 import { Sidebar } from "~/_components/workspaces/navigation";
 import routes from "~/_utils/routes";
 import { api } from "~/trpc/server";
@@ -40,7 +41,16 @@ export default async function WorkspaceLayout({
                 <span className="sr-only">Workspaces</span>
               </Link>
             </Button>
-            <h1 className="text-xl font-semibold">Teams Overview</h1>
+            {/* <h1 className="text-xl font-semibold">Teams Overview</h1> */}
+            <BreadcrumbWithDropdown
+              items={[
+                { href: "#", label: "Home" },
+                { href: "#", label: "Documentation" },
+                { href: "#", label: "Building Your Application" },
+                { href: "#", label: "Data Fetching" },
+                { label: "Caching and Revalidating" },
+              ]}
+            />
             <Button
               variant="outline"
               size="sm"
