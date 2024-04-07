@@ -87,7 +87,7 @@ model Session {
 
 model User {
   id            String              @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
+  name          String?
   email         String              @unique
   emailVerified DateTime?
   image         String?
@@ -96,12 +96,12 @@ model User {
   workingHours  WorkingHours?
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
-  accounts      Account[]
   sessions      Session[]
   teams         TeamsMembers[]
   workspaces    WorkspacesMembers[]
   sprints       Sprint[]
   reactions     Reaction[]
+  Account       Account[]
 }
 
 model VerificationToken {
