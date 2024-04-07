@@ -40,3 +40,7 @@ export const CreateProjectSchema = z.object({
   }),
   image: z.string().optional(),
 });
+
+export const AuthLoginSchema = z.object({
+  email: z.string().min(1),
+});

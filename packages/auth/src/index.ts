@@ -3,8 +3,10 @@ import Github from "@auth/core/providers/github";
 import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 import { prisma as db } from "@acme/db";
+import { sendMagicAuthEmail } from "@acme/mail";
 
 import { env } from "../env";
 
@@ -29,6 +31,13 @@ export const {
   signOut,
 } = NextAuth({
   adapter: PrismaAdapter(db),
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+    // verifyRequest: "/verify-request",
+  },
   providers: [
     Google({
       clientId: env.AUTH_GOOGLE_ID,
@@ -42,18 +51,74 @@ export const {
       clientSecret: env.AUTH_GITHUB_SECRET,
       allowDangerousEmailAccountLinking: true,
     }),
+    {
+      id: "email",
+      type: "email",
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: Number(env.EMAIL_SERVER_PORT),
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
+      maxAge: 1 * 60 * 60, // Invalidate in 1 hour
+      name: "Email",
+      options: {},
+      sendVerificationRequest: async (params) => {
+        let { identifier: email, url } = params;
+
+        try {
+          sendMagicAuthEmail({
+            toMail: email,
+            verificationUrl: url,
+          });
+        } catch (error) {
+          console.log({ error });
+        }
+      },
+    },
   ],
   callbacks: {
-    session: (opts) => {
-      if (!("user" in opts)) throw "unreachable with session strategy";
+    session({ token, session }) {
+      if (token) {
+        session.user.name = token.name!;
+        session.user.email = token.email!;
+        session.user.image = token.picture!;
+      }
+
+      return session;
+    },
+    async jwt({ token, user }) {
+      const dbUser = await db.user.findFirst({
+        where: {
+          email: token.email!,
+        },
+      });
+
+      if (!dbUser) {
+        return token;
+      }
 
       return {
-        ...opts.session,
-        user: {
-          ...opts.session.user,
-          id: opts.user.id,
-        },
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
       };
     },
   },
+  // callbacks: {
+  //   session: (opts) => {
+  //     if (!("user" in opts)) throw "unreachable with session strategy";
+
+  //     return {
+  //       ...opts.session,
+  //       user: {
+  //         ...opts.session.user,
+  //         id: opts.user.id,
+  //       },
+  //     };
+  //   },
+  // },
 });
