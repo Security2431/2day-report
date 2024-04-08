@@ -23,7 +23,7 @@
     "postinstall": "pnpm generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.9.1",
+    "@prisma/client": "^5.12.1",
     "@prisma/extension-accelerate": "^0.6.3"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "eslint": "^9.0.0",
     "jiti": "^1.21.0",
     "prettier": "^3.2.5",
-    "prisma": "^5.9.1",
+    "prisma": "^5.12.1",
     "typescript": "^5.4.4"
   },
   "eslintConfig": {
