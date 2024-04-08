@@ -23,8 +23,6 @@ interface Props {
 export function ProjectTabs({ fieldReportArrays }: Props) {
   const { fields } = fieldReportArrays;
 
-  console.log(`fields`, fields);
-
   if (!fields.length) {
     return <div className="py-4">Select project first...</div>;
   }

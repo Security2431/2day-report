@@ -192,7 +192,6 @@ export const workspaceRouter = createTRPCRouter({
         // }),
         ctx.db.workspace.delete({ where: { id: input } }),
       ]);
-      console.log("workspace", workspaceData);
 
       // const reports = await ctx.db.$transaction(async (tx) => {
       //   return Promise.all(

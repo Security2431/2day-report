@@ -68,7 +68,6 @@ export function Projects({ projects, className, fieldReportArrays }: Props) {
               className="h-auto w-full justify-start gap-1 px-2 py-1.5 text-sm lowercase"
               type="button"
               onClick={() => {
-                console.log(fields);
                 prepend({
                   projectId: id!,
                   projectName: name,

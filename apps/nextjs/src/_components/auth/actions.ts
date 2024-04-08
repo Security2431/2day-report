@@ -11,7 +11,6 @@ export async function login(
   data: z.infer<typeof AuthLoginSchema>,
   callbackUrl?: string,
 ) {
-  console.log(data);
   await signIn("email", {
     email: data.email,
     callbackUrl: callbackUrl ?? routes.workspaces,
