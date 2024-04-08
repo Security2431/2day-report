@@ -1,0 +1,34 @@
+import { z } from "zod";
+
+import { Role } from "@acme/db";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
+
+export const workspacesMembersRouter = createTRPCRouter({
+  all: protectedProcedure.input(z.string()).query(({ ctx, input }) => {
+    return ctx.db.workspacesMembers.findMany({
+      where: { workspaceId: input },
+      include: { user: true },
+      orderBy: { id: "desc" },
+    });
+  }),
+  byId: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.workspacesMembers.findFirst({ where: { id: input.id } });
+    }),
+  create: protectedProcedure
+    .input(
+      z.object({
+        workspaceId: z.string(),
+        userId: z.string(),
+        permission: z.nativeEnum(Role),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.db.workspacesMembers.create({ data: input });
+    }),
+  delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
+    return ctx.db.workspacesMembers.delete({ where: { id: input } });
+  }),
+});

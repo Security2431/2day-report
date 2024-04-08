@@ -24,9 +24,9 @@ export const workspaceRouter = createTRPCRouter({
     const decoratedWorkspaces = workspaces.map(({ users, ...workspace }) => ({
       ...workspace,
       people: users.length,
-      workspacePermissions:
-        users.find((user) => user.userId === ctx.session.user.id)
-          ?.permissions ?? [],
+      workspacePermission: users.find(
+        (user) => user.userId === ctx.session.user.id,
+      )?.permission,
     }));
 
     return decoratedWorkspaces;
@@ -75,7 +75,7 @@ export const workspaceRouter = createTRPCRouter({
 
       await ctx.db.workspacesMembers.create({
         data: {
-          permissions: [Role.ADMIN],
+          permission: Role.OWNER,
           user: { connect: { id: ctx.session.user.id } },
           workspace: { connect: { id: workspace.id } },
         },
@@ -112,11 +112,11 @@ export const workspaceRouter = createTRPCRouter({
           userId: ctx.session.user.id,
         },
         select: {
-          permissions: true,
+          permission: true,
         },
       });
 
-      if (!userRole?.permissions.includes(Role.ADMIN)) {
+      if (userRole?.permission !== Role.OWNER) {
         throw new TRPCError({
           code: "FORBIDDEN",
           message: "You must be an admin to delete a workspace",

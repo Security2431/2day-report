@@ -20,7 +20,7 @@ export function WorkspaceCard(
 ) {
   return (
     <Card className="relative flex flex-col items-center justify-center gap-3 p-6">
-      {props.workspace.workspacePermissions.includes(Role.ADMIN) && (
+      {props.workspace.workspacePermission === Role.OWNER && (
         <Button variant="ghost" size="icon" className="size-8" asChild>
           <Link
             href={routes.workspaceSettings(props.workspace.id)}

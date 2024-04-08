@@ -12,10 +12,10 @@ datasource db {
 }
 
 enum Role {
-  ADMIN // OWNER
-  USER // MANAGE_WORKSPACE
-  MANAGER // MANAGE_BILLING
-  GUEST // VIEW_TEAMS
+  OWNER
+  VIEWER
+  DEVELOPER
+  BILLING
 }
 
 enum DayType {
@@ -114,14 +114,14 @@ model VerificationToken {
 }
 
 model TeamsMembers {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String     @db.ObjectId
-  teamId      String     @db.ObjectId
-  permissions TeamRole[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  team        Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  teamId     String   @db.ObjectId
+  permission TeamRole
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team       Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
 model Team {
@@ -141,7 +141,7 @@ model WorkspacesMembers {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   userId      String    @db.ObjectId
   workspaceId String    @db.ObjectId
-  permissions Role[]
+  permission  Role
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -169,7 +169,7 @@ model Invitation {
   teamIDs     String[]  @db.ObjectId
   email       String?
   hash        String?
-  permissions Role[]
+  permission  Role
   assignedBy  String
   assignedAt  DateTime  @default(now())
   teams       Team[]    @relation(fields: [teamIDs], references: [id])
