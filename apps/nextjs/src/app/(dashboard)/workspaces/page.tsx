@@ -8,7 +8,7 @@ import { CreateWorkspacesModal } from "~/_components/modals";
 import { WorkspaceCardSkeleton, WorkspaceList } from "~/_components/workspaces";
 import { api } from "~/trpc/server";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function WorkspacesPage() {
   // You can await this here if you don't want to show Suspense fallback below

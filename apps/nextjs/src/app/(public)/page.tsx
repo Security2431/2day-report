@@ -14,7 +14,7 @@ import Footer from "~/_components/footer";
 import Header from "~/_components/header";
 import { Meteors } from "~/_components/meteors";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function HomePage() {
   return (
