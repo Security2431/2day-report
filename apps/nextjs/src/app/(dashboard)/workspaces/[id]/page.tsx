@@ -14,7 +14,7 @@ import { WeekList } from "~/_components/workspace/WeekList";
 import { getDaysOfWeek, getWeekdays } from "~/_utils/days";
 import { api } from "~/trpc/server";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function WorkspacePage({
   params,
