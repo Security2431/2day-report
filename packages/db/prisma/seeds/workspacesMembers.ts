@@ -1,16 +1,16 @@
 import type { Prisma } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 
 const prisma = new PrismaClient({ log: ["query"] });
 
 const mocks: Prisma.WorkspacesMembersCreateInput[] = [
   {
-    permissions: ["USER"],
+    permission: Role.OWNER,
     user: { connect: { id: "652ce878e5f41a254306180e" } },
     workspace: { connect: { id: "652e78c6e5d72ca950a93b41" } },
   },
   {
-    permissions: ["USER"],
+    permission: Role.VIEWER,
     user: { connect: { id: "652ce878e5f41a254306180f" } },
     workspace: { connect: { id: "652e78c6e5d72ca950a93b41" } },
   },

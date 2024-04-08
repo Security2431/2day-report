@@ -3,10 +3,10 @@ export const isObjectEmpty = (objectName: Record<string, any> = {}) => {
   return Object.keys(objectName).length === 0;
 };
 
-export const getAvatarFallback = (name = "") => {
-  const nameSplit = name.toUpperCase().split(" ");
+export const getAvatarFallback = (name?: string | null) => {
+  const nameSplit = name?.toUpperCase().split(" ");
 
-  if (!nameSplit.length) {
+  if (!nameSplit?.length) {
     return "CN";
   }
 

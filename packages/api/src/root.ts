@@ -6,6 +6,7 @@ import { reportRouter } from "./router/report";
 import { sprintRouter } from "./router/sprint";
 import { userRouter } from "./router/user";
 import { workspaceRouter } from "./router/workspace";
+import { workspacesMembersRouter } from "./router/workspacesMembers";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   workspace: workspaceRouter,
   reaction: reactionRouter,
+  workspacesMembers: workspacesMembersRouter,
 });
 
 // export type definition of API
