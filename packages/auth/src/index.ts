@@ -3,6 +3,7 @@ import Github from "@auth/core/providers/github";
 import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
+//@ts-nocheck
 import { JWT } from "next-auth/jwt";
 
 import { prisma as db } from "@acme/db";
@@ -21,6 +22,12 @@ declare module "next-auth" {
     user: {
       id: string;
     } & DefaultSession["user"];
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
   }
 }
 
@@ -83,6 +90,7 @@ export const {
   callbacks: {
     session({ token, session }) {
       if (token) {
+        session.user.id = token.id!;
         session.user.name = token.name!;
         session.user.email = token.email!;
         session.user.image = token.picture!;
@@ -98,10 +106,16 @@ export const {
       });
 
       if (!dbUser) {
+        // This token id is required @link https://github.com/shadcn-ui/taxonomy/blob/651f984e52edd65d40ccd55e299c1baeea3ff017/lib/auth.ts
+        if (user) {
+          token.id = user?.id!;
+        }
+
         return token;
       }
 
       return {
+        id: dbUser.id,
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
