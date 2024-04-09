@@ -23,6 +23,7 @@ import {
 } from "@acme/ui/command";
 import { Icons } from "@acme/ui/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@acme/ui/popover";
+import { toast } from "@acme/ui/toast";
 
 import { getAvatarFallback } from "~/_utils/common";
 import { PERMISSION_LIST } from "~/_utils/constants";
@@ -30,14 +31,25 @@ import { getPermission } from "~/_utils/permissions";
 import { api } from "~/trpc/react";
 
 export function MembersTab() {
+  const utils = api.useUtils();
   const [role, setRole] = useState<(typeof PERMISSION_LIST)[number]>();
   const params = useParams<{ id: string }>();
   const { data: permissions } = api.workspacesMembers.all.useQuery(params.id);
 
-  const handleClick = (role: Role) => {
-    const permission = getPermission(role);
-    setRole(permission);
-  };
+  const updatePermission = api.workspacesMembers.update.useMutation({
+    async onSuccess() {
+      toast.success("Your workspace permissions updated successfully!");
+
+      await utils.workspacesMembers.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to update workspace permissions"
+          : "Failed to update day report",
+      );
+    },
+  });
 
   return (
     <Card>
@@ -63,7 +75,11 @@ export function MembersTab() {
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" className="ml-auto">
-                  {getPermission(permission)?.name}{" "}
+                  {updatePermission.isPending ? (
+                    <Icons.LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    getPermission(permission)?.name
+                  )}{" "}
                   <Icons.ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
                 </Button>
               </PopoverTrigger>
@@ -76,8 +92,12 @@ export function MembersTab() {
                       {PERMISSION_LIST.map(({ role, name, description }) => (
                         <CommandItem
                           key={role}
+                          value={role}
                           className="teamaspace-y-1 flex flex-col items-start px-4 py-2"
-                          onClick={() => handleClick(role)}
+                          onSelect={() =>
+                            updatePermission.mutate({ id, permission: role })
+                          }
+                          disabled={updatePermission.isPending}
                         >
                           <p>{name}</p>
                           <p className="text-sm text-muted-foreground">

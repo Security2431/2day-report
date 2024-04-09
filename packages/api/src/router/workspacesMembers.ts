@@ -28,6 +28,23 @@ export const workspacesMembersRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.workspacesMembers.create({ data: input });
     }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        permission: z.nativeEnum(Role),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, ...data } = input;
+
+      return ctx.db.workspacesMembers.update({
+        where: {
+          id,
+        },
+        data,
+      });
+    }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.db.workspacesMembers.delete({ where: { id: input } });
   }),
