@@ -23,7 +23,7 @@
     "@acme/db": "workspace:^0.1.0",
     "eslint": "^9.0.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   },
   "eslintConfig": {
     "extends": [
