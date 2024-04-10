@@ -483,8 +483,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
       npm:
-        specifier: ^10.5.1
-        version: 10.5.1
+        specifier: ^10.5.2
+        version: 10.5.2
       react-hook-form:
         specifier: ^7.50.1
         version: 7.50.1(react@18.2.0)
@@ -11590,8 +11590,8 @@ packages:
     dependencies:
       path-key: 3.1.1
 
-  /npm@10.5.1:
-    resolution: {integrity: sha512-RozZuGuWbbhDM2sRhOSLIRb3DLyof6TREi0TW5b3xUEBropDhDqEHv0iAjA1zsIwXKgfIkR8GvQMd4oeKKg9eQ==}
+  /npm@10.5.2:
+    resolution: {integrity: sha512-cHVG7QEJwJdZyOrK0dKX5uf3R5Fd0E8AcmSES1jLtO52UT1enUKZ96Onw/xwq4CbrTZEnDuu2Vf9kCQh/Sd12w==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
