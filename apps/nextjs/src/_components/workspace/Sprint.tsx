@@ -83,7 +83,7 @@ export const Sprint = (props: {
       {sortedUsers.map((user) => (
         <section
           key={user.id}
-          className={cn("my-4 flex items-start justify-stretch gap-3 px-3")}
+          className={cn("flex items-start justify-stretch gap-3 px-3")}
         >
           <div className="sticky bottom-4 top-36 flex h-24 w-36 flex-none flex-col items-center text-center">
             <Avatar>
