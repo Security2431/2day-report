@@ -49,3 +49,7 @@ export const CreateCommentSchema = z.object({
   message: z.string().min(1),
   private: z.boolean().optional(),
 });
+
+export const CreateMembersSchema = z.object({
+  emails: z.array(z.record(z.string().trim())),
+});
