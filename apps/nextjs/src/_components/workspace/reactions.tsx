@@ -104,7 +104,7 @@ export const ReactionRow: React.FC<Props> = ({
 
   return (
     <section className="relative">
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap justify-end gap-1.5">
         {uniqueReactions.map((unified) => (
           <Button
             variant="outline"

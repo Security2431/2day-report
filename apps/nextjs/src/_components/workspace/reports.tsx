@@ -35,6 +35,7 @@ import { FillMyDayModal } from "~/_components/modals";
 import { getAvatarFallback, isObjectEmpty } from "~/_utils/common";
 import { getDayType } from "~/_utils/days";
 import { api } from "~/trpc/react";
+import { Comments } from "./comments";
 import { Markdown } from "./markdown";
 import { ReactionRow } from "./reactions";
 
@@ -131,11 +132,17 @@ export function ReportList(props: {
         )}
 
         {props.sprint && (
-          <ReactionRow
+          <Comments
             userId={props.session.user.id}
             sprintId={props.sprint.id}
-            reactions={props.sprint.reactions}
-          />
+            comments={props.sprint.comments}
+          >
+            <ReactionRow
+              userId={props.session.user.id}
+              sprintId={props.sprint.id}
+              reactions={props.sprint.reactions}
+            />
+          </Comments>
         )}
       </CardContent>
 

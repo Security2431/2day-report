@@ -44,3 +44,8 @@ export const CreateProjectSchema = z.object({
 export const AuthLoginSchema = z.object({
   email: z.string().min(1),
 });
+
+export const CreateCommentSchema = z.object({
+  message: z.string().min(1),
+  private: z.boolean().optional(),
+});

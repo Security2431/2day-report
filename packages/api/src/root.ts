@@ -1,4 +1,5 @@
 import { authRouter } from "./router/auth";
+import { commentRouter } from "./router/comment";
 import { postRouter } from "./router/post";
 import { projectRouter } from "./router/project";
 import { reactionRouter } from "./router/reaction";
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   workspace: workspaceRouter,
   reaction: reactionRouter,
   workspacesMembers: workspacesMembersRouter,
+  comment: commentRouter,
 });
 
 // export type definition of API
