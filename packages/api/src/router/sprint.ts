@@ -57,6 +57,22 @@ export const sprintRouter = createTRPCRouter({
               unified: true,
             },
           },
+          comments: {
+            orderBy: [{ updatedAt: "desc" }],
+            select: {
+              id: true,
+              message: true,
+              private: true,
+              updatedAt: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  image: true,
+                },
+              },
+            },
+          },
         },
         orderBy: [{ date: "asc" }],
       });
