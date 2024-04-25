@@ -82,11 +82,11 @@ export const Comments = ({ userId, sprintId, comments, children }: Props) => {
                 </div>
                 <div className="grid w-full gap-1">
                   <p className="flex items-center gap-2 text-sm font-medium leading-none">
-                    {user.name}{" "}
+                    <span className="truncate">{user.name}</span>{" "}
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <time
-                          className="text-xs text-muted-foreground"
+                          className="flex-none text-xs text-muted-foreground"
                           dateTime={format(
                             updatedAt,
                             "yyyy-MM-dd'T'HH:mm:ss.SSS",
@@ -103,7 +103,7 @@ export const Comments = ({ userId, sprintId, comments, children }: Props) => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="ml-auto size-6 text-red-500 hover:text-red-500"
+                        className="ml-auto size-6 flex-none text-red-500 hover:text-red-500"
                         onClick={() => deleteComment.mutate(id)}
                       >
                         <Icons.Trash className="size-1/2" />
