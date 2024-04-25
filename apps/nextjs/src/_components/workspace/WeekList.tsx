@@ -49,7 +49,7 @@ export const Day: React.FC<DayProps> = ({ day, date }) => {
       className={cn(
         "m-auto flex size-16 flex-col items-center justify-center self-center rounded-md p-3 text-2xl",
         {
-          "bg-white text-purple-500": isToday(date),
+          "bg-foreground text-background": isToday(date),
         },
       )}
     >
