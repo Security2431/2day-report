@@ -67,15 +67,15 @@ export function CreateWorkspacesModal({ className }: Props) {
     createWorkspace.mutate(data);
   };
 
-  // const checkKeyDown = async (event: React.KeyboardEvent<HTMLFormElement>) => {
-  //   if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-  //     const isValid = await form.trigger();
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      const isValid = await form.trigger();
 
-  //     if (isValid) {
-  //       await form.handleSubmit(onSubmit)();
-  //     }
-  //   }
-  // };
+      if (isValid) {
+        await form.handleSubmit(onSubmit)();
+      }
+    }
+  };
 
   return (
     <Dialog>
@@ -91,7 +91,7 @@ export function CreateWorkspacesModal({ className }: Props) {
         </DialogHeader>
         <Form {...form}>
           <form
-            // onKeyDown={checkKeyDown}
+            onKeyDown={handleKeyDown}
             className="flex w-full max-w-md flex-col gap-4"
             onSubmit={form.handleSubmit(onSubmit)}
           >

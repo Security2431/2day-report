@@ -173,6 +173,16 @@ export function FillMyDayModal({
     }
   };
 
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      const isValid = await form.trigger();
+
+      if (isValid) {
+        await form.handleSubmit(onSubmit)();
+      }
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -189,7 +199,10 @@ export function FillMyDayModal({
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            onKeyDown={handleKeyDown}
+          >
             <div className="flex gap-4">
               <Projects
                 className="sticky top-0 self-start py-2"

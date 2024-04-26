@@ -66,7 +66,17 @@ export function CreateProjectModal({ className }: Props) {
   });
 
   const onSubmit = async (data: z.infer<typeof CreateProjectSchema>) => {
-    createProject.mutate({ workspaceId: params.id, ...data });
+    await createProject.mutate({ workspaceId: params.id, ...data });
+  };
+
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      const isValid = await form.trigger();
+
+      if (isValid) {
+        await form.handleSubmit(onSubmit)();
+      }
+    }
   };
 
   return (
@@ -92,7 +102,7 @@ export function CreateProjectModal({ className }: Props) {
         </DialogHeader>
         <Form {...form}>
           <form
-            // onKeyDown={checkKeyDown}
+            onKeyDown={handleKeyDown}
             className="flex w-full max-w-md flex-col gap-4"
             onSubmit={form.handleSubmit(onSubmit)}
           >

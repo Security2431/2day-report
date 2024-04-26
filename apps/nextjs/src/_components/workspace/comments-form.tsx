@@ -1,3 +1,5 @@
+import * as z from "zod";
+
 import { Badge } from "@acme/ui/badge";
 import { Button } from "@acme/ui/button";
 import { Checkbox } from "@acme/ui/checkbox";
@@ -47,13 +49,26 @@ export const CommentsForm = ({ userId, sprintId }: Props) => {
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof CreateCommentSchema>) => {
+    await createComment.mutate({ userId, sprintId, ...data });
+  };
+
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      const isValid = await form.trigger();
+
+      if (isValid) {
+        await form.handleSubmit(onSubmit)();
+      }
+    }
+  };
+
   return (
     <Form {...form}>
       <form
         className="relative rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-        onSubmit={form.handleSubmit(async (data) => {
-          createComment.mutate({ userId, sprintId, ...data });
-        })}
+        onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={handleKeyDown}
       >
         {form.getValues("private") && (
           <Badge
