@@ -6,7 +6,6 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { Button } from "@acme/ui/button";
 import { Input } from "@acme/ui/input";
 
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { DeleteProjectsDialog } from "./delete-projects-dialog";
 
@@ -41,10 +40,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      {console.log(
-        "table.getFilteredSelectedRowModel()",
-        table.getFilteredSelectedRowModel(),
-      )}
+
       {table.getFilteredSelectedRowModel().rows.length > 0 ? (
         <DeleteProjectsDialog
           projects={table.getFilteredSelectedRowModel().rows}
