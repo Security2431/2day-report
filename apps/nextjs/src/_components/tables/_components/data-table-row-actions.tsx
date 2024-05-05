@@ -19,18 +19,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@acme/ui/dropdown-menu";
-
-import { labels } from "../_utils/data";
-import { taskSchema } from "../_utils/schema";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -43,7 +35,7 @@ export function DataTableRowActions<TData>({
   onEdit,
   onDelete,
 }: DataTableRowActionsProps<TData>) {
-  const task = taskSchema.parse(row.original);
+  const project = row.original;
 
   return (
     <AlertDialog>
@@ -61,23 +53,8 @@ export function DataTableRowActions<TData>({
           <DropdownMenuItem onClick={() => onEdit(row.original)}>
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
+          {/* <DropdownMenuItem>Make a copy</DropdownMenuItem> */}
           <DropdownMenuSeparator />
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              <DropdownMenuRadioGroup value={task.label}>
-                {labels.map((label) => (
-                  <DropdownMenuRadioItem key={label.value} value={label.value}>
-                    {label.label}
-                  </DropdownMenuRadioItem>
-                ))}
-              </DropdownMenuRadioGroup>
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
-          <DropdownMenuSeparator />
-
           <AlertDialogTrigger asChild>
             <DropdownMenuItem>
               Delete
@@ -92,7 +69,7 @@ export function DataTableRowActions<TData>({
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete &quot;
             <span className="font-bold text-foreground underline">
-              {task.title}
+              {project.name}
             </span>
             &quot; project and remove all related data from our servers.
           </AlertDialogDescription>

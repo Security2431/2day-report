@@ -1,27 +1,26 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
 
+import { RouterOutputs } from "@acme/api";
 import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
-import { Badge } from "@acme/ui/badge";
 import { Checkbox } from "@acme/ui/checkbox";
 import { Icons } from "@acme/ui/icons";
 
-import type { Task } from "../_utils/schema";
-import { labels, priorities, statuses } from "../_utils/data";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
-interface BankAccountsColumnsProps {
-  onEdit: (task: Task) => void;
-  onDelete: (task: Task) => void;
+interface ProjectColumnsProps {
+  onEdit: (task: RouterOutputs["project"]["byWorkspaceId"][number]) => void;
+  onDelete: (task: RouterOutputs["project"]["byWorkspaceId"][number]) => void;
 }
 
 export const getColumns = ({
   onEdit,
   onDelete,
-}: BankAccountsColumnsProps): ColumnDef<Task>[] => [
+}: ProjectColumnsProps): ColumnDef<
+  RouterOutputs["project"]["byWorkspaceId"][number]
+>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,15 +46,6 @@ export const getColumns = ({
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     accessorKey: "image",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Image" />
@@ -64,7 +54,7 @@ export const getColumns = ({
       const image: string = row.getValue("image");
 
       return (
-        <div className="flex space-x-2">
+        <div className="flex w-[100px] space-x-2">
           <Avatar className="size-12">
             <AvatarImage src={image} alt="image" />
             <AvatarFallback>
@@ -76,70 +66,29 @@ export const getColumns = ({
     },
   },
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("name")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status"),
-      );
-
-      if (!status) {
-        return null;
-      }
-
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority"),
-      );
-
-      if (!priority) {
-        return null;
-      }
-
       return (
         <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
+          <span>{row.getValue("createdAd")}</span>
         </div>
       );
     },

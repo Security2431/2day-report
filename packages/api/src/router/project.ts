@@ -22,6 +22,7 @@ export const projectRouter = createTRPCRouter({
           id: true,
           name: true,
           image: true,
+          createdAt: true,
         },
       });
     }),
