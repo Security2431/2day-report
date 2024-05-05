@@ -56,6 +56,26 @@ export const getColumns = ({
     enableHiding: false,
   },
   {
+    accessorKey: "image",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Image" />
+    ),
+    cell: ({ row }) => {
+      const image: string = row.getValue("image");
+
+      return (
+        <div className="flex space-x-2">
+          <Avatar className="size-12">
+            <AvatarImage src={image} alt="image" />
+            <AvatarFallback>
+              <Icons.ImageOff className="size-12" />
+            </AvatarFallback>
+          </Avatar>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "title",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
