@@ -1,6 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
 
 import { RouterOutputs } from "@acme/api";
 import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
@@ -86,9 +87,11 @@ export const getColumns = ({
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
+      const date = format(row.getValue("createdAt"), "yyyy-MM-dd hh:mm a");
+
       return (
         <div className="flex items-center">
-          <span>{row.getValue("createdAd")}</span>
+          <span>{date}</span>
         </div>
       );
     },
