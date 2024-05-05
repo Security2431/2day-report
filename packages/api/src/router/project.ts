@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import { Role } from "@acme/db";
-
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const projectRouter = createTRPCRouter({
@@ -22,6 +20,7 @@ export const projectRouter = createTRPCRouter({
           id: true,
           name: true,
           image: true,
+          createdAt: true,
         },
       });
     }),
@@ -37,7 +36,32 @@ export const projectRouter = createTRPCRouter({
       // TODO: before create, check this project name doesn't exist in this workspace
       return ctx.db.project.create({ data: input });
     }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        name: z.string().min(1),
+        workspaceId: z.string().min(1),
+        image: z.string().optional(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, ...data } = input;
+
+      return ctx.db.project.update({ where: { id }, data });
+    }),
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.db.project.delete({ where: { id: input } });
   }),
+  deleteSome: protectedProcedure
+    .input(z.array(z.string()))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.project.deleteMany({
+        where: {
+          id: {
+            in: input,
+          },
+        },
+      });
+    }),
 });
