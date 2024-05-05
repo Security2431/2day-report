@@ -3,6 +3,9 @@ import { useCallback, useMemo, useState } from "react";
 import Image from "next/image";
 import { z } from "zod";
 
+import { toast } from "@acme/ui/toast";
+
+import { api } from "~/trpc/react";
 import { getColumns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 import { Task, taskSchema } from "./_utils/schema";
@@ -825,19 +828,24 @@ export default function TaskPage() {
   //   },
   // });
 
+  const utils = api.useUtils();
+  const deleteProject = api.project.delete.useMutation({
+    async onSuccess() {
+      toast.success(`Your project ${name} was deleted successfully!`);
+
+      await utils.project.invalidate();
+    },
+    onError: (err) => {
+      toast.error(
+        err?.data?.code === "UNAUTHORIZED"
+          ? "You must be logged in to delete project"
+          : "Failed to delete project",
+      );
+    },
+  });
+
   const onDelete = useCallback((task: Task) => {
-    // deleteMutation.mutate(bankAccount.id, {
-    //   onSuccess: () => {
-    //     toast({ description: "Bank account was deleted successfully." });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       variant: "destructive",
-    //       title: "Uh Oh! Something went wrong!",
-    //       description: "There was a problem with your request.",
-    //     });
-    //   },
-    // });
+    deleteProject.mutate(task.id);
   }, []);
 
   const onEdit = useCallback((task: Task) => {

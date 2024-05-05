@@ -45,7 +45,6 @@ export function ProjectsTab() {
               <div className="flex items-center  border-b" key={project.id}>
                 <span className="mr-2">{index + 1}.</span>
                 <p>{project.name}</p>
-                <DeleteProject id={project.id} name={project.name} />
               </div>
             );
           })}
@@ -56,54 +55,3 @@ export function ProjectsTab() {
     </div>
   );
 }
-
-/* <DeleteProject />
-============================================================================= */
-export const DeleteProject = ({ id, name }: { id: string; name: string }) => {
-  const utils = api.useUtils();
-  const deleteProject = api.project.delete.useMutation({
-    async onSuccess() {
-      toast.success(`Your project ${name} successfully deleted!`);
-
-      await utils.project.invalidate();
-    },
-    onError: (err) => {
-      toast.error(
-        err?.data?.code === "UNAUTHORIZED"
-          ? "You must be logged in to delete project"
-          : "Failed to delete project",
-      );
-    },
-  });
-
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="ml-auto size-8 text-red-500 hover:text-red-500"
-        >
-          <Icons.Trash2 className="size-4" />
-          <span className="sr-only">Delete</span>
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete &quot;
-            <span className="font-bold text-foreground underline">{name}</span>
-            &quot; project and remove all related data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteProject.mutate(id)}>
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-};
