@@ -1,16 +1,27 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
+import Image from "next/image";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
 import { Badge } from "@acme/ui/badge";
 import { Checkbox } from "@acme/ui/checkbox";
+import { Icons } from "@acme/ui/icons";
 
 import type { Task } from "../_utils/schema";
 import { labels, priorities, statuses } from "../_utils/data";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
-export const columns: ColumnDef<Task>[] = [
+interface BankAccountsColumnsProps {
+  onEdit: (task: Task) => void;
+  onDelete: (task: Task) => void;
+}
+
+export const getColumns = ({
+  onEdit,
+  onDelete,
+}: BankAccountsColumnsProps): ColumnDef<Task>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -118,6 +129,8 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => (
+      <DataTableRowActions row={row} onEdit={onEdit} onDelete={onDelete} />
+    ),
   },
 ];

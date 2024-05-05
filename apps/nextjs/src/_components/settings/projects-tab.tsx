@@ -19,12 +19,15 @@ import { toast } from "@acme/ui/toast";
 
 import { api } from "~/trpc/react";
 import { CreateProjectModal } from "../modals";
+import TaskPage from "../tables/projects-table";
 
 export function ProjectsTab() {
   const params = useParams<{ id: string }>();
   const { data: projects } = api.project.byWorkspaceId.useQuery({
     id: params.id,
   });
+
+  return <TaskPage />;
 
   return (
     <div className="flex flex-col space-y-6">

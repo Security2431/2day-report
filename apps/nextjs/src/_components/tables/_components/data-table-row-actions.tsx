@@ -23,10 +23,14 @@ import { taskSchema } from "../_utils/schema";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
+  onEdit: (value: TData) => void;
+  onDelete: (value: TData) => void;
 }
 
 export function DataTableRowActions<TData>({
   row,
+  onEdit,
+  onDelete,
 }: DataTableRowActionsProps<TData>) {
   const task = taskSchema.parse(row.original);
 
@@ -42,7 +46,9 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onEdit(row.original)}>
+          Edit
+        </DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -59,7 +65,7 @@ export function DataTableRowActions<TData>({
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onDelete(row.original)}>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
