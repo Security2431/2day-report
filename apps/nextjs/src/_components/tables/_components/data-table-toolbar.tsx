@@ -6,9 +6,9 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { Button } from "@acme/ui/button";
 import { Input } from "@acme/ui/input";
 
-import { priorities, statuses } from "../_utils/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
+import { DeleteProjectsDialog } from "./delete-projects-dialog";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -20,7 +20,7 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between space-x-2">
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter projects..."
@@ -41,6 +41,16 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
+      {console.log(
+        "table.getFilteredSelectedRowModel()",
+        table.getFilteredSelectedRowModel(),
+      )}
+      {table.getFilteredSelectedRowModel().rows.length > 0 ? (
+        <DeleteProjectsDialog
+          projects={table.getFilteredSelectedRowModel().rows}
+          onSuccess={() => table.toggleAllPageRowsSelected(false)}
+        />
+      ) : null}
       <DataTableViewOptions table={table} />
     </div>
   );

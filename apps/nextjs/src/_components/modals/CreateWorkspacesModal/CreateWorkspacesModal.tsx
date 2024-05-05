@@ -81,7 +81,7 @@ export function CreateWorkspacesModal({ className }: Props) {
     <Dialog>
       <DialogTrigger asChild>
         <Button className={cn(className)}>
-          <Icons.Plus size={16} className="mr-2" /> Add new workspace
+          <Icons.CirclePlus size={16} className="mr-2" /> Add new workspace
         </Button>
       </DialogTrigger>
 
