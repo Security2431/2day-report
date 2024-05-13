@@ -5,6 +5,7 @@ import { Button } from "@acme/ui/button";
 import { Icons } from "@acme/ui/icons";
 import { TooltipProvider } from "@acme/ui/tooltip";
 
+import Timer from "~/_components/workspace/timer";
 import { Sidebar } from "~/_components/workspaces/navigation";
 import routes from "~/_utils/routes";
 import { api } from "~/trpc/server";
@@ -29,7 +30,9 @@ export default async function WorkspaceLayout({
 
         <div className="flex flex-col">
           <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4">
-            <Button
+            <Timer />
+
+            {/* <Button
               variant="outline"
               size="icon"
               className="mr-2 size-7"
@@ -39,7 +42,7 @@ export default async function WorkspaceLayout({
                 <Icons.ChevronLeft className="size-4" />
                 <span className="sr-only">Workspaces</span>
               </Link>
-            </Button>
+            </Button> 
             <h1 className="text-xl font-semibold">Teams Overview</h1>
             <Button
               variant="outline"
@@ -48,7 +51,7 @@ export default async function WorkspaceLayout({
             >
               <Icons.Share className="size-3.5" />
               Share
-            </Button>
+            </Button> */}
           </header>
           <main className="flex flex-1 flex-col gap-4 overflow-auto">
             {children}
