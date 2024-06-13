@@ -26,7 +26,7 @@
     "@trpc/react-query": "11.0.0-rc.366",
     "@trpc/server": "11.0.0-rc.366",
     "date-fns": "^3.6.0",
-    "emoji-picker-react": "^4.9.2",
+    "emoji-picker-react": "^4.10.0",
     "framer-motion": "^11.1.9",
     "geist": "^1.2.2",
     "js-cookie": "^3.0.5",
