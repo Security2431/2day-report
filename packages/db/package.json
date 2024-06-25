@@ -32,7 +32,7 @@
     "@acme/tsconfig": "^0.1.0",
     "dotenv-cli": "^7.4.2",
     "eslint": "^9.2.0",
-    "jiti": "^1.21.0",
+    "jiti": "^1.21.6",
     "prettier": "^3.2.5",
     "prisma": "^5.12.1",
     "typescript": "^5.4.5"
