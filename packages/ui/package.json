@@ -20,6 +20,7 @@
     "./icons": "./src/icons.tsx",
     "./input": "./src/input.tsx",
     "./label": "./src/label.tsx",
+    "./multiselect": "./src/multiselect.tsx",
     "./popover": "./src/popover.tsx",
     "./radio-group": "./src/radio-group.tsx",
     "./scroll-area": "./src/scroll-area.tsx",

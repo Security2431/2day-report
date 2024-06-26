@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import * as z from "zod";
 
 import { Role } from "@acme/db";
 import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui/avatar";
@@ -21,9 +22,29 @@ import {
   CommandItem,
   CommandList,
 } from "@acme/ui/command";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@acme/ui/dialog";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useForm,
+} from "@acme/ui/form";
 import { Icons } from "@acme/ui/icons";
+import { MultiSelect } from "@acme/ui/multiselect";
 import { Popover, PopoverContent, PopoverTrigger } from "@acme/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@acme/ui/tabs";
 import { toast } from "@acme/ui/toast";
+import { CreateMembersSchema } from "@acme/validators";
 
 import { getAvatarFallback } from "~/_utils/common";
 import { PERMISSION_LIST } from "~/_utils/constants";
@@ -32,9 +53,15 @@ import { api } from "~/trpc/react";
 
 export function MembersTab() {
   const utils = api.useUtils();
-  const [role, setRole] = useState<(typeof PERMISSION_LIST)[number]>();
   const params = useParams<{ id: string }>();
   const { data: permissions } = api.workspacesMembers.all.useQuery(params.id);
+
+  const form = useForm({
+    schema: CreateMembersSchema,
+    defaultValues: {
+      emails: [],
+    },
+  });
 
   const updatePermission = api.workspacesMembers.update.useMutation({
     async onSuccess() {
@@ -51,13 +78,103 @@ export function MembersTab() {
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof CreateMembersSchema>) => {};
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Team Members</CardTitle>
-        <CardDescription>
-          Invite your team members to collaborate.
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Team Members</CardTitle>
+          <CardDescription>
+            Invite your team members to collaborate.
+          </CardDescription>
+        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="sm" className="ml-auto h-7 gap-1">
+              <Icons.PlusCircle className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Invite Members
+              </span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-5xl">
+            <DialogHeader>
+              <DialogTitle className="text-center">Invite members</DialogTitle>
+            </DialogHeader>
+            <Tabs defaultValue="publicLink">
+              <TabsList>
+                <TabsTrigger value="publicLink">Public link</TabsTrigger>
+                <TabsTrigger value="personalEmail">Personal email</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="publicLink">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <FormField
+                      control={form.control}
+                      name="emails"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Select Frameworks</FormLabel>
+                          <MultiSelect
+                            selected={field.value}
+                            options={[
+                              {
+                                value: "next.js",
+                                label: "Next.js",
+                              },
+                              {
+                                value: "sveltekit",
+                                label: "SvelteKit",
+                              },
+                              {
+                                value: "nuxt.js",
+                                label: "Nuxt.js",
+                              },
+                              {
+                                value: "remix",
+                                label: "Remix",
+                              },
+                              {
+                                value: "astro",
+                                label: "Astro",
+                              },
+                              {
+                                value: "wordpress",
+                                label: "WordPress",
+                              },
+                              {
+                                value: "express.js",
+                                label: "Express.js",
+                              },
+                            ]}
+                            {...field}
+                            className="sm:w-[510px]"
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <DialogFooter className="mt-6 sm:justify-start">
+                      <Button
+                        type="submit"
+                        // disabled={
+                        //   updateSprint.isPending ||
+                        //   createSprint.isPending ||
+                        //   deleteReports.isPending
+                        // }
+                      >
+                        Save
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </Form>
+              </TabsContent>
+              <TabsContent value="personalEmail"></TabsContent>
+            </Tabs>
+          </DialogContent>
+        </Dialog>
       </CardHeader>
       <CardContent className="grid gap-6">
         {permissions?.map(({ id, user, permission }) => (
