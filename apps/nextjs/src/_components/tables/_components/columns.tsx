@@ -57,7 +57,7 @@ export const getColumns = ({
       return (
         <div className="flex w-[100px] space-x-2">
           <Avatar className="size-12">
-            <AvatarImage src={image} alt="image" />
+            <AvatarImage className="object-contain" src={image} alt="image" />
             <AvatarFallback>
               <Icons.ImageOff className="size-12" />
             </AvatarFallback>
