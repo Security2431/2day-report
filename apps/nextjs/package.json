@@ -27,7 +27,7 @@
     "@trpc/server": "11.0.0-rc.366",
     "date-fns": "^3.6.0",
     "emoji-picker-react": "^4.9.2",
-    "framer-motion": "^11.1.9",
+    "framer-motion": "^11.2.12",
     "geist": "^1.2.2",
     "js-cookie": "^3.0.5",
     "next": "^14.2.3",
