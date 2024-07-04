@@ -6,30 +6,33 @@ import { cn } from "@acme/ui";
 import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
 import { Toaster } from "@acme/ui/toast";
 
-import { env } from "~/env";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import "~/app/globals.scss";
 
+import { env } from "~/env";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://turbo.t3.gg"
+      ? "https://2day.report"
       : "http://localhost:3000",
   ),
-  title: "Create T3 Turbo",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  title: "Create Day Report",
+  description:
+    "Gain a clear overview of your team's progress and availability!",
   openGraph: {
-    title: "Create T3 Turbo",
-    description: "Simple monorepo with shared backend for web & mobile apps",
-    url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
+    title: "Create Day Report",
+    description:
+      "Gain a clear overview of your team's progress and availability!",
+    url: "https://2day.report",
+    siteName: "Create Day Report",
   },
-  twitter: {
-    card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
-  },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   site: "@security2431",
+  //   creator: "@security2431",
+  // },
 };
 
 export const viewport: Viewport = {
