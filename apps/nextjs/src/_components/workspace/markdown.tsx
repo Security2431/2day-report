@@ -18,7 +18,7 @@ const renderers = {
 export const Markdown: React.FC<Props> = ({ content }) => {
   return (
     <ReactMarkdown
-      className="prose dark:prose-invert prose-sm break-words"
+      className="prose prose-sm break-words dark:prose-invert"
       remarkPlugins={[remarkGfm]}
       components={renderers}
     >
