@@ -49,7 +49,7 @@ importers:
         specifier: ^9.4.0
         version: 9.6.0
       h3:
-        specifier: ^1.11.1
+        specifier: ^1.12.0
         version: 1.12.0
       nitropack:
         specifier: ^2.9.7
