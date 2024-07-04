@@ -9,10 +9,13 @@ import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@acme/db";
-
-// import { sendMagicAuthEmail } from "@acme/mail";
+import { sendMagicAuthEmail } from "@acme/mail";
 
 import { env } from "../env";
+
+// Update this whenever adding new providers so that the client can
+export const providers = ["google", "github"] as const;
+export type OAuthProviders = (typeof providers)[number];
 
 declare module "next-auth" {
   interface Session {
@@ -39,34 +42,34 @@ export const authConfig = {
   providers: [
     Google,
     Github,
-    // {
-    //   id: "email",
-    //   type: "email",
-    //   server: {
-    //     host: env.EMAIL_SERVER_HOST,
-    //     port: Number(env.EMAIL_SERVER_PORT),
-    //     auth: {
-    //       user: env.EMAIL_SERVER_USER,
-    //       pass: env.EMAIL_SERVER_PASSWORD,
-    //     },
-    //   },
-    //   from: env.EMAIL_FROM,
-    //   maxAge: 1 * 60 * 60, // Invalidate in 1 hour
-    //   name: "Email",
-    //   options: {},
-    //   sendVerificationRequest: async (params) => {
-    //     let { identifier: email, url } = params;
+    {
+      id: "email",
+      type: "email",
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: Number(env.EMAIL_SERVER_PORT),
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
+      maxAge: 1 * 60 * 60, // Invalidate in 1 hour
+      name: "Email",
+      options: {},
+      sendVerificationRequest: async (params) => {
+        const { identifier: email, url } = params;
 
-    //     try {
-    //       sendMagicAuthEmail({
-    //         toMail: email,
-    //         verificationUrl: url,
-    //       });
-    //     } catch (error) {
-    //       console.log({ error });
-    //     }
-    //   },
-    // },
+        try {
+          await sendMagicAuthEmail({
+            toMail: email,
+            verificationUrl: url,
+          });
+        } catch (error) {
+          console.log({ error });
+        }
+      },
+    },
   ],
   callbacks: {
     session: (opts) => {

@@ -1,8 +1,8 @@
 "use client";
 
+import type * as z from "zod";
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import * as z from "zod";
 
 import { cn } from "@acme/ui";
 import { Button } from "@acme/ui/button";
