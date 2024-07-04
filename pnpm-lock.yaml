@@ -586,6 +586,9 @@ importers:
 
   packages/validators:
     dependencies:
+      '@acme/db':
+        specifier: workspace:*
+        version: link:../db
       zod:
         specifier: ^3.23.8
         version: 3.23.8
