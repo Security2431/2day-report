@@ -1,6 +1,7 @@
 // Solution for prisma edge: @link https://github.com/prisma/prisma/issues/22050#issuecomment-1821208388
-import { PrismaClient } from "@prisma/client/edge";
-import { withAccelerate } from "@prisma/extension-accelerate";
+import { PrismaClient } from "@prisma/client";
+
+// import { withAccelerate } from "@prisma/extension-accelerate";
 
 export * from "@prisma/client";
 
@@ -12,7 +13,7 @@ const prismaClientSingleton = () => {
       process.env.NODE_ENV === "development"
         ? ["query", "error", "warn"]
         : ["error"],
-  }).$extends(withAccelerate());
+  }); //.$extends(withAccelerate());
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
