@@ -28,7 +28,7 @@
   },
   "prettier": "@acme/prettier-config",
   "dependencies": {
-    "react-email": "^2.1.2",
+    "react-email": "^2.1.5",
     "resend": "^3.2.0"
   }
 }
