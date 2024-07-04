@@ -65,6 +65,7 @@ const useFormField = () => {
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState, ...form } = useFormContext();
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>");
   }

@@ -1,4 +1,4 @@
-import { TRPCRouterRecord } from "@trpc/server";
+import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
 import { DayType } from "@acme/db";
@@ -115,16 +115,15 @@ export const sprintRouter = {
           type: input.type,
           mood: input.mood,
           // Include reports only if there are any to be created
-          ...(input.reports?.length > 0 && {
+          ...(input.reports.length > 0 && {
             reports: {
               createMany: {
-                data:
-                  input.reports?.map((report) => ({
-                    description: report.description,
-                    blockers: report.blockers,
-                    projectId: report.projectId,
-                    hours: report.hours,
-                  })) ?? [],
+                data: input.reports.map((report) => ({
+                  description: report.description,
+                  blockers: report.blockers,
+                  projectId: report.projectId,
+                  hours: report.hours,
+                })),
               },
             },
           }),
@@ -176,7 +175,7 @@ export const sprintRouter = {
 
       const reports = await ctx.db.$transaction(async (tx) => {
         return Promise.all(
-          input.reports?.map((report) => {
+          input.reports.map((report) => {
             if (!report.reportId) {
               return tx.report.create({
                 data: {

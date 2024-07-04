@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { nanoid } from "nanoid";
 
 import { env } from "../env";
@@ -27,7 +28,7 @@ export const sendWelcomeEmail = async ({
   const subject = "Thanks for using 2day.report!";
   const temp = ThanksTemp({ userName });
 
-  //@ts-expect-error text field is required
+  // @ts-ignore
   await resend.emails.send({
     from: env.EMAIL_FROM,
     to: toMail,
@@ -47,7 +48,7 @@ export const sendVerificationEmail = async ({
   const subject = "Email Verification for 2day.report";
   const temp = VerificationTemp({ userName, verificationUrl });
 
-  //@ts-expect-error text field is required
+  // @ts-ignore
   await resend.emails.send({
     from: env.EMAIL_FROM,
     to: toMail,
@@ -66,7 +67,7 @@ export const sendMagicAuthEmail = async ({
   const subject = "Login Link for 2day.report";
   const temp = LoginTemp({ verificationUrl });
 
-  //@ts-expect-error text field is required
+  // @ts-ignore
   await resend.emails.send({
     from: env.EMAIL_FROM,
     to: toMail,

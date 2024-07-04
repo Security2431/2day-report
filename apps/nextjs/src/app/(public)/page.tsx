@@ -2,12 +2,10 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@acme/ui/card";
 
-import { AuthShowcase } from "~/_components/auth-showcase";
 import { LoginForm } from "~/_components/auth/LoginForm";
 import Footer from "~/_components/footer";
 import Header from "~/_components/header";
@@ -15,7 +13,7 @@ import { Meteors } from "~/_components/meteors";
 
 // export const runtime = "edge";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <>
       <header>
