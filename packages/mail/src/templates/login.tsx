@@ -15,7 +15,7 @@ import {
 
 import { getBaseUrl } from "../utils/base-url";
 
-const siteUrl = getBaseUrl();
+const baseUrl = getBaseUrl();
 
 interface VerificationTemplateProps {
   verificationUrl: string;
@@ -34,7 +34,7 @@ const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
             <Row>
               <Column align="right">
                 <Img
-                  src={`${siteUrl}/logo.svg`}
+                  src={`${baseUrl}/logo.svg`}
                   height="50"
                   alt="2day.report logo"
                   className="inline-block "
