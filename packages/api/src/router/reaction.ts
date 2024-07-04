@@ -1,8 +1,9 @@
+import { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
-export const reactionRouter = createTRPCRouter({
+export const reactionRouter = {
   all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.reaction.findMany({
       orderBy: { id: "desc" },
@@ -44,4 +45,4 @@ export const reactionRouter = createTRPCRouter({
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.db.reaction.delete({ where: { id: input } });
   }),
-});
+} satisfies TRPCRouterRecord;

@@ -39,9 +39,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        purple: {
-          500: "#2e026d",
-        },
       },
       borderColor: {
         DEFAULT: "hsl(var(--border))",

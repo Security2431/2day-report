@@ -1,8 +1,9 @@
+import { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
-export const reportRouter = createTRPCRouter({
+export const reportRouter = {
   all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.report.findMany({
       orderBy: { id: "desc" },
@@ -37,4 +38,4 @@ export const reportRouter = createTRPCRouter({
         },
       });
     }),
-});
+} satisfies TRPCRouterRecord;
