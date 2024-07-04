@@ -3,14 +3,14 @@
 import * as React from "react";
 import { ThemeProvider, useTheme } from "next-themes";
 
-import { Button } from "./button";
+import { Button } from "@acme/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
-import { Icons } from "./icons";
+} from "@acme/ui/dropdown-menu";
+import { Icons } from "@acme/ui/icons";
 
 function ThemeToggle() {
   const { setTheme } = useTheme();

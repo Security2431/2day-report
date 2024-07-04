@@ -7,7 +7,7 @@ import type {
   FieldValues,
   UseFormProps,
 } from "react-hook-form";
-import type { ZodType } from "zod";
+import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Slot } from "@radix-ui/react-slot";
@@ -18,15 +18,15 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from ".";
-import { Label } from "./label";
+import { cn } from "@acme/ui";
+import { Label } from "@acme/ui/label";
 
-const useForm = <TSchema extends ZodType>(
-  props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
-    schema: TSchema;
+const useForm = <TOut, TDef extends ZodTypeDef, TIn extends FieldValues>(
+  props: Omit<UseFormProps<TIn>, "resolver"> & {
+    schema: ZodType<TOut, TDef, TIn>;
   },
 ) => {
-  const form = __useForm<TSchema["_input"]>({
+  const form = __useForm<TIn>({
     ...props,
     resolver: zodResolver(props.schema, undefined),
   });
@@ -43,8 +43,8 @@ interface FormFieldContextValue<
   name: TName;
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
+const FormFieldContext = React.createContext<FormFieldContextValue | null>(
+  null,
 );
 
 const FormField = <
@@ -63,13 +63,12 @@ const FormField = <
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
-  const { getFieldState, formState, ...form } = useFormContext();
-
-  const fieldState = getFieldState(fieldContext.name, formState);
+  const { getFieldState, formState } = useFormContext();
 
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>");
   }
+  const fieldState = getFieldState(fieldContext.name, formState);
 
   const { id } = itemContext;
 
@@ -80,7 +79,6 @@ const useFormField = () => {
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
-    ...form,
   };
 };
 
@@ -168,7 +166,7 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
+  const body = error ? String(error.message) : children;
 
   if (!body) {
     return null;
