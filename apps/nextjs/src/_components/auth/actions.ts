@@ -1,9 +1,10 @@
 "use server";
 
-import * as z from "zod";
+import type * as z from "zod";
 
-import { OAuthProviders, signIn } from "@acme/auth";
-import { AuthLoginSchema } from "@acme/validators";
+import type { OAuthProviders } from "@acme/auth";
+import type { AuthLoginSchema } from "@acme/validators";
+import { signIn } from "@acme/auth";
 
 import routes from "~/_utils/routes";
 

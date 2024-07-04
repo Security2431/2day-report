@@ -13,3 +13,5 @@ export {
   validateToken,
   isSecureContext,
 } from "./config";
+
+export type { OAuthProviders } from "./config";
