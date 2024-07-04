@@ -1,21 +1,12 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalDependencies": ["**/.env"],
-  "pipeline": {
+  "ui": "tui",
+  "tasks": {
     "topo": {
       "dependsOn": ["^topo"]
     },
-    "db:generate": {
-      "cache": false
-    },
-    "db:push": {
-      "cache": false
-    },
-    "db:seed": {
-      "cache": false
-    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate"],
       "outputs": [
         ".next/**",
         "!.next/cache/**",
@@ -31,14 +22,14 @@
     },
     "format": {
       "outputs": ["node_modules/.cache/.prettiercache"],
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "lint": {
-      "dependsOn": ["^topo"],
+      "dependsOn": ["^topo", "^build"],
       "outputs": ["node_modules/.cache/.eslintcache"]
     },
     "typecheck": {
-      "dependsOn": ["^topo", "^db:generate"],
+      "dependsOn": ["^topo", "^build"],
       "outputs": ["node_modules/.cache/tsbuildinfo.json"]
     },
     "clean": {
@@ -46,6 +37,24 @@
     },
     "//#clean": {
       "cache": false
+    },
+    "generate": {
+      "cache": false
+    },
+    "push": {
+      "cache": false,
+      "interactive": true
+    },
+    "studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "seed": {
+      "cache": false
+    },
+    "ui-add": {
+      "cache": false,
+      "interactive": true
     }
   },
   "globalEnv": [
@@ -60,6 +69,14 @@
     "EMAIL_SERVER_USER",
     "EMAIL_SERVER_PASSWORD",
     "EMAIL_FROM",
-    "AUTH_SECRET"
+    "PORT"
+  ],
+  "globalPassThroughEnv": [
+    "NODE_ENV",
+    "CI",
+    "VERCEL",
+    "VERCEL_ENV",
+    "VERCEL_URL",
+    "npm_lifecycle_event"
   ]
 }
