@@ -13,7 +13,9 @@ import {
   Text,
 } from "@react-email/components";
 
-const siteUrl = process.env.NEXT_PUBLIC_URL ?? "https://2day.report";
+import { getBaseUrl } from "../utils/base-url";
+
+const siteUrl = getBaseUrl();
 
 interface VerificationTemplateProps {
   verificationUrl: string;

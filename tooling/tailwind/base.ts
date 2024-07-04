@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typographyPlugin from "@tailwindcss/typography";
 
 export default {
   darkMode: ["class"],
@@ -67,5 +68,5 @@ export default {
       center: true,
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [typographyPlugin],
 } satisfies Config;
