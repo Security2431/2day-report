@@ -1,10 +1,11 @@
+import { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
 import { DayType } from "@acme/db";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
-export const sprintRouter = createTRPCRouter({
+export const sprintRouter = {
   all: protectedProcedure.query(({ ctx }) => {
     return ctx.db.sprint.findMany({
       orderBy: { id: "desc" },
@@ -222,4 +223,4 @@ export const sprintRouter = createTRPCRouter({
         where: { id: input },
       });
     }),
-});
+} satisfies TRPCRouterRecord;

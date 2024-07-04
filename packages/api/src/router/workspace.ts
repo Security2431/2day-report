@@ -1,11 +1,11 @@
-import { TRPCError } from "@trpc/server";
+import { TRPCError, TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
 import { Role } from "@acme/db";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
-export const workspaceRouter = createTRPCRouter({
+export const workspaceRouter = {
   all: protectedProcedure.query(async ({ ctx }) => {
     const workspaces = await ctx.db.workspace.findMany({
       where: {
@@ -226,4 +226,4 @@ export const workspaceRouter = createTRPCRouter({
 
       return workspace;
     }),
-});
+} satisfies TRPCRouterRecord;

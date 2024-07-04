@@ -1,10 +1,11 @@
+import { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
 import { Role } from "@acme/db";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
-export const workspacesMembersRouter = createTRPCRouter({
+export const workspacesMembersRouter = {
   all: protectedProcedure.input(z.string()).query(({ ctx, input }) => {
     return ctx.db.workspacesMembers.findMany({
       where: { workspaceId: input },
@@ -48,4 +49,4 @@ export const workspacesMembersRouter = createTRPCRouter({
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.db.workspacesMembers.delete({ where: { id: input } });
   }),
-});
+} satisfies TRPCRouterRecord;
