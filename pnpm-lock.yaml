@@ -27,8 +27,8 @@ importers:
   apps/auth-proxy:
     dependencies:
       '@auth/core':
-        specifier: 0.32.0
-        version: 0.32.0
+        specifier: 0.34.1
+        version: 0.34.1
     devDependencies:
       '@acme/eslint-config':
         specifier: workspace:*
@@ -355,8 +355,8 @@ importers:
         specifier: workspace:*
         version: link:../mail
       '@auth/core':
-        specifier: 0.32.0
-        version: 0.32.0
+        specifier: 0.34.1
+        version: 0.34.1
       '@auth/prisma-adapter':
         specifier: ^1.6.0
         version: 1.6.0(@prisma/client@5.16.1(prisma@5.16.1))
@@ -739,6 +739,20 @@ packages:
 
   '@auth/core@0.32.0':
     resolution: {integrity: sha512-3+ssTScBd+1fd0/fscAyQN1tSygXzuhysuVVzB942ggU4mdfiTbv36P0ccVnExKWYJKvu3E2r3/zxXCCAmTOrg==}
+    peerDependencies:
+      '@simplewebauthn/browser': ^9.0.1
+      '@simplewebauthn/server': ^9.0.2
+      nodemailer: ^6.8.0
+    peerDependenciesMeta:
+      '@simplewebauthn/browser':
+        optional: true
+      '@simplewebauthn/server':
+        optional: true
+      nodemailer:
+        optional: true
+
+  '@auth/core@0.34.1':
+    resolution: {integrity: sha512-tuYU2VIbI8rFbkSwP710LmybB2FXJsPN7j3sjRVfN9SXVQBK2ej6LdewQaofpBGp4Mk+cC2UeiGNH0or4tgaeA==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
@@ -7844,6 +7858,9 @@ packages:
   oauth4webapi@2.10.3:
     resolution: {integrity: sha512-9FkXEXfzVKzH63GUOZz1zMr3wBaICSzk6DLXx+CGdrQ10ItNk2ePWzYYc1fdmKq1ayGFb2aX97sRCoZ2s0mkDw==}
 
+  oauth4webapi@2.11.1:
+    resolution: {integrity: sha512-aNzOnL98bL6izG97zgnZs1PFEyO4WDVRhz2Pd066NPak44w5ESLRCYmJIyey8avSBPOMtBjhF3ZDDm7bIb7UOg==}
+
   ob1@0.80.6:
     resolution: {integrity: sha512-nlLGZPMQ/kbmkdIb5yvVzep1jKUII2x6ehNsHpgy71jpnJMW7V+KsB3AjYI2Ajb7UqMAMNjlssg6FUodrEMYzg==}
     engines: {node: '>=18'}
@@ -10072,6 +10089,16 @@ snapshots:
       cookie: 0.6.0
       jose: 5.2.2
       oauth4webapi: 2.10.3
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3(preact@10.11.3)
+
+  '@auth/core@0.34.1':
+    dependencies:
+      '@panva/hkdf': 1.1.1
+      '@types/cookie': 0.6.0
+      cookie: 0.6.0
+      jose: 5.2.2
+      oauth4webapi: 2.11.1
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
 
@@ -18840,6 +18867,8 @@ snapshots:
       ufo: 1.5.3
 
   oauth4webapi@2.10.3: {}
+
+  oauth4webapi@2.11.1: {}
 
   ob1@0.80.6: {}
 
