@@ -401,7 +401,7 @@ importers:
   packages/db:
     dependencies:
       '@prisma/client':
-        specifier: ^5.15.1
+        specifier: ^5.16.1
         version: 5.16.1(prisma@5.16.1)
       '@prisma/extension-accelerate':
         specifier: ^1.1.0
@@ -429,7 +429,7 @@ importers:
         specifier: ^3.3.1
         version: 3.3.2
       prisma:
-        specifier: ^5.15.1
+        specifier: ^5.16.1
         version: 5.16.1
       typescript:
         specifier: ^5.4.5
