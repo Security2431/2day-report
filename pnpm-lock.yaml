@@ -245,7 +245,7 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: ^7.51.4
+        specifier: ^7.52.1
         version: 7.52.1(react@18.3.1)
       react-markdown:
         specifier: ^9.0.1
@@ -541,7 +541,7 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-hook-form:
-        specifier: ^7.51.4
+        specifier: ^7.52.1
         version: 7.52.1(react@18.3.1)
       sonner:
         specifier: ^1.5.0
@@ -18623,7 +18623,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  next@14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6):
+  next@14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.2.0))(react@18.3.1)(sass@1.77.6):
     dependencies:
       '@next/env': 14.1.4
       '@swc/helpers': 0.5.2
@@ -19452,7 +19452,7 @@ snapshots:
       glob: 10.3.4
       log-symbols: 4.1.0
       mime-types: 2.1.35
-      next: 14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6)
+      next: 14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.2.0))(react@18.3.1)(sass@1.77.6)
       normalize-path: 3.0.0
       ora: 5.4.1
       postcss: 8.4.38
