@@ -224,8 +224,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       emoji-picker-react:
-        specifier: ^4.9.2
-        version: 4.9.2(react@18.3.1)
+        specifier: ^4.11.1
+        version: 4.11.1(react@18.3.1)
       framer-motion:
         specifier: ^11.2.13
         version: 11.2.13(@emotion/is-prop-valid@0.8.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -5637,8 +5637,8 @@ packages:
   electron-to-chromium@1.4.673:
     resolution: {integrity: sha512-zjqzx4N7xGdl5468G+vcgzDhaHkaYgVcf9MqgexcTqsl2UHSCmOj/Bi3HAprg4BZCpC7HyD8a6nZl6QAZf72gw==}
 
-  emoji-picker-react@4.9.2:
-    resolution: {integrity: sha512-pdvLKpto0DMrjE+/8V9QeYjrMcOkJmqBn3GyCSG2zanY32rN2cnWzBUmzArvapAjzBvgf7hNmJP8xmsdu0cmJA==}
+  emoji-picker-react@4.11.1:
+    resolution: {integrity: sha512-e3vhGcZyyNu7GqJaXzgoVxtASXs97duAP/vh7aL88dHJcW72DjuwYMjipzNBCjPFxXwUiQas483SKCAxPwwaUQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
@@ -6140,8 +6140,8 @@ packages:
   find-yarn-workspace-root@2.0.0:
     resolution: {integrity: sha512-1IMnbjt4KzsQfnhnzNd8wUEgXZ44IzZaZmnLYx7D5FZlaHt2gW20Cri8Q+E/t5tIj4+epTBub+2Zxu/vNILzqQ==}
 
-  flairup@0.0.38:
-    resolution: {integrity: sha512-W9QA5TM7eYNlGoBYwfVn/o6v4yWBCxfq4+EJ5w774oFeyWvVWnYq6Dgt4CJltjG9y/lPwbOqz3jSSr8K66ToGg==}
+  flairup@1.0.0:
+    resolution: {integrity: sha512-IKlE+pNvL2R+kVL1kEhUYqRxVqeFnjiIvHWDMLFXNaqyUdFXQM2wte44EfMYJNHkW16X991t2Zg8apKkhv7OBA==}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -15926,9 +15926,9 @@ snapshots:
 
   electron-to-chromium@1.4.673: {}
 
-  emoji-picker-react@4.9.2(react@18.3.1):
+  emoji-picker-react@4.11.1(react@18.3.1):
     dependencies:
-      flairup: 0.0.38
+      flairup: 1.0.0
       react: 18.3.1
 
   emoji-regex@8.0.0: {}
@@ -16746,7 +16746,7 @@ snapshots:
     dependencies:
       micromatch: 4.0.5
 
-  flairup@0.0.38: {}
+  flairup@1.0.0: {}
 
   flat-cache@4.0.1:
     dependencies:
