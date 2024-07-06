@@ -76,14 +76,14 @@ importers:
         specifier: ^5.50.1
         version: 5.50.1(react@18.3.1)
       '@trpc/client':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366(@trpc/server@11.0.0-rc.366)
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449(@trpc/server@11.0.0-rc.449)
       '@trpc/react-query':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.366(@trpc/server@11.0.0-rc.366))(@trpc/server@11.0.0-rc.366)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.449(@trpc/server@11.0.0-rc.449))(@trpc/server@11.0.0-rc.449)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449
       expo:
         specifier: ~51.0.18
         version: 51.0.18(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))
@@ -212,14 +212,14 @@ importers:
         specifier: ^5.50.1
         version: 5.50.1(react@18.3.1)
       '@trpc/client':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366(@trpc/server@11.0.0-rc.366)
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449(@trpc/server@11.0.0-rc.449)
       '@trpc/react-query':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.366(@trpc/server@11.0.0-rc.366))(@trpc/server@11.0.0-rc.366)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.449(@trpc/server@11.0.0-rc.449))(@trpc/server@11.0.0-rc.449)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -318,8 +318,8 @@ importers:
         specifier: workspace:*
         version: link:../validators
       '@trpc/server':
-        specifier: 11.0.0-rc.366
-        version: 11.0.0-rc.366
+        specifier: 11.0.0-rc.449
+        version: 11.0.0-rc.449
       superjson:
         specifier: 2.2.1
         version: 2.2.1
@@ -631,7 +631,7 @@ importers:
         version: 7.34.3(eslint@9.6.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-3da26163a3-20240704(eslint@9.6.0)
+        version: 5.1.0-rc-f38c22b244-20240704(eslint@9.6.0)
       eslint-plugin-turbo:
         specifier: ^2.0.6
         version: 2.0.6(eslint@9.6.0)
@@ -4248,22 +4248,22 @@ packages:
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
 
-  '@trpc/client@11.0.0-rc.366':
-    resolution: {integrity: sha512-bIbcF/UhCifU5i9hbbaMlmOS2NgnRq5W0pJH2SJhrp6jyIIaCF+uNAIZtkfO0GriBb0agBmGIXqvGLFEexiTKA==}
+  '@trpc/client@11.0.0-rc.449':
+    resolution: {integrity: sha512-F/IRYnUJgp3xHsbaWUbOA50IOI3jUkNhBHM3dPpb8pt5IdkwqMzG+u4X45igMvxd387sL14gRk5xU1oz9cH8Lw==}
     peerDependencies:
-      '@trpc/server': 11.0.0-rc.366+237dbb3f9
+      '@trpc/server': 11.0.0-rc.449+42acce6ac
 
-  '@trpc/react-query@11.0.0-rc.366':
-    resolution: {integrity: sha512-LCdJFymEdaKBBNRQPVAcEw9qNu3m+n9hH3qIPKDanLWYlo4h+8lQnj8JIhYpClD2G3gkvD0ZSZ+F54QvwrI3nA==}
+  '@trpc/react-query@11.0.0-rc.449':
+    resolution: {integrity: sha512-CokXudkoIgIYWTjVnDSNuErpo1xpRAcTP0FcINe0IUE9iNt+d2BfnOUKF2YgYPNekta559334/v1PLim7GYGsQ==}
     peerDependencies:
-      '@tanstack/react-query': ^5.25.0
-      '@trpc/client': 11.0.0-rc.366+237dbb3f9
-      '@trpc/server': 11.0.0-rc.366+237dbb3f9
+      '@tanstack/react-query': ^5.49.2
+      '@trpc/client': 11.0.0-rc.449+42acce6ac
+      '@trpc/server': 11.0.0-rc.449+42acce6ac
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
 
-  '@trpc/server@11.0.0-rc.366':
-    resolution: {integrity: sha512-Pr7SdpIVrOGtIGt9vs7i3v0hqzlpXbi8/8RV7XfrXVJ5hlzKYOz5VE0AjckhHXuhrUlpTGTDm0/2nz0ywLcQ2g==}
+  '@trpc/server@11.0.0-rc.449':
+    resolution: {integrity: sha512-xM/vQ042wA0FPAFhY18KcNJgiMMjdPk4mG3GXdHx4X9tpBuSlENUMZErEsuBrvbSpqbkIpalz5yY99/cPnHbCw==}
 
   '@tsconfig/node10@1.0.9':
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -5835,8 +5835,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704:
-    resolution: {integrity: sha512-ZWS9+jlDAb7fKq4ZMd2Vai/X1ffh+B4BBhZ0FbM6r0rdqm80IHkq6VoxhsPaK9QvlP/SL/xdmIf/dkSvL7ihRg==}
+  eslint-plugin-react-hooks@5.1.0-rc-f38c22b244-20240704:
+    resolution: {integrity: sha512-2AFn/7KOJFx6RGA+7d8VluRqhB31bay0binwDJZeYJCdvrNeDQS3SmKv1/7SExyexEHBZZE/0hy6P6IQIaIZkg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -14379,19 +14379,19 @@ snapshots:
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
-  '@trpc/client@11.0.0-rc.366(@trpc/server@11.0.0-rc.366)':
+  '@trpc/client@11.0.0-rc.449(@trpc/server@11.0.0-rc.449)':
     dependencies:
-      '@trpc/server': 11.0.0-rc.366
+      '@trpc/server': 11.0.0-rc.449
 
-  '@trpc/react-query@11.0.0-rc.366(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.366(@trpc/server@11.0.0-rc.366))(@trpc/server@11.0.0-rc.366)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.0.0-rc.449(@tanstack/react-query@5.50.1(react@18.3.1))(@trpc/client@11.0.0-rc.449(@trpc/server@11.0.0-rc.449))(@trpc/server@11.0.0-rc.449)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/react-query': 5.50.1(react@18.3.1)
-      '@trpc/client': 11.0.0-rc.366(@trpc/server@11.0.0-rc.366)
-      '@trpc/server': 11.0.0-rc.366
+      '@trpc/client': 11.0.0-rc.449(@trpc/server@11.0.0-rc.449)
+      '@trpc/server': 11.0.0-rc.449
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@trpc/server@11.0.0-rc.366': {}
+  '@trpc/server@11.0.0-rc.449': {}
 
   '@tsconfig/node10@1.0.9': {}
 
@@ -16308,7 +16308,7 @@ snapshots:
       object.entries: 1.1.7
       object.fromentries: 2.0.7
 
-  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704(eslint@9.6.0):
+  eslint-plugin-react-hooks@5.1.0-rc-f38c22b244-20240704(eslint@9.6.0):
     dependencies:
       eslint: 9.6.0
 
@@ -18623,7 +18623,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  next@14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6):
+  next@14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.2.0))(react@18.3.1)(sass@1.77.6):
     dependencies:
       '@next/env': 14.1.4
       '@swc/helpers': 0.5.2
@@ -19452,7 +19452,7 @@ snapshots:
       glob: 10.3.4
       log-symbols: 4.1.0
       mime-types: 2.1.35
-      next: 14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6)
+      next: 14.1.4(@babel/core@7.24.5)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.2.0))(react@18.3.1)(sass@1.77.6)
       normalize-path: 3.0.0
       ora: 5.4.1
       postcss: 8.4.38
