@@ -41,7 +41,7 @@
     "@tanstack/react-table": "^8.17.0",
     "class-variance-authority": "^0.7.0",
     "cmdk": "^1.0.0",
-    "lucide-react": "^0.402.0",
+    "lucide-react": "^0.403.0",
     "next-themes": "^0.3.0",
     "react-hook-form": "^7.52.1",
     "sonner": "^1.5.0",
