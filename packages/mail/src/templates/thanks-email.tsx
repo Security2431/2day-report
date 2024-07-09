@@ -14,12 +14,12 @@ interface ThanksTemplateProps {
   userName: string;
 }
 
-const ThanksTemp: React.FC<Readonly<ThanksTemplateProps>> = ({ userName }) => (
+export const ThanksEmail = ({ userName }: ThanksTemplateProps) => (
   <Html>
     <Head />
     <Preview>Welcome to 2day.report.</Preview>
     <Tailwind>
-      <Body className=" bg-gray-100">
+      <Body className="bg-gray-100">
         <Container className="mx-auto my-10 bg-white">
           <Section className="my-8">
             <Text className="mx-10 text-lg font-bold">Hi {userName} 👋 ,</Text>
@@ -37,7 +37,7 @@ const ThanksTemp: React.FC<Readonly<ThanksTemplateProps>> = ({ userName }) => (
                 Star on GitHub
               </Button>
             </Section>
-            <Text className="mx-10  text-base font-light">Best,</Text>
+            <Text className="mx-10 text-base font-light">Best,</Text>
             <Text className="mx-10 text-base font-bold">2day.report</Text>
           </Section>
         </Container>
@@ -45,5 +45,3 @@ const ThanksTemp: React.FC<Readonly<ThanksTemplateProps>> = ({ userName }) => (
     </Tailwind>
   </Html>
 );
-
-export default ThanksTemp;

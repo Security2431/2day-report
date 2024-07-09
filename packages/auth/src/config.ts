@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import type {
   DefaultSession,
   NextAuthConfig,
@@ -8,10 +6,11 @@ import type {
 import { skipCSRFCheck } from "@auth/core";
 import Github from "@auth/core/providers/github";
 import Google from "@auth/core/providers/google";
+import Resend from "@auth/core/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@acme/db";
-import { sendMagicAuthEmail } from "@acme/mail";
+import { sendVerificationRequest } from "@acme/mail";
 
 import { env } from "../env";
 
@@ -36,42 +35,19 @@ export const authConfig = {
   // In development, we need to skip checks to allow Expo to work
   ...(!isSecureContext
     ? {
-        skipCSRFCheck: skipCSRFCheck,
+        skipCSRFCheck,
         trustHost: true,
       }
     : {}),
   secret: env.AUTH_SECRET,
   providers: [
-    Google,
     Github,
-    {
-      id: "email",
-      type: "email",
-      server: {
-        host: env.EMAIL_SERVER_HOST,
-        port: Number(env.EMAIL_SERVER_PORT),
-        auth: {
-          user: env.EMAIL_SERVER_USER,
-          pass: env.EMAIL_SERVER_PASSWORD,
-        },
-      },
+    Google,
+    Resend({
+      apiKey: env.AUTH_RESEND_KEY,
       from: env.EMAIL_FROM,
-      maxAge: 1 * 60 * 60, // Invalidate in 1 hour
-      name: "Email",
-      options: {},
-      sendVerificationRequest: async (params) => {
-        const { identifier: email, url } = params;
-
-        try {
-          await sendMagicAuthEmail({
-            toMail: email,
-            verificationUrl: url,
-          });
-        } catch (error) {
-          console.log({ error });
-        }
-      },
-    },
+      sendVerificationRequest,
+    }),
   ],
   callbacks: {
     session: (opts) => {

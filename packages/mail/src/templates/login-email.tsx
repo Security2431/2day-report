@@ -18,14 +18,10 @@ import { getBaseUrl } from "../utils/base-url";
 const baseUrl = getBaseUrl();
 
 interface VerificationTemplateProps {
-  userName: string;
   verificationUrl: string;
 }
 
-const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
-  userName,
-  verificationUrl,
-}) => (
+export const LoginEmail = ({ verificationUrl }: VerificationTemplateProps) => (
   <Html>
     <Head />
     <Preview>Verify your email</Preview>
@@ -36,10 +32,10 @@ const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
             <Row>
               <Column align="right">
                 <Img
-                  src={`${baseUrl}/logo.png`}
+                  src={`${baseUrl}/logo.svg`}
                   height="50"
                   alt="2day.report logo"
-                  className="inline-block "
+                  className="inline-block"
                 />
               </Column>
               <Column align="left">
@@ -47,8 +43,8 @@ const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
               </Column>
             </Row>
           </Section>
-          <Text className="my-4 text-lg">Hi, {userName.split(" ")[0]}</Text>
-          <Text className="text-center text-base font-semibold ">
+          {/* <Text className="my-4 text-lg">Hi, {userName.split(" ")[0]}</Text> */}
+          <Text className="text-center text-base font-semibold">
             Click the link below to login to your account.
           </Text>
           <Section className="mt-8 text-center">
@@ -58,11 +54,11 @@ const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
             >
               Sign In
             </Button>
-            <Text className="mt-2.5 text-sm ">
-              This link expires in 3 minutes and can only be used once.
+            <Text className="mt-2.5 text-sm">
+              This link expires in 1 hour and can only be used once.
             </Text>
           </Section>
-          <Text className="mt-8 ">
+          <Text className="mt-8">
             Best,
             <br />
             2day.report team
@@ -72,5 +68,3 @@ const VerificationTemp: React.FC<Readonly<VerificationTemplateProps>> = ({
     </Tailwind>
   </Html>
 );
-
-export default VerificationTemp;

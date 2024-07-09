@@ -13,24 +13,24 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "dev": "email dev -p 3001",
     "export": "email export",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@acme/ui": "workspace:*",
+    "@react-email/components": "^0.0.21",
+    "react-email": "^2.1.5",
+    "resend": "^3.4.0"
+  },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",
     "@acme/prettier-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
-    "eslint": "^9.4.0",
-    "prettier": "^3.3.1",
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "@react-email/components": "^0.0.21",
-    "react-email": "^2.1.2",
-    "resend": "^3.4.0"
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
   },
   "prettier": "@acme/prettier-config"
 }

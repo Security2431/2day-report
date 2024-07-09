@@ -7,7 +7,7 @@ export const env = createEnv({
   extends: [vercel()],
   server: {
     EMAIL_FROM: z.string().min(1),
-    RESEND_API_KEY: z.string().min(1),
+    AUTH_RESEND_KEY: z.string().min(1),
     NODE_ENV: z.enum(["development", "production"]).optional(),
   },
   client: {},
