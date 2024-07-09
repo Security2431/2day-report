@@ -12,7 +12,7 @@ import {
 import { Sprint } from "~/_components/workspace/Sprint";
 import { WeekList } from "~/_components/workspace/WeekList";
 import { getDaysOfWeek, getWeekdays } from "~/_utils/days";
-import { api } from "~/trpc/server";
+import { api, HydrateClient } from "~/trpc/server";
 
 // export const runtime = "edge";
 
@@ -32,24 +32,24 @@ export default async function WorkspacePage({
   const weekdays = getDaysOfWeek(today);
 
   // // You can await this here if you don't want to show Suspense fallback below
-  const sprints = api.sprint.byDateRange({
+  void api.sprint.byDateRange.prefetch({
     from: weekdays.at(0)!.date,
     to: weekdays.at(-1)!.date,
     workspaceId: params.id,
   });
 
-  const users = api.user.byWorkspaceId({
+  void api.user.byWorkspaceId.prefetch({
     workspaceId: params.id,
   });
 
-  const projects = api.project.byWorkspaceId({
+  void api.project.byWorkspaceId.prefetch({
     id: params.id,
   });
 
   const cards = [...Array<number>(getWeekdays(weekend))];
 
   return (
-    <>
+    <HydrateClient>
       <ManageWeek />
       <WeekList weekend={weekend} weekdays={getWeekdays(weekend)} />
       <Suspense
@@ -73,14 +73,11 @@ export default async function WorkspacePage({
       >
         <Sprint
           session={session!}
-          users={users}
-          projects={projects}
-          sprints={sprints}
           weekend={weekend}
           workspaceId={params.id}
           today={today}
         />
       </Suspense>
-    </>
+    </HydrateClient>
   );
 }

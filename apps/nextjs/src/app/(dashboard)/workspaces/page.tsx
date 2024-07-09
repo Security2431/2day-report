@@ -6,16 +6,16 @@ import Footer from "~/_components/footer";
 import Header from "~/_components/header";
 import { CreateWorkspacesModal } from "~/_components/modals";
 import { WorkspaceCardSkeleton, WorkspaceList } from "~/_components/workspaces";
-import { api } from "~/trpc/server";
+import { api, HydrateClient } from "~/trpc/server";
 
 // export const runtime = "edge";
 
-export default async function WorkspacesPage() {
+export default function WorkspacesPage() {
   // You can await this here if you don't want to show Suspense fallback below
-  const workspaces = api.workspace.all();
+  void api.workspace.all.prefetch();
 
   return (
-    <>
+    <HydrateClient>
       <header>
         <Header />
       </header>
@@ -36,7 +36,7 @@ export default async function WorkspacesPage() {
               </div>
             }
           >
-            <WorkspaceList workspaces={workspaces} />
+            <WorkspaceList />
           </Suspense>
         </section>
       </main>
@@ -44,6 +44,6 @@ export default async function WorkspacesPage() {
       <footer className="flex items-end">
         <Footer />
       </footer>
-    </>
+    </HydrateClient>
   );
 }

@@ -1,22 +1,13 @@
 "use client";
 
-import { use } from "react";
-
-import type { RouterOutputs } from "@acme/api";
-
 import { api } from "~/trpc/react";
 import { WorkspaceCard } from "./_components/WorkspaceCard";
 
 /* <WorkspaceList />
 ============================================================================= */
-export function WorkspaceList(props: {
-  workspaces: Promise<RouterOutputs["workspace"]["all"]>;
-}) {
+export function WorkspaceList() {
   // TODO: Make `useSuspenseQuery` work without having to pass a promise from RSC
-  const initialData = use(props.workspaces);
-  const { data: workspaces } = api.workspace.all.useQuery(undefined, {
-    initialData,
-  });
+  const [workspaces] = api.workspace.all.useSuspenseQuery();
 
   if (workspaces.length === 0) {
     return (
