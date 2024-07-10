@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useMemo } from "react";
+import React, { useMemo } from "react";
 import { isSameDay } from "date-fns";
 
 import type { RouterOutputs } from "@acme/api";
@@ -17,9 +17,6 @@ import { ReportList } from "./reports";
 ============================================================================= */
 export const Sprint = (props: {
   session: Session;
-  users: Promise<RouterOutputs["user"]["byWorkspaceId"]>;
-  projects: Promise<RouterOutputs["project"]["byWorkspaceId"]>;
-  sprints: Promise<RouterOutputs["sprint"]["byDateRange"]>;
   weekend: boolean;
   workspaceId: string;
   today: string;
@@ -27,35 +24,19 @@ export const Sprint = (props: {
   const showDaysPerWeek = getWeekdays(props.weekend);
   const weekdays = getDaysOfWeek(props.today);
 
-  // TODO: Make `useSuspenseQuery` work without having to pass a promise from RSC
-  const { data: users } = api.user.byWorkspaceId.useQuery(
-    {
-      workspaceId: props.workspaceId,
-    },
-    {
-      initialData: use(props.users),
-    },
-  );
+  const [sprints] = api.sprint.byDateRange.useSuspenseQuery({
+    from: weekdays.at(0)!.date,
+    to: weekdays.at(-1)!.date,
+    workspaceId: props.workspaceId,
+  });
 
-  const { data: projects } = api.project.byWorkspaceId.useQuery(
-    {
-      id: props.workspaceId,
-    },
-    {
-      initialData: use(props.projects),
-    },
-  );
+  const [users] = api.user.byWorkspaceId.useSuspenseQuery({
+    workspaceId: props.workspaceId,
+  });
 
-  const { data: sprints } = api.sprint.byDateRange.useQuery(
-    {
-      from: weekdays.at(0)!.date,
-      to: weekdays.at(-1)!.date,
-      workspaceId: props.workspaceId,
-    },
-    {
-      initialData: use(props.sprints),
-    },
-  );
+  const [projects] = api.project.byWorkspaceId.useSuspenseQuery({
+    id: props.workspaceId,
+  });
 
   const sortedUsers = useMemo(() => {
     const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
@@ -96,7 +77,7 @@ export const Sprint = (props: {
             <ReportList
               key={weekday.date.toString()}
               date={weekday.date}
-              sprint={sprints?.find(
+              sprint={sprints.find(
                 (sprint) =>
                   isSameDay(weekday.date, sprint.date) &&
                   sprint.user.id === user.id,

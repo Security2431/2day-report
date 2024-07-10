@@ -37,10 +37,10 @@
     "@acme/prettier-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "dotenv-cli": "^7.4.2",
-    "eslint": "^9.4.0",
-    "prettier": "^3.3.1",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
     "prisma": "^5.16.2",
-    "typescript": "^5.4.5"
+    "typescript": "catalog:"
   },
   "prettier": "@acme/prettier-config"
 }

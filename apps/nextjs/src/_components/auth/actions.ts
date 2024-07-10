@@ -12,7 +12,7 @@ export async function login(
   data: z.infer<typeof AuthLoginSchema>,
   callbackUrl?: string,
 ) {
-  await signIn("email", {
+  await signIn("resend", {
     email: data.email,
     callbackUrl: callbackUrl ?? routes.workspaces,
   });
