@@ -10,7 +10,8 @@ import Resend from "@auth/core/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@acme/db";
-import { sendVerificationRequest } from "@acme/mail";
+
+// import { sendVerificationRequest } from "@acme/mail";
 
 import { env } from "../env";
 
@@ -43,11 +44,11 @@ export const authConfig = {
   providers: [
     Github,
     Google,
-    Resend({
-      apiKey: env.AUTH_RESEND_KEY,
-      from: env.EMAIL_FROM,
-      sendVerificationRequest,
-    }),
+    // Resend({
+    //   apiKey: env.AUTH_RESEND_KEY,
+    //   from: env.EMAIL_FROM,
+    //   sendVerificationRequest,
+    // }),
   ],
   callbacks: {
     session: (opts) => {
