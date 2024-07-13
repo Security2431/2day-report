@@ -6,7 +6,7 @@ import type {
 import { skipCSRFCheck } from "@auth/core";
 import Github from "@auth/core/providers/github";
 import Google from "@auth/core/providers/google";
-import Resend from "@auth/core/providers/resend";
+// import Resend from "@auth/core/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@acme/db";
