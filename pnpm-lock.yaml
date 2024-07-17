@@ -98,14 +98,14 @@ importers:
         specifier: 1.7.0
         version: 1.7.0(@babel/runtime@7.24.8)(react-native@0.74.3(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query':
-        specifier: ^5.51.4
-        version: 5.51.4(react@18.3.1)
+        specifier: ^5.51.5
+        version: 5.51.5(react@18.3.1)
       '@trpc/client':
         specifier: 11.0.0-rc.465
         version: 11.0.0-rc.465(@trpc/server@11.0.0-rc.465)
       '@trpc/react-query':
         specifier: 11.0.0-rc.465
-        version: 11.0.0-rc.465(@tanstack/react-query@5.51.4(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.465(@tanstack/react-query@5.51.5(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: 11.0.0-rc.465
         version: 11.0.0-rc.465
@@ -234,14 +234,14 @@ importers:
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.5.3)(zod@3.23.8)
       '@tanstack/react-query':
-        specifier: ^5.51.4
-        version: 5.51.4(react@18.3.1)
+        specifier: ^5.51.5
+        version: 5.51.5(react@18.3.1)
       '@trpc/client':
         specifier: 11.0.0-rc.465
         version: 11.0.0-rc.465(@trpc/server@11.0.0-rc.465)
       '@trpc/react-query':
         specifier: 11.0.0-rc.465
-        version: 11.0.0-rc.465(@tanstack/react-query@5.51.4(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.465(@tanstack/react-query@5.51.5(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: 11.0.0-rc.465
         version: 11.0.0-rc.465
@@ -659,7 +659,7 @@ importers:
         version: 7.34.4(eslint@9.6.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-01172397-20240716(eslint@9.6.0)
+        version: 5.1.0-rc-163365a0-20240717(eslint@9.6.0)
       eslint-plugin-turbo:
         specifier: ^2.0.7
         version: 2.0.7(eslint@9.6.0)
@@ -3710,11 +3710,11 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
-  '@tanstack/query-core@5.51.4':
-    resolution: {integrity: sha512-KdXY86vf+1+rUaDkasEgZJx0uTaqJieAFUWECLoic2DNZrH7hqi6WvuTUE+OVRGj+u4PgMwOIv9blb3M5TEkwg==}
+  '@tanstack/query-core@5.51.5':
+    resolution: {integrity: sha512-qovOto6hFet2zA4Pf3cDO+qkOqskO6xP39PlKnr6YKPtjRsePWyZnTaMf59+VnlOLY8gpku1I4WPC4dqBXo4FQ==}
 
-  '@tanstack/react-query@5.51.4':
-    resolution: {integrity: sha512-GkEZ/AfG+ExLhvTazZ0jTGRmKCGYCZOhVdXjpzjB+jGRfRPCuvQvKNZ3fod4Qa326Nc5E9KOepHXt56aKJTIxA==}
+  '@tanstack/react-query@5.51.5':
+    resolution: {integrity: sha512-jaYYPGF55HT3DSV2NxFHa7zGRUm6LiRENw1rspkzqNiOU93umP5YCdE/l4S61/ZdLnjzwYIM4FU96EQt+imq5Q==}
     peerDependencies:
       react: ^18.0.0
 
@@ -5278,8 +5278,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-01172397-20240716:
-    resolution: {integrity: sha512-Hz+ROfCPPIKmwCZwKOypK87FmdIlpxLfZ0JjYGCT7wE46623doya7DXmeXwPnVDt90kIqjt5hiRKoVgJHHE2Ng==}
+  eslint-plugin-react-hooks@5.1.0-rc-163365a0-20240717:
+    resolution: {integrity: sha512-U1pFGwwsx6ib83TfMbKDsJT4qIngrJ58jlaEmazFgU87dYu5DFffLyNkZ516MbIM/TW+jONr58nADU36jfdwBg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -13238,11 +13238,11 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.6(ts-node@10.9.2(@swc/core@1.3.101)(@types/node@20.14.11)(typescript@5.5.3))
 
-  '@tanstack/query-core@5.51.4': {}
+  '@tanstack/query-core@5.51.5': {}
 
-  '@tanstack/react-query@5.51.4(react@18.3.1)':
+  '@tanstack/react-query@5.51.5(react@18.3.1)':
     dependencies:
-      '@tanstack/query-core': 5.51.4
+      '@tanstack/query-core': 5.51.5
       react: 18.3.1
 
   '@tanstack/react-table@8.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -13259,9 +13259,9 @@ snapshots:
     dependencies:
       '@trpc/server': 11.0.0-rc.465
 
-  '@trpc/react-query@11.0.0-rc.465(@tanstack/react-query@5.51.4(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.0.0-rc.465(@tanstack/react-query@5.51.5(react@18.3.1))(@trpc/client@11.0.0-rc.465(@trpc/server@11.0.0-rc.465))(@trpc/server@11.0.0-rc.465)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/react-query': 5.51.4(react@18.3.1)
+      '@tanstack/react-query': 5.51.5(react@18.3.1)
       '@trpc/client': 11.0.0-rc.465(@trpc/server@11.0.0-rc.465)
       '@trpc/server': 11.0.0-rc.465
       react: 18.3.1
@@ -15109,7 +15109,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-01172397-20240716(eslint@9.6.0):
+  eslint-plugin-react-hooks@5.1.0-rc-163365a0-20240717(eslint@9.6.0):
     dependencies:
       eslint: 9.6.0
 
