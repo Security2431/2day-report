@@ -18,7 +18,7 @@
     "@bacons/text-decoder": "^0.0.0",
     "@expo/metro-config": "^0.18.8",
     "@shopify/flash-list": "1.7.0",
-    "@tanstack/react-query": "^5.51.3",
+    "@tanstack/react-query": "^5.51.4",
     "@trpc/client": "11.0.0-rc.465",
     "@trpc/react-query": "11.0.0-rc.465",
     "@trpc/server": "11.0.0-rc.465",
