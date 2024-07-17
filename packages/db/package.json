@@ -28,7 +28,7 @@
     "postinstall": "pnpm generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.16.2",
+    "@prisma/client": "^5.17.0",
     "@prisma/extension-accelerate": "^1.1.0",
     "@t3-oss/env-core": "^0.10.1"
   },
@@ -39,7 +39,7 @@
     "dotenv-cli": "^7.4.2",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "prisma": "^5.16.2",
+    "prisma": "^5.17.0",
     "typescript": "catalog:"
   },
   "prettier": "@acme/prettier-config"
