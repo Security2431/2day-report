@@ -563,8 +563,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lucide-react:
-        specifier: ^0.414.0
-        version: 0.414.0(react@18.3.1)
+        specifier: ^0.416.0
+        version: 0.416.0(react@18.3.1)
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -659,7 +659,7 @@ importers:
         version: 7.35.0(eslint@9.6.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-ab2135c7-20240724(eslint@9.6.0)
+        version: 5.1.0-rc-14a4699f-20240725(eslint@9.6.0)
       eslint-plugin-turbo:
         specifier: ^2.0.9
         version: 2.0.9(eslint@9.6.0)
@@ -5274,8 +5274,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-ab2135c7-20240724:
-    resolution: {integrity: sha512-JyO/l3KzgPFnLeSGy5gM3429brFjbUIpZqmMA/TsFrGCRrxCSQ4BBU/AHRVSRGFCCtlcL73J2/to22Ksed8xvQ==}
+  eslint-plugin-react-hooks@5.1.0-rc-14a4699f-20240725:
+    resolution: {integrity: sha512-o7XiCRg42hxbpGPCO+LFMh55fMGc2yv0DK9pYaO61KZx9PtW3XXSCO4Ch4IBZHDYnzhrWY7FHKsfoTtSdPTXoA==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -6718,8 +6718,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@0.414.0:
-    resolution: {integrity: sha512-Krr/MHg9AWoJc52qx8hyJ64X9++JNfS1wjaJviLM1EP/68VNB7Tv0VMldLCB1aUe6Ka9QxURPhQm/eB6cqOM3A==}
+  lucide-react@0.416.0:
+    resolution: {integrity: sha512-wPWxTzdss1CTz2aqcNWNlbh4YSnH9neJWP3RaeXepxpLCTW+pmu7WcT/wxJe+Q7Y7DqGOxAqakJv0pIK3431Ag==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -15080,7 +15080,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-ab2135c7-20240724(eslint@9.6.0):
+  eslint-plugin-react-hooks@5.1.0-rc-14a4699f-20240725(eslint@9.6.0):
     dependencies:
       eslint: 9.6.0
 
@@ -16736,7 +16736,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.414.0(react@18.3.1):
+  lucide-react@0.416.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
