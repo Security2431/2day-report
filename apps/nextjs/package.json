@@ -46,7 +46,7 @@
     "@acme/tailwind-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "@tailwindcss/typography": "^0.5.13",
-    "@types/node": "^20.14.13",
+    "@types/node": "^20.14.14",
     "@types/react": "catalog:react18",
     "@types/react-dom": "^18.3.0",
     "dotenv-cli": "^7.4.2",
