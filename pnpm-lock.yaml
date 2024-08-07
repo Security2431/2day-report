@@ -95,8 +95,8 @@ importers:
         specifier: ^0.18.10
         version: 0.18.10
       '@shopify/flash-list':
-        specifier: 1.7.0
-        version: 1.7.0(@babel/runtime@7.25.0)(react-native@0.74.4(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
+        specifier: 1.7.1
+        version: 1.7.1(@babel/runtime@7.25.0)(react-native@0.74.4(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query':
         specifier: ^5.51.21
         version: 5.51.21(react@18.3.1)
@@ -659,7 +659,7 @@ importers:
         version: 7.35.0(eslint@9.6.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-8269d55d-20240802(eslint@9.6.0)
+        version: 5.1.0-rc-e948a5ac-20240807(eslint@9.6.0)
       eslint-plugin-turbo:
         specifier: ^2.0.11
         version: 2.0.11(eslint@9.6.0)
@@ -3642,8 +3642,8 @@ packages:
   '@selderee/plugin-htmlparser2@0.11.0':
     resolution: {integrity: sha512-P33hHGdldxGabLFjPPpaTxVolMrzrcegejx+0GxjrIb9Zv48D8yAIA/QTDR2dFl7Uz7urX8aX6+5bCZslr+gWQ==}
 
-  '@shopify/flash-list@1.7.0':
-    resolution: {integrity: sha512-Uys8mWTb0Y34Ts1hD97KrVFbFH9oY7qbj/u1oSrAS5PJAackDFbndUEVuTYyXSyWxHY0sRutF5HgS1yNdhj+0A==}
+  '@shopify/flash-list@1.7.1':
+    resolution: {integrity: sha512-sUYl7h8ydJutufA26E42Hj7cLvaBTpkMIyNJiFrxUspkcANb6jnFiLt9rEwAuDjvGk/C0lHau+WyT6ZOxqVPwg==}
     peerDependencies:
       '@babel/runtime': '*'
       react: '*'
@@ -5343,8 +5343,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-8269d55d-20240802:
-    resolution: {integrity: sha512-9bu0g9WjWv++lPQERLaMpZ2PmzgVZLIy24DqwlBW6e1V7DvZ4lOqMK3e+neulJS3BShZPm2+6ExEKawjSbIaKw==}
+  eslint-plugin-react-hooks@5.1.0-rc-e948a5ac-20240807:
+    resolution: {integrity: sha512-cc94nzLi7ZC4ZetSaA5z5bH5o1dYBxfPckudUT3Ddn1d5WXTk9Cn1NpM+HE+OZ5zrmbq/oBLxovfllOm0P9KXg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -13317,7 +13317,7 @@ snapshots:
       domhandler: 5.0.3
       selderee: 0.11.0
 
-  '@shopify/flash-list@1.7.0(@babel/runtime@7.25.0)(react-native@0.74.4(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)':
+  '@shopify/flash-list@1.7.1(@babel/runtime@7.25.0)(react-native@0.74.4(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.0
       react: 18.3.1
@@ -15294,7 +15294,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-8269d55d-20240802(eslint@9.6.0):
+  eslint-plugin-react-hooks@5.1.0-rc-e948a5ac-20240807(eslint@9.6.0):
     dependencies:
       eslint: 9.6.0
 
